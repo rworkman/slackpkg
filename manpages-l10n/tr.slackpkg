@@ -1,0 +1,322 @@
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH SLACKPKG 8 "Mayıs 2010" slackpkg\-2.81.1 ""
+.SH İSİM
+\fBslackpkg\fP \- Slackware Linux paketlerini yönetmek için otomatik bir araç
+
+.SH ÖZET
+\fBslackpkg\fP \fB[SEÇİMLER]\fP
+\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{\fP\fIKALIP\fP\fB|\fP\fIDOSYA\fP\fB}\fP
+
+\fBslackpkg [SEÇİMLER] {clean\-system|upgrade\-all|install\-new}\fP
+
+\fBslackpkg\fP \fB[SEÇİMLER]\fP \fB{search|file\-search}\fP
+\fB{\fP\fIKALIP\fP\fB|\fP\fIDOSYA\fP\fB}\fP
+
+\fBslackpkg\fP \fB[SEÇİMLER]\fP
+\fB{generate\-template|install\-template|remove\-template}\fP \fIŞABLONADI\fP
+
+\fBslackpkg [SEÇİMLER] info\fP \fIPAKET\fP
+
+\fBslackpkg [SEÇİMLER] update [gpg]\fP
+
+\fBslackpkg [SEÇİMLER] {new\-config|check\-updates}\fP
+
+\fBslackpkg [SEÇİMLER] help\fP
+
+.SH AÇIKLAMA
+Slackpkg ağ üzerinden paketleri kolayca yüklemek veya yükseltmek isteyenler
+için bir araçtır. Slackpkg ile, minimum Slackware Linux kurulumu
+yükleyebilir ve sadece ihtiyacınız olan paketleri kurup
+güncelleyebilirsiniz.
+
+Tüm bilgisayarlarınız için NFS kurmanıza ya da bir sürü CD yapmanıza gerek
+yoktur; tek ihtiyacınız olan bir komut yazmaktır ve tüm resmi Slackware
+paketleri parmağınızın ucunda olacaktır.
+
+.SH YÖNERGELER
+Slackpkg bir çok özelliğe sahiptir. Belirli dosyaları aramak, sisteminizdeki
+üçüncü parti yazılımları kaldırmak, son güncellemeden eklenen paketleri
+kurmak, paket açıklamalarını görüntülemek vb.
+
+Birşey yapmadan önce /etc/slackpkg/mirrors dosyasından bir yansının yorum
+başlığını kaldırın ve şunu çalıştırın:
+
+.in +5
+# slackpkg update
+.in
+
+"update" eylemi ile Slackware dosyaları ve paketlerinin listesi indirilir ve
+şekillendirilir. Bu liste her değiştiğinde, güncelleme gerekir.
+
+Slackpkg'nin doğrudan paket yönetimi ile ilgili olan temel özellikleri:
+yüklemek, yükseltmek ve paketleri kaldırmak. Bu görevlerden birini yapmak
+için Slackpkg sözdizimi:
+
+.in +5
+# slackpkg [SEÇİMLER] <action> {KALIP|DOSYA}
+.in
+
+\fIOPTIONS\fP /etc/slackpkg/slackpkg.conf içinde listelenenlerden biri ya da
+bir çoğu olabilir. slackpkg.conf içinde bulunan yapılandırma yönergelerinin
+çoğu için eşdeğer komut satırı seçenekleri vardır \- hangi seçeneklerin
+müsait olduğunu görmek için \fBslackpkg.conf(5)\fP kılavuz sayfasına bakınız.
+
+\fIKALIP\fP bir paket ismi ya da paket isminin bir bölümü olabilir. Ayrıca bir
+yazılım serisi olabilir (kde, a, ap, ... gibi).
+.br
+
+\fIDOSYA\fP bir dosyadı içinde \fIKALIPlar\fP listesi vardır: satır başına bir ya
+da ayırıcı olarak boşluk kullanarak satır başına bir çok,
+
+Slackpkg tüm dağıtımı güncellemek için kullanılabilir.
+.br
+Bunun alışılmış yolu şudur:
+
+.in +5
+# slackpkg update
+.br
+# slackpkg install\-new
+.br
+# slackpkg upgrade\-all
+.br
+# slackpkg clean\-system
+.in
+
+Slacpkg'nin başka bir özelliği şemalarla çalışabilmesidir, ki bu aynı paket
+içeriği ile farklı makineler oluşturmayı çok kolaylaştırır. Temel adımlar
+şunlardır:
+
+.RS +5
+.IP \(bu 2
+Bir makine kur
+.IP \(bu 2
+"slackpkg generate\-template ŞABLONADI" çalıştır
+.IP \(bu 2
+/etc/slackpkg/templates/TEMPLATENAME.template dosyasını diğer makinede aynı
+dizine kopyala
+.IP \(bu 2
+Diğer makinede "slackpkg install\-template ŞABLONADI" çalıştır
+.RE
+
+\fITEMPLATENAME\fP Şablonunuzun ismidir.
+
+Bu kılavuz sayfasından sonra, buradaki (ve diğer) her bir eylemin ne
+yaptığını bulabilirsiniz.
+
+.SH EYLEMLER
+.TP  5
+\fBhelp\fP
+.br
+slackpkg'nin eylemlerini ve kısa tanımlarını gösterir. slackpkg hakkında
+biraz bilgi almak istiyorsanız kullanışlıdır. Burada, kılavuz sayfasındaki
+bilgi daha eksiksizdir.
+
+.TP  5
+\fBupdate\fP
+.br
+güncelleme Slackware yansısından (ya da CDnizden) en son paket listesini
+indirecektir. Çalıştırmak iyi bir fikirdir
+
+.in +5
+# slackpkg update
+.in
+
+yükseltmeye çalışmadan önce, paket kur ya da ara
+.br
+Eğer Slackware'in GPG anahtarını güncellemeniz gerekiyorsa, çalıştırın
+
+.in +5
+# slackpkg update gpg
+.in
+
+GPG anahtarı değişmez. Bu "bir kereliğine" komut olmalı \- bir kez çalıştır
+ve unut...
+
+.TP  5
+\fBcheck\-updates\fP
+.br
+ChangeLog.txt'de herhangi bir güncelleme olup olmadığını doğrulayın. Bu
+sysadmin'i cron ile ikaz etmede kullanmak için iyidir.
+
+.TP  5
+\fBfile\-search\fP
+.br
+Slackware dağıtımı içinde herhangi bir Slacware paketi dosyasını
+aratabilirsiniz. Olağan dışı bir kütüphane mi gerekiyor? Bulmak için
+file\-search kullanın.
+
+.in +5
+# slackpkg file\-search dosyadı
+.in
+
+Eşeleşn "dosyaismi"nde tüm paketler gösterilecektir, bu yolla paketin kurulu
+olup olmadığını görebilirsiniz; eğer değilse diğer slackpkg eylemleriyle
+bunları indirip kurabilirsiniz.
+
+.TP  5
+\fBsearch\fP
+.br
+Slackware ile birlikte gelen tüm paketler için arama yapabilirsiniz.
+
+.in +5
+# slackpkg search kalıp
+.in
+
+"kalıp" ile eşleşen tüm paketler gösterilecektir. file\-search gibi
+paketlerin kurulu olup olmadığını görebilirsiniz; eğer değilse diğer
+slackpkg eylemleriyle bunları indirip kurabilirsiniz.
+
+.TP  5
+\fBinstall\fP
+.br
+Bir paketin kurulumu çok basittir. Sadece şunu yazmalısınız:
+
+.in +5
+# slackpkg install paket
+.in
+
+ve paket indirilip kurulacaktır.
+.br
+Zaten yüklü bir paket için "install" seçeneğini kullanamazsınz, fakat onu
+yeniden kurabilir ya da yükseltebilirsiniz.
+
+.TP  5
+\fBupgrade\fP
+.br
+upgrade belirli bir paket(ler)in en son resmi sürümünü kurar.
+
+upgrade yeni paketleri kurmaya çalışmayacaktır (bunun için install
+fonksiyonunu kullanın; paketin en son resmi sürümü kurulacaktır).
+.TP  5
+\fBreinstall\fP
+.br
+Bir şeyi yanlışlıkla bozmanız durumunda, reinstall seçeneği kurulu olan
+paketle aynı sürümdeki paketi yeniden kurmanızı sağlayacaktır.
+
+.TP  5   
+\fBremove\fP
+.br
+remove il, belirli kurulu paketleri kaldırabilirsiniz. Örneğin:
+
+.in +5
+# slackpkg remove kde
+.in
+
+isminde "kde" olan tüm paketleri kaldıracaktır.
+
+.TP  5
+\fBblacklist\fP
+.br
+Bu eylemle, belirli paketlerden "karaliste" oluşturabilirsiniz.
+.br
+Karaliste paketleri slackpkg tarafından kurulmaz, yükseltilmez ya da
+kaldırılmaz. Bazı paketleri kara listeden çıkartmak isterseniz lütfen
+/etc/slackpkg/blacklist dosyasını düzenleyiniz.
+
+.TP  5
+\fBdownload\fP
+.br
+Bu eylem slackpkg'ye paketi indirmesini fakat kurmamasını
+söyler. /var/cache/packages içine yerleştirilecektir ve sonra
+kurabilir/yükseltebilir/yeniden kurabilirsiniz (ya da CD'ye yazabilirsiniz).
+
+.TP  5
+\fBinfo\fP
+.br
+Bu eylem paket(ler) hakkında bilgileri yazdırır: sıkıştırılmış ve açılmış
+boyutu, tanım, vesaire...
+
+.TP  5
+\fBclean\-system\fP
+.br
+Bu eylem standart Slackware kurulumuna ait olmayan tüm paketleri
+kaldırır. Bu seçenekle, sisteminizi temizlersiniz, üçüncü parti paketler ile
+birlikte resmi Slackware paket kümesinden kaldırılan paketler de kaldırılır.
+.br
+Eğer saklamak istediğiniz bazı üçüncü parti (ya da özel inşa edilen) paket
+varsa, 'clean\-system' eylemini çalıştırmadan önce onları geçici olarak
+karaliste paketlerine ekleyebilirsiniz.
+
+.TP  5
+\fBupgrade\-all\fP
+.br
+Bu eylem sistemde kurulu tüm paketleri resmi Slackware ağacındaki sürüme
+yükseltir; tüm sistemi yükseltmek için "iyi" bir yoldur.
+.br
+"upgrade\-all" eylemini kullanmadan önce "install\-new" i kullanmayı
+unutmayın.
+
+.TP  5
+\fBinstall\-new\fP
+Bu eylem resmi Slackware paket kümesine eklenmiş herhangi yeni bir paketi
+kurar. Sisteminizi başka bir Slackware sürümüne yükseltiyorsanız ya da
+\-current kullanıyorsanız bunu çalıştırın.
+.br
+Eğer kaldırılmış tüm Slackware paketlerini sisteminize kurmak istiyorsanız,
+install\-new yerine şu komutu kullanın:
+
+.in +5
+# slackpkg install slackware.
+.in
+.TP  5
+\fBnew\-config\fP
+Bu eylem yeni .new yapılandırma dosyaları arar ve kullanıcıya bu dosyalarla
+ne yapılacağını sorar.
+.br
+new\-config yapılandırma dosyalarını sonradan gözden geçirecek şekilde
+bırakan bir yükseltme işlemi yaptığınızda kullanışlıdır. Elle arama, diff ve
+replace yerine; new\-config eylemini kullanabilirsiniz.
+.TP  5
+\fBgenerate\-template\fP
+Bu eylem sisteminizde yüklü tüm resmi paketlerden bir şablon
+oluşturur. Şablon /etc/slackpkg/templates de saklanır.
+.TP  5
+\fBinstall\-template\fP
+Bu eylem sisteme gerekli şablonu kurar. Şablon /etc/slackpkg/templates
+içinde olmalıdır. Eğer şablon "diğer" şablonları içeriyorsa, bunların hepsi
+/etc/slackpkg/templates içinde olmalıdır. dahil etmeyi \-"includes"\-
+slackpkg.conf içinde ya da komut satırında devre dışı bırakabilirsiniz.
+.TP  5
+\fBremove\-template\fP
+Bu eylem seçili şablonun parçası olan tüm paketleri kaldırır. Dikkatli olun,
+bu işlem makinenizi kullanılmaz bir duruma sokabilir. Dahil etme \-"include"\-
+yönetimi slackpkg.conf içinde ya da uygun komut seçeneği ile
+aktifleştirilebilir/pasifleştirilebilir.
+
+.SH DOSYALAR
+.TP  5
+\fB/etc/slackpkg/mirrors	\fP
+İndirilecek paketlerin yerini belirten dosya
+.TP  5
+\fB/etc/slackpkg/slackpkg.conf	\fP
+Genel slakpkg yapılandırması
+.TP  5
+\fB/etc/slackpkg/blacklist\fP
+Yok sayılacak paketler listesi
+.TP  5
+\fB/etc/slackpkg/templates\fP
+Tüm şablon dosyalarını içerir
+.TP  5
+\fB/usr/libexec/slackpkg\fP
+slackpkg özü ve ek fonksiyonlar içerir
+.TP  5
+\fB/var/lib/slackpkg\fP
+Slackpkg dahili kullanım \- Biçimlendirilmiş paket listesi, ChangeLog.txt
+kopyası, dosya listesi, vesaire...
+
+.SH "AYRICA BAKINIZ"
+\fBslackpkg.conf\fP(5), \fBinstallpkg\fP(8), \fBupgradepkg\fP(8), \fBexplodepkg\fP(8),
+\fBmakepkg\fP(8), \fBpkgtool\fP(8).
+
+.SH YAZARLAR
+.TP  5
+Piter PUNK ayrıca bilinir Roberto F Batista 
+<piterpk AT terra DOT com DOT br>
+.TP  5
+Evaldo Gardenali ayrıca bilinir UdontKnow 
+<evaldo AT fasternet DOT com DOT br>

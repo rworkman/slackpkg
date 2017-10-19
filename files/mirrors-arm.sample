@@ -1,0 +1,78 @@
+# mirrors - List of Slackware Linux mirrors.
+#
+# SlackPkg - An Automated packaging tool for Slackware Linux
+# Copyright (C) 2003-2011 Roberto F. Batista, Evaldo Gardenali
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# Project Page: http://slackpkg.org/
+# Roberto F. Batista (aka PiterPunk) piterpunk@slackware.com
+# Evaldo Gardenali (aka UdontKnow) evaldogardenali@fasternet.com.br
+#
+# END OF LEGAL NOTICE
+#
+#
+# You only need to select one mirror and uncomment it.
+# ONLY ONE mirror can be uncommented.
+#
+# You can use a mirror not included in this file.  Many people have mirrors
+# in their local networks.
+#
+# Slackpkg only needs to point to the directory that contains
+# "ChangeLog.txt", and don't forget the trailing slash.
+#
+#----------------------------------------------------------------
+# Local CD/DVD drive
+#----------------------------------------------------------------
+#cdrom://media/cdrom/
+#
+#----------------------------------------------------------------
+# Local Directory
+#----------------------------------------------------------------
+#file://path/to/some/directory/
+#
+#----------------------------------------------------------------
+# Local CD/DVD drive
+#----------------------------------------------------------------
+#cdrom://media/cdrom/
+#
+#----------------------------------------------------------------
+# Local Directory
+#----------------------------------------------------------------
+#file://path/to/some/directory/
+#
+#----------------------------------------------------------------
+# Slackware ARM x.x (for an assumed release of the hard float port)
+#----------------------------------------------------------------
+#ftp://slackware.uk/slackwarearm/slackwarearm-x.x/
+#ftp://ftp.halifax.rwth-aachen.de/slackwarearm/slackwarearm-x.x/
+#ftp://ftp.slackware.pl/pub/slackwarearm/slackwarearm-x.x/
+#ftp://mirrors.vbi.vt.edu/linux/slackwarearm/slackwarearm-x.x/
+#ftp://mirror.slackbuilds.org/pub/slackwarearm/slackwarearm-x.x/
+#
+#ftp://ftp.arm.slackware.com/slackwarearm/slackwarearm-x.x/
+#
+
+#----------------------------------------------------------------
+# Slackware ARM current
+#----------------------------------------------------------------
+#ftp://slackware.uk/slackwarearm/slackwarearm-current/
+#ftp://ftp.halifax.rwth-aachen.de/slackwarearm/slackwarearm-current/
+#ftp://ftp.slackware.pl/pub/slackwarearm/slackwarearm-current/
+#ftp://mirrors.vbi.vt.edu/linux/slackwarearm/slackwarearm-current/
+#ftp://mirror.slackbuilds.org/pub/slackwarearm/slackwarearm-current/
+#
+#ftp://ftp.arm.slackware.com/slackwarearm/slackwarearm-current/
+

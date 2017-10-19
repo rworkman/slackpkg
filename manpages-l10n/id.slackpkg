@@ -1,0 +1,327 @@
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH SLACKPKG 8 "Mei 2010" slackpkg\-2.81.1 ""
+.SH NAMA
+\fBslackpkg\fP \- Perangkat otomatis untuk mengelola paket Slackware Linux
+
+.SH SINOPSIS
+\fBslackpkg\fP \fB[OPTIONS]\fP
+\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{\fP\fIPOLA\fP\fB|\fP\fIFILE\fP\fB}\fP
+
+\fBslackpkg [OPTIONS] {clean\-system|upgrade\-all|install\-new}\fP
+
+\fBslackpkg\fP \fB[OPTIONS]\fP \fB{search|file\-search}\fP \fB{\fP\fIPOLA\fP\fB|\fP\fIFILE\fP\fB}\fP
+
+\fBslackpkg\fP \fB[OPSI]\fP
+\fB{generate\-template|install\-template|remove\-template}\fP \fINAMATEMPLATE\fP
+
+\fBslackpkg [OPSI] info\fP \fIPAKET\fP
+
+\fBslackpkg [OPSI] update [gpg]\fP
+
+\fBslackpkg [OPSI] {new\-config|check\-updates}\fP
+
+\fBslackpkg [OPSI] help\fP
+
+.SH DESKRIPSI
+Slackpkg adalah perangkat bagi mereka yang hendak menginstall atau
+mengupgrade paket via jaringan. Dengan slackpkg, Anda bisa memiliki
+installasi minimal Slackware Linux dan menginstall/upgrade hanya paket yang
+Anda butuhkan.
+
+Anda tidak perlu mengkonfigurasi NFS atau membuat banyak CD untuk semua
+komputer Anda; Anda cukup mengetikkan satu perintah dan semua paket resmi
+Slackware terbaru akan berada dalam genggaman Anda.
+
+.SH INSTRUKSI
+Slackpkg memiliki banyak fitur. Ia dapat mencari file yang spesifik,
+menghapus paket pihak ketiga pada sistem Anda, menginstall paket yang
+ditambahkan pada Slackware sejak update terakhir, menampilkan deskripsi
+paket, dll.
+
+Sebelum Anda melakukan apapun, Anda harus menghapus komentar satu mirror
+pada /etc/slackpkg/mirrors dan menjalankan:
+
+.in +5
+# slackpkg update
+.in
+
+Perintah "update" akan mendownload dan memformat daftar file dan paket pada
+Slackware. Setiap kali daftar ini berubah, perintah update harus dijalankan.
+
+Fitur utama dari Slackpkg adalah yang berhubungan dengan manajemen paket:
+install, upgrade, dan menghapus paket. Untuk melakukan ini, sintaks Slackpkg
+adalah:
+
+.in +5
+# slackpkg [OPSI] <action> {POLA|FILE}
+.in
+
+\fIOPSI\fP bisa satu atau lebih opsi konfigurasi yang terdaftar pada
+/etc/slackpkg/slackpkg.conf. Terdapat opsi perintah baris yang ekuivalen
+untuk semua konfigurasi yang ada pada slackpkg.conf \- lihat halaman\-manual
+\fBslackpkg.conf(5)\fP untuk melihat opsi yang tersedia.
+
+\fIPOLA\fP bisa berupa nama paket atau sebagian dari nama paket. Juga bisa seri
+software (seperti kde, a, ap, ...).
+.br
+
+\fIFILE\fP adalah file dengan daftar \fIPOLA\fP didalamnya: bisa satu per baris
+atau beberapa baris dengan spasi sebagai pemisahnya.
+
+Slackpkg bisa digunakan untuk mengupgrade seluruh distribusi.
+.br
+Cara yang umum dilakukan:
+
+.in +5
+# slackpkg update
+.br
+# slackpkg install\-new
+.br
+# slackpkg upgrade\-all
+.br
+# slackpkg clean\-system
+.in
+
+Fitur lain dari Slackpkg adalah kemampuan untuk bekerja dengan template,
+yang mempermudah membuat banyak mesin dengan isi paket yang sama. Langkah
+dasarnya seperti berikut:
+
+.RS +5
+.IP \(bu 2
+Install pada satu mesin
+.IP \(bu 2
+Jalankan "slackpkg generate\-template NAMATEMPLATE"
+.IP \(bu 2
+Salin /etc/slackpkg/templates/NAMATEMPLATE.template pada direktori yang sama
+pada mesin lain
+.IP \(bu 2
+Jalankan "slackpkg install\-template NAMATEMPLATE" pada mesin lain
+.RE
+
+\fINAMATEMPLATE\fP adalah nama template Anda.
+
+Dengan mengikuti halaman manual ini, Anda bisa mencari apa fungsi
+masing\-masing aksi berikut.
+
+.SH AKSI
+.TP  5
+\fBhelp\fP
+.br
+Menampilkan aksi slackpkg dan deskripsi singkat. Berguna jika Anda perlu
+mengetahui tentang slackpkg. Informasi disini, pada halaman manual lebih
+lengkap.
+
+.TP  5
+\fBupdate\fP
+.br
+update akan mendownload daftar paket terbaru dari mirror Slackware (atau CD
+Anda). Disarankan untuk dijalankan
+
+.in +5
+# slackpkg update
+.in
+
+sebelum mencoba untuk mengupgrade, menginstall, atau mencari paket.
+.br
+Jika Anda perlu mengupdate kunci GPG Slackware, jalankan
+
+.in +5
+# slackpkg update gpg
+.in
+
+Kunci GPG tidak berubah. Ini biasanya perintah "satu kali" \- jalankan satu
+kali dan lupakan...
+
+.TP  5
+\fBcheck\-updates\fP
+.br
+Verifikasi apakah terdapat update pada ChangeLog.txt. Hal ini bagus untuk
+digunakan dari cron untuk memberitahukan sysadmin tentang update.
+
+.TP  5
+\fBfile\-search\fP
+.br
+Anda bisa mencari paket resmi Slackware dari untuk sembarang file pada
+distribusi Slackware. Apakah Anda memerlukan pustaka aneh? Gunakan
+file\-search untuk mencarinya.
+
+.in +5
+# slackpkg file\-search namafile
+.in
+
+Semua paket dengan "namafile" yang cocok akan ditampilkan, sehingga Anda
+bisa melihat apakah paket sudah terinstall atau belum; jika belum, Anda bisa
+mendownload dan menginstallnya dengan aksi slackpkg yang lain.
+
+.TP  5
+\fBsearch\fP
+.br
+Anda bisa mencari untuk sembarang paket yang didistribusikan pada Slackware.
+
+.in +5
+# slackpkg search pola
+.in
+
+Semua nama paket yang cocok dengan "pola" akan ditampilkan. Seperti
+file\-search, Anda bisa melihat apakah paket sudah terinstall atau belum;
+jika belum, Anda bisa mendownload dan menginstallnya dengan aksi slackpkg
+yang lain.
+
+.TP  5
+\fBinstall\fP
+.br
+Installasi sebuah paket sangat sederhana. Anda cukup mengetikkan:
+
+.in +5
+# slackpkg install paket
+.in
+
+dan paket akan didownload dan diinstall.
+.br
+Anda tidak bisa menggunakan opsi "install" untuk menginstall paket yang
+sudah terinstall, tetapi Anda bisa menginstall ulang atau mengupgradenya.
+
+.TP  5
+\fBupgrade\fP
+.br
+upgrade menginstall versi resmi terbaru dari paket yang ditentukan.
+
+upgrade tidak akan mencoba menginstall paket baru (gunakan fungsi install
+untuk tujuan itu; versi resmi terbaru dari paket akan diinstall).
+.TP  5
+\fBreinstall\fP
+.br
+Jika Anda secara tidak sengaja membuat korupsi paket, opsi reinstall
+mengijinkan Anda untuk menginstall ulang versi paket yang sama yang sudah
+terinstall.
+
+.TP  5   
+\fBremove\fP
+.br
+Dengan remove, Anda bisa menghapus paket yang sudah terinstall. Sebagai
+contoh:
+
+.in +5
+# slackpkg remove kde
+.in
+
+akan menghapus semua paket dengan "kde" sebagai namanya.
+
+.TP  5
+\fBblacklist\fP
+.br
+Dengan aksi ini, Anda bisa mem\-"blacklist" paket tertentu.
+.br
+Paket yang di\-blacklist tidak akan diinstall, diupgrade, atau dihapus oleh
+slackpkg. Jika Anda ingin menghapus beberapa paket dari daftar blacklist,
+silahkan mengedit /etc/slackpkg/blacklist.
+
+.TP  5
+\fBdownload\fP
+.br
+Aksi ini memberitahu slackpkg untuk mendownload paket, tetapi tidak
+menginstallnya. Mereka akan diletakkan pada /var/cache/packages dan Anda
+bisa menginstall/upgrade/menginstall ulang dikemudian hari (atau membakarnya
+pada CD).
+
+.TP  5
+\fBinfo\fP
+.br
+Aksi ini mencetak informasi tentang paket: ukuran terkompresi dan tanpa
+kompresi, deskripsi, dll...
+
+.TP  5
+\fBclean\-system\fP
+.br
+Aksi ini menghapus semua paket yang bukan berasal dari installasi standar
+Slackware. Dengan opsi ini, Anda bisa membersihkan sistem Anda, menghapus
+paket pihak ketiga serta paket yang dihapus dari paket resmi Slackware.
+.br
+Jika Anda memilih paket pihak ketiga (atau paket modifikasi) yang hendak
+Anda pertahankan, Anda bisa menambahkan pada paket yang di\-blacklist sebelum
+menjalankan aksi 'clean\-system'.
+
+.TP  5
+\fBupgrade\-all\fP
+.br
+Aksi ini mengupgrade semua paket yang terinstall pada sistem ke versi resmi
+dari Slackware; ini merupakan cara 'bagus untuk mengupgrade keseluruhan
+sistem.
+.br
+Harap diingat untuk menggunakan "install\-new" sebelum menjalankan
+"upgrade\-all."
+
+.TP  5
+\fBinstall\-new\fP
+Aksi ini menginstall semua paket baru yang ditambahkan pada paket resmi
+Slackware. Jalankan aksi ini jika Anda mengupgrade sistem Anda ke versi
+Slackware yang lain atau jika Anda menjalankan \-current.
+.br
+Jika Anda hendak menginstall semua paket Slackware yang tidak terinstall
+pada sistem Anda, gunakan perintah berikut dan bukan aksi install\-new:
+
+.in +5
+# slackpkg install slackware.
+.in
+.TP  5
+\fBnew\-config\fP
+Aksi ini mencari file konfigurasi .new dan menanyakan pengguna apa yang
+harus dilakukan dengan file tersebut.
+.br
+new\-config sangat berguna ketika Anda melakukan upgrade dan meninggalkan
+file konfigurasi untuk direview dikemudian hari. Dibandingkan pencarian
+manual, diff, dan mengganti; Anda bisa menggunakan aksi new\-config.
+.TP  5
+\fBgenerate\-template\fP
+Aksi ini menghasilkan template baru dengan semua paket resmi yang terinstall
+pada sistem Anda. Template akan disimpan pada /etc/slackpkg/templates
+.TP  5
+\fBinstall\-template\fP
+Aksi ini menginstall template yang diperlukan pada sistem. Template harus
+berada pada /etc/slackpkg/templates. Jika template "include" template lain,
+semuanya harus berada pada /etc/slackpkg/templates. Anda bisa menonaktifkan
+"include" pada slackpkg.conf atau pada perintah baris.
+.TP  5
+\fBremove\-template\fP
+Aksi ini akan menghapus semua paket yang termasuk dalam template yang
+dipilih. Hati\-hati, hal ini bisa membuat mesin Anda menjadi tidak bisa
+dipakai. Penanganan "include" bisa diaktifkan/dinonaktifkan pada
+slackpkg.conf atau dengan opsi yang sesuai pada perintah baris.
+
+.SH FILE
+.TP  5
+\fB/etc/slackpkg/mirrors⇥\fP
+File untuk menentukan lokasi sumber untuk mendownload paket
+.TP  5
+\fB/etc/slackpkg/slackpkg.conf⇥\fP
+Konfigurasi umum slackpk
+.TP  5
+\fB/etc/slackpkg/blacklist\fP
+Daftar paket yang dilewati
+.TP  5
+\fB/etc/slackpkg/templates\fP
+Berisi semua file template
+.TP  5
+\fB/usr/libexec/slackpkg\fP
+Berisi fungsi utama dan tambahan dari slackpkg
+.TP  5
+\fB/var/lib/slackpkg\fP
+Penggunaan internal Slackpkg \- daftar paket terformat, salinan
+ChangeLog.txt, daftar file, dll...
+
+.SH "LIHAT JUGA"
+\fBslackpkg.conf\fP(5), \fBinstallpkg\fP(8), \fBupgradepkg\fP(8), \fBexplodepkg\fP(8),
+\fBmakepkg\fP(8), \fBpkgtool\fP(8).
+
+.SH PEMBUAT
+.TP  5
+Piter PUNK aka Roberto F Batista 
+<piterpk AT terra DOT com DOT br>
+.TP  5
+Evaldo Gardenali aka UdontKnow 
+<evaldo AT fasternet DOT com DOT br>

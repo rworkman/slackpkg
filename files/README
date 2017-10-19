@@ -1,0 +1,74 @@
+   slackpkg - Automated Tool for Management of Slackware Linux Packages
+   ---------------------------------------------------------------------
+   			Authors: Piter PUNK aka Roberto F Batista 
+				 	<piterpunk@slackware.com>
+				 Evaldo Gardenali aka UdontKnow 
+					<evaldo@fasternet.com.br>
+				 Robby Workman aka rworkman
+					<rworkman@slackware.com>
+					(since 2.82.2)
+
+			Version: 0.93   released at Fri Feb 14 2003
+				 0.94   released at Wed Mar 12 2003
+				 0.95   released at Mon Mar 17 2003
+				 0.96   released at Thu Apr 10 2003
+				 0.97   released at Fri Aug 01 2003
+				 0.98   released at Tue Aug 19 2003
+				 0.99   released at Mon Sep 15 2003
+				 0.99.1 released at Wed Sep 24 2003
+				 1.00	released at Mon Nov 10 2003
+				 1.02	released at Fri Jan 30 2004
+				 1.02.1	released at Mon Feb 02 2004
+				 1.02.2	released at Mon Feb 02 2004
+				 1.03	released at Wed Feb 18 2004
+				 1.03.1	released at Thu Feb 26 2004 
+				 1.1	released at Mon Mar 01 2004
+				 1.2	released at Tue Mar 30 2004
+				 1.2.1  released at Wed May 19 2004
+				 1.2.2  released at Tue Jun 15 2004 
+				 1.3	released at Mon Nov 01 2004
+				 1.3.1	released at Wed Dec 29 2004
+				 1.4	released at Wed Jan 26 2005
+				 1.4.1	released at Tue Jun 22 2005
+				 1.5.0	released at Fri Jul 22 2005
+				 1.5.1	released at Wed Aug 17 2005
+				 1.5.2	released at Sun Sep 11 2005
+				 2.03   released at Thu May 18 2006
+				 2.04   released at Fri May 26 2006
+				 2.05	released at Thu Jun 08 2006
+				 2.06	released at Fri Jul 28 2006
+				 2.07	released at Sun Aug 13 2006
+				 2.08	released at Fri Aug 18 2006
+				 2.09	released at Mon Aug 28 2006
+				 2.52	released at Sat Mar 17 2007
+				 2.60	released at Tue May 08 2007
+				 2.61	released at Sat Jun 09 2007
+				 2.70   released at Tue Jan 29 2008 
+				 2.70.1 released at Sat Mar 15 2008 
+				 2.70.2 released at Tue Apr 08 2008 
+				 2.70.3 released at Wed Apr 30 2008 
+				 2.70.4 released at Fri May 01 2008 
+				 2.70.5 released at Thu Dec 04 2008 
+				 2.71	released at Thu Apr 23 2009 
+				 2.71.1 released at Sat May 02 2009
+				 2.80	released at Thu Jun 18 2009
+				 2.80.1 released at Tue Jul 14 2009
+				 2.80.2 released at Thu Jul 30 2009
+				 2.81   released at Fri Apr 23 2010
+				 2.81.1 released at Thu May 13 2010
+				 2.82.0 released at Thu Mar 24 2011
+				 2.82.1 released at Wed May 11 2016
+				 2.82.2 released at Sun Oct 08 2017
+
+  Slackpkg is a tool for those who want to easily install or upgrade packages 
+  via the network.  With slackpkg, you can have a minimal installation of 
+  Slackware Linux and install/upgrade only those  packages you need most.
+
+  You don't need to setup NFS or make dozens of CDs for all your computers; 
+  all you need to do is to type one command and all the latest official 
+  Slackware packages will be at your fingertips.
+
+  For more information about slackpkg, see its man pages:
+    man 8 slackpkg
+    man 5 slackpkg.conf
+

@@ -1,0 +1,370 @@
+# mirrors - List of Slackware Linux mirrors.
+#
+# SlackPkg - An Automated packaging tool for Slackware Linux
+# Copyright (C) 2003-2011 Roberto F. Batista, Evaldo Gardenali
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# Project Page: http://slackpkg.org/
+# Roberto F. Batista (aka PiterPunk) piterpunk@slackware.com
+# Evaldo Gardenali (aka UdontKnow) evaldogardenali@fasternet.com.br
+#
+# END OF LEGAL NOTICE
+#
+#
+# You only need to select one mirror and uncomment it.
+# ONLY ONE mirror can be uncommented.
+#
+# You can use a mirror not included in this file.  Many people have mirrors
+# in their local networks.  A list of all official Slackware mirrors
+# (not version-specific, so some mirrors may not have all files) is here:
+# https://mirrors.slackware.com/mirrorlist/
+#
+# Slackpkg only needs to point to the directory that contains
+# "ChangeLog.txt", and don't forget the trailing slash.
+#
+#----------------------------------------------------------------
+# Local CD/DVD drive
+#----------------------------------------------------------------
+# cdrom://media/cdrom/
+#
+#----------------------------------------------------------------
+# Local Directory
+#----------------------------------------------------------------
+# file://path/to/some/directory/
+#
+#----------------------------------------------------------------
+# Slackware-14.2
+#----------------------------------------------------------------
+# USE MIRRORS.SLACKWARE.COM (DO NOT USE FTP - ONLY HTTP FINDS A NEARBY MIRROR)
+# https://mirrors.slackware.com/slackware/slackware-14.2/
+#
+#
+# Here are some individual mirrors that can be used instead of the
+# redirector at mirrors.slackware.com if necessary ; note that this
+# list is not guaranteed to be up-to-date
+#
+# AUSTRALIA (AU)
+# ftp://ftp.cc.swin.edu.au/slackware/slackware-14.2/
+# http://ftp.cc.swin.edu.au/slackware/slackware-14.2/
+# ftp://ftp.iinet.net.au/pub/slackware/slackware-14.2/
+# http://ftp.iinet.net.au/pub/slackware/slackware-14.2/
+# ftp://mirror.as24220.net/pub/slackware/slackware-14.2/
+# http://mirror.as24220.net/pub/slackware/slackware-14.2/
+# ftp://mirror.internode.on.net/.pub2/slackware/slackware-14.2/
+# http://mirror.internode.on.net/pub/slackware/slackware-14.2/
+# AUSTRIA (AT)
+# http://gd.tuwien.ac.at/opsys/linux/freesoftware.com/slackware-14.2/
+# BELARUS (BY)
+# ftp://mirror.datacenter.by/pub/slackware/slackware-14.2/
+# http://mirror.datacenter.by/pub/slackware/slackware-14.2/
+# BRAZIL (BR)
+# ftp://ftp.slackware-brasil.com.br/slackware-14.2/
+# http://ftp.slackware-brasil.com.br/slackware-14.2/
+# BULGARIA (BG)
+# ftp://mirrors.unixsol.org/slackware/slackware-14.2/
+# http://mirrors.unixsol.org/slackware/slackware-14.2/
+# CANADA (CA)
+# ftp://mirror.csclub.uwaterloo.ca/slackware/slackware-14.2/
+# http://mirror.csclub.uwaterloo.ca/slackware/slackware-14.2/
+# ftp://mirror.its.dal.ca/slackware/slackware-14.2/
+# http://mirror.its.dal.ca/slackware/slackware-14.2/
+# CHINA (CN)
+# http://mirrors.163.com/slackware/slackware-14.2/
+# http://mirrors.ustc.edu.cn/slackware/slackware-14.2/
+# COSTA RICA (CR)
+# ftp://mirrors.ucr.ac.cr/slackware/pub/slackware/slackware-14.2/
+# http://mirrors.ucr.ac.cr/slackware/pub/slackware/slackware-14.2/
+# CZECH REPUBLIC (CZ)
+# ftp://odysseus.linux.cz/pub/linux/slackware/slackware-14.2/
+# http://odysseus.linux.cz/pub/linux/slackware/slackware-14.2/
+# DENMARK (DK)
+# ftp://mirrors.dotsrc.org/slackware/slackware-14.2/
+# https://mirrors.dotsrc.org/slackware/slackware-14.2/
+# FINLAND (FI)
+# ftp://elektroni.phys.tut.fi/slackware-14.2/
+# FRANCE (FR)
+# ftp://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware-14.2/
+# http://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware-14.2/
+# GERMANY (DE)
+# ftp://ftp.gwdg.de/pub/linux/slackware/slackware-13.2/
+# http://ftp.gwdg.de/pub/linux/slackware/slackware-14.2/
+# ftp://ftp.tu-chemnitz.de/pub/linux/slackware/slackware-14.2/
+# http://ftp.tu-chemnitz.de/pub/linux/slackware/slackware-14.2/
+# ftp://ftp.zimt.uni-siegen.de/pub/slackware/slackware-14.2/
+# http://ftp.zimt.uni-siegen.de/slackware/slackware-14.2/
+# ftp://sunsite.informatik.rwth-aachen.de/pub/comp/Linux/slackware/slackware-14.2/
+# http://sunsite.informatik.rwth-aachen.de/ftp/pub/comp/Linux/slackware/slackware-14.2/
+# GREECE (GR)
+# ftp://ftp.cc.uoc.gr/mirrors/linux/slackware/slackware-14.2/
+# http://ftp.cc.uoc.gr/mirrors/linux/slackware/slackware-14.2/
+# ftp://ftp.otenet.gr/pub/linux/slackware/slackware-14.2/
+# http://ftp.otenet.gr/linux/slackware/slackware-14.2/
+# ftp://patroklos.noc.ntua.gr/pub/linux/slackware/slackware-14.2/
+# http://patroklos.noc.ntua.gr/pub/linux/slackware/slackware-14.2/
+# INDONESIA (ID)
+# http://kambing.ui.ac.id/slackware/slackware-14.2/
+# https://repo.ukdw.ac.id/slackware/slackware-14.2/
+# IRELAND (IE)
+# ftp://ftp.heanet.ie/mirrors/ftp.slackware.com/pub/slackware/slackware-14.2/
+# http://ftp.heanet.ie/mirrors/ftp.slackware.com/pub/slackware/slackware-14.2/
+# ITALY (IT)
+# ftp://ba.mirror.garr.it/mirrors/Slackware/slackware-14.2/
+# http://ba.mirror.garr.it/mirrors/Slackware/slackware-14.2/
+# JAPAN (JP)
+# ftp://ftp.nara.wide.ad.jp/pub/Linux/slackware/slackware-14.2/
+# http://ftp.nara.wide.ad.jp/pub/Linux/slackware/slackware-14.2/
+# ftp://ftp.kddilabs.jp/Linux/distributions/Slackware/slackware-14.2/
+# http://ftp.kddilabs.jp/Linux/distributions/Slackware/slackware-14.2/
+# ftp://riksun.riken.go.jp/Linux/slackware/slackware-14.2/
+# http://riksun.riken.go.jp/Linux/slackware/slackware-14.2/
+# NETHERLANDS (NL)
+# ftp://ftp.nluug.nl/pub/os/Linux/distr/slackware/slackware-14.2/
+# http://ftp.nluug.nl/os/Linux/distr/slackware/slackware-14.2/
+# ftp://mirror.nl.leaseweb.net/slackware/slackware-14.2/
+# http://mirror.nl.leaseweb.net/slackware/slackware-14.2/
+# NORWAY (NO)
+# ftp://ftp.slackware.no/slackware/slackware-14.2/
+# http://ftp.slackware.no/slackware/slackware-14.2/
+# POLAND (PL)
+# ftp://ftp.pwr.wroc.pl/pub/linux/slackware/slackware-14.2/
+# http://ftp.pwr.wroc.pl/pub/linux/slackware/slackware-14.2/
+# ftp://ftp.slackware.pl/pub/slackware/slackware-14.2/
+# http://ftp.slackware.pl/pub/slackware/slackware-14.2/
+# ftp://sunsite.icm.edu.pl/vol/rzm1/linux-slackware/slackware-14.2/
+# http://sunsite.icm.edu.pl/packages/linux-slackware/slackware-14.2/
+# ftp://z-ftp.wcss.wroc.pl/pub/linux/slackware/slackware-14.2/
+# http://z-ftp.wcss.wroc.pl/pub/linux/slackware/slackware-14.2/
+# RUSSIA (RU)
+# http://mirror.rol.ru/slackware/slackware-14.2/
+# ftp://mirror.yandex.ru/slackware/slackware-14.2/
+# http://mirror.yandex.ru/slackware/slackware-14.2/
+# SOUTH AFRICA (ZA)
+# ftp://ftp.is.co.za/mirror/ftp.slackware.com/pub/slackware-14.2/
+# http://ftp.is.co.za/mirror/ftp.slackware.com/pub/slackware-14.2/
+# ftp://ftp.wa.co.za/pub/slackware/slackware-14.2/
+# http://ftp.wa.co.za/pub/slackware/slackware-14.2/
+# ftp://slackware.mirror.ac.za/slackware-14.2/
+# http://slackware.mirror.ac.za/slackware-14.2/
+# SWEDEN (SE)
+# ftp://ftp.sunet.se/mirror/slackware.com/slackware-14.2/
+# http://ftp.sunet.se/mirror/slackware.com/slackware-14.2/
+# SWITZERLAND (CH)
+# ftp://mirror.switch.ch/mirror/slackware/slackware-14.2/
+# http://mirror.switch.ch/ftp/mirror/slackware/slackware-14.2/
+# TAIWAN (TW)
+# ftp://ftp.isu.edu.tw/pub/Linux/Slackware/slackware-14.2/
+# http://ftp.isu.edu.tw/pub/Linux/Slackware/slackware-14.2/
+# ftp://ftp.twaren.net/pub/Linux/Slackware/slackware-14.2/
+# http://ftp.twaren.net/Linux/Slackware/slackware-14.2/
+# TURKEY (TR)
+# ftp://ftp.linux.org.tr/slackware/slackware-14.2/
+# http://ftp.linux.org.tr/slackware/slackware-14.2/
+# UKRAINE (UA)
+# ftp://mirrors.mithril.org.ua/linux/slackware/slackware-14.2/
+# http://mirrors.mithril.org.ua/linux/slackware/slackware-14.2/
+# UNITED KINGDOM (UK)
+# ftp://ftp.mirrorservice.org/sites/ftp.slackware.com/pub/slackware/slackware-14.2/
+# http://ftp.mirrorservice.org/sites/ftp.slackware.com/pub/slackware/slackware-14.2/
+# ftp://mirror.bytemark.co.uk/slackware/slackware-14.2/
+# http://mirror.bytemark.co.uk/slackware/slackware-14.2/
+# UNITED STATES (US)
+# ftp://ftp.gtlib.gatech.edu/nv/ao2/lxmirror/ftp.slackware.com/slackware-14.2/
+# ftp://mirror.cs.princeton.edu/pub/mirrors/slackware/slackware-14.2/
+# ftp://mirrors.easynews.com/linux/slackware/slackware-14.2/
+# http://mirrors.easynews.com/linux/slackware/slackware-14.2/
+# ftp://mirrors.us.kernel.org/slackware/slackware-14.2/
+# http://mirrors.us.kernel.org/slackware/slackware-14.2/
+# ftp://mirrors.xmission.com/slackware/slackware-14.2/
+# http://mirrors.xmission.com/slackware/slackware-14.2/
+# https://mirror.slackbuilds.org/slackware/slackware-14.2/
+# http://slackware.cs.utah.edu/pub/slackware/slackware-14.2/
+# http://slackware.mirrors.pair.com/slackware-14.2/
+# ftp://slackware.mirrors.tds.net/pub/slackware/slackware-14.2/
+# http://slackware.mirrors.tds.net/pub/slackware/slackware-14.2/
+# ftp://spout.ussg.indiana.edu/linux/slackware/slackware-14.2/
+# http://spout.ussg.indiana.edu/linux/slackware/slackware-14.2/
+# ftp://teewurst.cc.columbia.edu/pub/linux/slackware/slackware-14.2/
+# http://teewurst.cc.columbia.edu/pub/linux/slackware/slackware-14.2/
+#
+#----------------------------------------------------------------
+# Slackware-current
+#----------------------------------------------------------------
+# USE MIRRORS.SLACKWARE.COM (DO NOT USE FTP - ONLY HTTP FINDS A NEARBY MIRROR)
+# https://mirrors.slackware.com/slackware/slackware-current/
+#
+#
+# Here are some individual mirrors that can be used instead of the
+# redirector at mirrors.slackware.com if necessary ; note that this
+# list is not guaranteed to be up-to-date
+#
+# AUSTRALIA (AU)
+# ftp://ftp.cc.swin.edu.au/slackware/slackware-current/
+# http://ftp.cc.swin.edu.au/slackware/slackware-current/
+# ftp://ftp.iinet.net.au/pub/slackware/slackware-current/
+# http://ftp.iinet.net.au/pub/slackware/slackware-current/
+# ftp://mirror.aarnet.edu.au/pub/slackware/slackware-current/
+# http://mirror.aarnet.edu.au/pub/slackware/slackware-current/
+# ftp://mirror.as24220.net/pub/slackware/slackware-current/
+# http://mirror.as24220.net/pub/slackware/slackware-current/
+# ftp://mirror.internode.on.net/.pub2/slackware/slackware-current/
+# http://mirror.internode.on.net/pub/slackware/slackware-current/
+# http://mirror.primusdatacentre.com.au/slackware/slackware-current/
+# AUSTRIA (AT)
+# ftp://ftp.slackware.at/slackware-current/
+# http://ftp.slackware.at/data/slackware-current/
+# ftp://gd.tuwien.ac.at/opsys/linux/freesoftware.com/slackware-current/
+# http://gd.tuwien.ac.at/opsys/linux/freesoftware.com/slackware-current/
+# BELARUS (BY)
+# ftp://mirror.datacenter.by/pub/slackware/slackware-current/
+# http://mirror.datacenter.by/pub/slackware/slackware-current/
+# BRAZIL (BR)
+# ftp://ftp.slackware-brasil.com.br/slackware-current/
+# http://ftp.slackware-brasil.com.br/slackware-current/
+# BULGARIA (BG)
+# ftp://mirrors.unixsol.org/slackware/slackware-current/
+# http://mirrors.unixsol.org/slackware/slackware-current/
+# CANADA (CA)
+# ftp://mirror.csclub.uwaterloo.ca/slackware/slackware-current/
+# http://mirror.csclub.uwaterloo.ca/slackware/slackware-current/
+# ftp://mirror.its.dal.ca/slackware/slackware-current/
+# http://mirror.its.dal.ca/slackware/slackware-current/
+# CHINA (CN)
+# http://mirror.bjtu.edu.cn/slackware/slackware-current/
+# http://mirrors.163.com/slackware/slackware-current/
+# http://mirrors.ustc.edu.cn/slackware/slackware-current/
+# COSTA RICA (CR)
+# ftp://mirrors.ucr.ac.cr/slackware/pub/slackware/slackware-current/
+# http://mirrors.ucr.ac.cr/slackware/pub/slackware/slackware-current/
+# CZECH REPUBLIC (CZ)
+# ftp://odysseus.linux.cz/pub/linux/slackware/slackware-current/
+# http://odysseus.linux.cz/pub/linux/slackware/slackware-current/
+# DENMARK (DK)
+# ftp://mirrors.dotsrc.org/slackware/slackware-current/
+# https://mirrors.dotsrc.org/slackware/slackware-current/
+# FINLAND (FI)
+# ftp://elektroni.phys.tut.fi/slackware-current/
+# FRANCE (FR)
+# ftp://mirror.ovh.net/mirrors/ftp.slackware.com/slackware-current/
+# http://mirror.ovh.net/mirrors/ftp.slackware.com/slackware-current/
+# ftp://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware-current/
+# http://nephtys.lip6.fr/pub/linux/distributions/slackware/slackware-current/
+# GERMANY (DE)
+# ftp://ftp.fu-berlin.de/unix/linux/slackware/slackware-current/
+# ftp://ftp.gwdg.de/pub/linux/slackware/slackware-current/
+# http://ftp.gwdg.de/pub/linux/slackware/slackware-current/
+# ftp://ftp.tu-chemnitz.de/pub/linux/slackware/slackware-current/
+# http://ftp.tu-chemnitz.de/pub/linux/slackware/slackware-current/
+# ftp://ftp.zimt.uni-siegen.de/pub/slackware/slackware-current/
+# http://ftp.zimt.uni-siegen.de/slackware/slackware-current/
+# ftp://sunsite.informatik.rwth-aachen.de/pub/comp/Linux/slackware/slackware-current/
+# http://sunsite.informatik.rwth-aachen.de/ftp/pub/comp/Linux/slackware/slackware-current/
+# ftp://wrz1013.rz.uni-wuerzburg.de/pub/MIRROR/slackware/slackware-current/
+# http://wrz1013.rz.uni-wuerzburg.de/pub/MIRROR/slackware/slackware-current/
+# GREECE (GR)
+# ftp://ftp.cc.uoc.gr/mirrors/linux/slackware/slackware-current/
+# http://ftp.cc.uoc.gr/mirrors/linux/slackware/slackware-current/
+# ftp://ftp.otenet.gr/pub/linux/slackware/slackware-current/
+# http://ftp.otenet.gr/linux/slackware/slackware-current/
+# ftp://patroklos.noc.ntua.gr/pub/linux/slackware/slackware-current/
+# http://patroklos.noc.ntua.gr/pub/linux/slackware/slackware-current/
+# INDONESIA (ID)
+# http://kambing.ui.ac.id/slackware/slackware-current/
+# https://repo.ukdw.ac.id/slackware/slackware-current/
+# IRELAND (IE)
+# ftp://ftp.heanet.ie/mirrors/ftp.slackware.com/pub/slackware/slackware-current/
+# http://ftp.heanet.ie/mirrors/ftp.slackware.com/pub/slackware/slackware-current/
+# ITALY (IT)
+# ftp://ba.mirror.garr.it/mirrors/Slackware/slackware-current/
+# http://ba.mirror.garr.it/mirrors/Slackware/slackware-current/
+# JAPAN (JP)
+# ftp://ftp.nara.wide.ad.jp/pub/Linux/slackware/slackware-current/
+# http://ftp.nara.wide.ad.jp/pub/Linux/slackware/slackware-current/
+# ftp://ftp.kddilabs.jp/Linux/distributions/Slackware/slackware-current/
+# http://ftp.kddilabs.jp/Linux/distributions/Slackware/slackware-current/
+# ftp://riksun.riken.go.jp/Linux/slackware/slackware-current/
+# http://riksun.riken.go.jp/Linux/slackware/slackware-current/
+# NETHERLANDS (NL)
+# ftp://ftp.nluug.nl/pub/os/Linux/distr/slackware/slackware-current/
+# http://ftp.nluug.nl/os/Linux/distr/slackware/slackware-current/
+# ftp://mirror.nl.leaseweb.net/slackware/slackware-current/
+# http://mirror.nl.leaseweb.net/slackware/slackware-current/
+# NORWAY (NO)
+# ftp://ftp.slackware.no/slackware/slackware-current/
+# http://ftp.slackware.no/slackware/slackware-current/
+# POLAND (PL)
+# ftp://ftp.pwr.wroc.pl/pub/linux/slackware/slackware-current/
+# http://ftp.pwr.wroc.pl/pub/linux/slackware/slackware-current/
+# ftp://ftp.slackware.pl/pub/slackware/slackware-current/
+# http://ftp.slackware.pl/pub/slackware/slackware-current/
+# ftp://sunsite.icm.edu.pl/vol/rzm1/linux-slackware/slackware-current/
+# http://sunsite.icm.edu.pl/packages/linux-slackware/slackware-current/
+# ftp://z-ftp.wcss.wroc.pl/pub/linux/slackware/slackware-current/
+# http://z-ftp.wcss.wroc.pl/pub/linux/slackware/slackware-current/
+# RUSSIA (RU)
+# http://mirror.rol.ru/slackware/slackware-current/
+# ftp://mirror.yandex.ru/slackware/slackware-current/
+# http://mirror.yandex.ru/slackware/slackware-current/
+# SOUTH AFRICA (ZA)
+# ftp://ftp.is.co.za/mirror/ftp.slackware.com/pub/slackware-current/
+# http://ftp.is.co.za/mirror/ftp.slackware.com/pub/slackware-current/
+# ftp://ftp.wa.co.za/pub/slackware/slackware-current/
+# http://ftp.wa.co.za/pub/slackware/slackware-current/
+# ftp://slackware.mirror.ac.za/slackware-current/
+# http://slackware.mirror.ac.za/slackware-current/
+# SWEDEN (SE)
+# ftp://ftp.sunet.se/mirror/slackware.com/slackware-current/
+# http://ftp.sunet.se/mirror/slackware.com/slackware-current/
+# SWITZERLAND (CH)
+# ftp://mirror.switch.ch/mirror/slackware/slackware-current/
+# http://mirror.switch.ch/ftp/mirror/slackware/slackware-current/
+# TAIWAN (TW)
+# ftp://ftp.isu.edu.tw/pub/Linux/Slackware/slackware-current/
+# http://ftp.isu.edu.tw/pub/Linux/Slackware/slackware-current/
+# ftp://ftp.twaren.net/pub/Linux/Slackware/slackware-current/
+# http://ftp.twaren.net/Linux/Slackware/slackware-current/
+# TURKEY (TR)
+# ftp://ftp.linux.org.tr/slackware/slackware-current/
+# http://ftp.linux.org.tr/slackware/slackware-current/
+# UKRAINE (UA)
+# ftp://ftp.linux.kiev.ua/pub/Linux/Slackware/slackware-current/
+# http://ftp.linux.kiev.ua/pub/Linux/Slackware/slackware-current/
+# ftp://mirrors.mithril.org.ua/linux/slackware/slackware-current/
+# http://mirrors.mithril.org.ua/linux/slackware/slackware-current/
+# UNITED KINGDOM (UK)
+# ftp://ftp.mirrorservice.org/sites/ftp.slackware.com/pub/slackware/slackware-current/
+# http://ftp.mirrorservice.org/sites/ftp.slackware.com/pub/slackware/slackware-current/
+# ftp://mirror.bytemark.co.uk/slackware/slackware-current/
+# http://mirror.bytemark.co.uk/slackware/slackware-current/
+# ftp://slackware.mirrors.uk2.net/pub/slackware/slackware-current/
+# http://slackware.mirrors.uk2.net/slackware-current/
+# UNITED STATES (US)
+# ftp://ftp.gtlib.gatech.edu/nv/ao2/lxmirror/ftp.slackware.com/slackware-current/
+# ftp://mirror.cs.princeton.edu/pub/mirrors/slackware/slackware-current/
+# ftp://mirrors.easynews.com/linux/slackware/slackware-current/
+# http://mirrors.easynews.com/linux/slackware/slackware-current/
+# ftp://mirrors.us.kernel.org/slackware/slackware-current/
+# http://mirrors.us.kernel.org/slackware/slackware-current/
+# ftp://mirrors.xmission.com/slackware/slackware-current/
+# http://mirrors.xmission.com/slackware/slackware-current/
+# https://mirror.slackbuilds.org/slackware/slackware-current/
+# http://slackware.cs.utah.edu/pub/slackware/slackware-current/
+# http://slackware.mirrors.pair.com/slackware-current/
+# ftp://slackware.mirrors.tds.net/pub/slackware/slackware-current/
+# http://slackware.mirrors.tds.net/pub/slackware/slackware-current/
+# ftp://spout.ussg.indiana.edu/linux/slackware/slackware-current/
+# http://spout.ussg.indiana.edu/linux/slackware/slackware-current/
+# ftp://teewurst.cc.columbia.edu/pub/linux/slackware/slackware-current/
+# http://teewurst.cc.columbia.edu/pub/linux/slackware/slackware-current/

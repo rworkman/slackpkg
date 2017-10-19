@@ -1,0 +1,326 @@
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH SLACKPKG 8 "May 2010" slackpkg\-2.81.1 ""
+.SH NAMN
+\fBslackpkg\fP \- Automatiserat verktyg för att hantera Slackware Linux\-paket
+
+.SH ÖVERSIKT
+\fBslackpkg\fP \fB[ALTERNATIV]\fP
+\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{\fP\fIMÖNSTER\fP\fB|\fP\fIFIL\fP\fB}\fP
+
+\fBslackpkg [ALTERNATIV] {clean\-system|upgrade\-all|install\-new}\fP
+
+\fBslackpkg\fP \fB[ALTERNATIV]\fP \fB{search|file\-search}\fP
+\fB{\fP\fIMÖNSTER\fP\fB|\fP\fIFIL\fP\fB}\fP
+
+\fBslackpkg\fP \fB[ALTERNATIV]\fP
+\fB{generate\-template|install\-template|remove\-template}\fP \fIMALLNAMN\fP
+
+\fBslackpkg [ALTERNATIV] info\fP \fIPAKET\fP
+
+\fBslackpkg [ALTERNATIV] update [gpg]\fP
+
+\fBslackpkg [ALTERNATIV] {new\-config|check\-updates}\fP
+
+\fBslackpkg [ALTERNATIV] help\fP
+
+.SH BESKRIVNING
+Slackpkg är ett verktyg för den som vill installera eller uppgradera paket
+via nätverket på ett enkelt sätt. Med slackpkg, kan du ha en minimal
+installation av Slackware Linux och installera/uppgradera bara de paket som
+du behöver.
+
+Du behöver inte ställa in NFS eller göra dussintals CD\-skivor för alla dina
+datorer; Allt du behöver göra är att skriva ett kommando och alla de senaste
+officiella Slackwarepaket kommer att vara till hands.
+
+.SH INSTRUKTIONER
+Slackpkg har många funktioner. Den kan söka efter filer, ta bort alla
+tredjeparts\-paket i ditt system, installera paket som lagts till Slackware
+sedan din senaste uppdatering, visa paketbeskrivningar, mm.
+
+Innan du gör något, måste du avkommentera en spegel i /etc/slackpkg/mirrors
+filen och köra:
+
+.in +5
+# slackpkg update
+.in
+
+"update" åtgärden kommer att hämta och formatera listan över filer och paket
+i Slackware. Varje gång denna lista ändras,  måste update köras.
+
+De viktigaste funktionerna i Slackpkg är de direkt relaterade till
+pakethantering: installera, uppgradera och ta bort paket. För att göra någon
+av dessa uppgifter är Slackpkg syntaxen:
+
+.in +5
+# slackpkg [ALTERNATIV] <åtgärd> {MÖNSTER|FIL}
+.in
+
+\fIALTERNATIV\fP kan vara en eller flera av de många konfigurationsalternativ
+som anges i /etc/slackpkg/slackpkg.conf. Det finns likvärdiga alternativ för
+kommandoraden för de flesta av konfigurationsmöjligheterna som finns i
+slackpkg.conf \- se manual\-sidan \fBslackpkg.conf (5)\fP för att se vilka
+alternativ som finns.
+
+\fIMÖNSTER\fP kan vara ett paketnamn eller bara en del av paketnamn. Det kan
+också vara en programvaruserie (som kde, a, p, ...).
+.br
+
+\fIFIL\fP är en fil med en lista på \fIMÖNSTER\fP: antingen en per rad, eller
+flera per rad med mellanslag som avgränsare.
+
+Slackpkg kan användas för att uppgradera hela distributionen.
+.br
+Det vanligaste sättet är att göra:
+
+.in +5
+# slackpkg update
+.br
+# slackpkg install\-new
+.br
+# slackpkg upgrade\-all
+.br
+# slackpkg clean\-system
+.in
+
+En annan funktion i Slackpkg är möjligheten att arbeta med mallar, vilket
+kan göra det mycket enklare att skapa olika maskiner med samma innehåll av
+paket. De grundläggande stegen är följande:
+
+.RS +5
+.IP \(bu 2
+Installera en maskin
+.IP \(bu 2
+Kör "slackpkg generate\-template MALLNAM"
+.IP \(bu 2
+Kopiera /etc/slackpkg/templates/MALLNAM.template till samma katalog på den
+andra maskinen
+.IP \(bu 2
+Kör "slackpkg install\-template MALLNAMN" på den andra maskinen
+.RE
+
+\fIMALLNAMN\fP är namnet på din mall.
+
+I denna manualsida kan du hitta vad var och en av dessa (och andra) åtgärder
+gör.
+
+.SH ÅTGÄRDER
+.TP  5
+\fBhelp\fP
+.br
+Visa slackpkg åtgärder och en kort beskrivning av dem. Användbart om du
+behöver veta lite om slackpkg. Informationen här på manualsidan är mycket
+mer komplett.
+
+.TP  5
+\fBupdate\fP
+.br
+Update kommer att ladda ner den senaste paketlistor från en Slackware spegel
+(eller CD). Det är en bra idé att köra
+
+.in +5
+# slackpkg update
+.in
+
+innan du försöker uppgradera, installera, eller söka efter paket.
+.br
+Om du behöver uppdatera Slackware's GPG\-nyckel, kör
+
+.in +5
+# slackpkg update gpg
+.in
+
+Den GPG\-nyckeln ändras inte. Detta bör vara en "en gångs" kommando \- kör det
+en gång och glömm det...
+
+.TP  5
+\fBcheck\-updates\fP
+.br
+Kontrollera om det finns någon uppdatering till ChangeLog.txt. Detta är bra
+för att användas från cron att uppmärksamma sysadmin om uppdateringar.
+
+.TP  5
+\fBfile\-search\fP
+.br
+Du kan söka de officiella Slackwarepaket för någon fil i Slackware
+distributionen. Behöver du ett konstigt bibliotek? Använd file\-search för
+att hitta den.
+
+.in +5
+# slackpkg file\-search filnamn
+.in
+
+Alla paket med matchande "filnamn" visas, så du kan se om paketen är
+installerade eller inte; om inte, kan du hämta och installera dem med andra
+slackpkg åtgärder.
+
+.TP  5
+\fBsearch\fP
+.br
+Du kan söka efter alla paket som distribueras i Slackware.
+
+.in +5
+# slackpkg search mönster
+.in
+
+Alla paketnamn som matchar "mönster" kommer att visas. Som fil\-sökning kan
+du se om paketen är installerade eller inte; om inte, kan du ladda ner och
+installera dem med andra slackpkg åtgärder.
+
+.TP  5
+\fBinstall\fP
+.br
+Installation av ett paket är mycket enkel. Du behöver bara skriva:
+
+.in +5
+# slackpkg install paket
+.in
+
+och paketet kommer att laddas ner och installeras.
+.br
+Du kan inte använda "install" för att installera ett redan installerat
+paket, men du kan installera om eller uppgradera den.
+
+.TP  5
+\fBupgrade\fP
+.br
+upgrade installerar den senaste officiella versionen av de angivna
+paket(en).
+
+upgrade kommer inte att försöka installera nya paket (använd
+installationsfunktionen för detta ändamål, de senaste officiella versionen
+av paketet kommer att installeras).
+.TP  5
+\fBreinstall\fP
+.br
+Om du av misstag skadar någonting kommer reinstall alternativet göra att du
+kan installera om samma version av ett paket som är installerat.
+
+.TP  5   
+\fBremove\fP
+.br
+Med remove, kan du ta bort vissa installerade paket. Som ett exempel:
+
+.in +5
+# slackpkg remove kde
+.in
+
+kommer att ta bort alla paket med "kde" i sitt namn.
+
+.TP  5
+\fBblacklist\fP
+.br
+Med den här åtgärden kan du "svartlista" vissa paket.
+.br
+Svartlistade paket kommer inte att installeras, uppgraderas, eller tas bort
+av slackpkg. Om du vill ta bort vissa paket från svartlistan, vänligen
+redigera /etc/slackpkg/blacklist.
+
+.TP  5
+\fBdownload\fP
+.br
+Denna åtgärd talar om för slackpkg att hämta paketen, men inte att
+installera dem. De kommer att placeras i /var/cache/packages, och du kan
+installera/uppgradera/installerar om dem senare (eller bränna dem till CD).
+
+.TP  5
+\fBinfo\fP
+.br
+Denna åtgärd skriver ut information om paket(en): komprimerade och
+okomprimerade storlek, beskrivning, med mera...
+
+.TP  5
+\fBclean\-system\fP
+.br
+Den här åtgärden tar bort alla paket som inte hör till en standard Slackware
+installation. Med det här alternativet kan du rensa upp ditt system, ta bort
+tredjepartspaket samt alla paket som togs bort från den officiella Slackware
+uppsättning.
+.br
+Om du har någon tredjeparts (eller egenbyggda) paket som du vill behålla kan
+du tillfälligt lägga till dem i listan över svartlistade paket innan du kör
+"clean\-system".
+
+.TP  5
+\fBupgrade\-all\fP
+.br
+Denna åtgärd uppgraderar varje paket som är installerade på systemet till
+versionen i det officiella Slackware trädet; detta är det "goda" sättet att
+uppgradera hela systemet.
+.br
+Kom ihåg att använda "install\-new" åtgärden innan du använder "upgrade\-all."
+
+.TP  5
+\fBinstall\-new\fP
+Denna åtgärd installerar alla nya paket som läggs till den officiella
+Slackware paket uppsättning. Kör detta om du uppgraderar ditt system till en
+annan Slackware version eller om du använder \-current.
+.br
+Om du vill installera alla avinstallerade Slackwarepaket till dit system,
+använd följande kommando i stället för install\-new åtgärden:
+
+.in +5
+# slackpkg install slackware.
+.in
+.TP  5
+\fBnew\-config\fP
+Denna åtgärd söker efter .new konfigurationsfiler och fråga användaren vad
+man ska göra med dessa filer.
+.br
+new\-config är mycket användbart när du utför en uppgradering och lämna
+konfigurationsfilerna för granskning senare. I stället för en manuell
+sökning, diff, och ersätt; Kan du använda new\-config åtgärden.
+.TP  5
+\fBgenerate\-template\fP
+Denna åtgärd skapar en ny mall med alla officiella paket som är installerade
+i ditt system. Mallen lagras i /etc/slackpkg/templates
+.TP  5
+\fBinstall\-template\fP
+Denna åtgärd installerar önskad mall i systemet. Mallen måste vara i
+/etc/slackpkg/templates. Om mallen "inkluderar" andra mallar, behöver alla
+dessa vara i /etc/slackpkg/templates. Du kan stänga av "inkludera" i
+slackpkg.conf eller via kommandoraden.
+.TP  5
+\fBremove\-template\fP
+Denna åtgärd tar bort alla paket som ingår i vald mall. Var försiktig, detta
+kan detta sätta maskinen i ett oanvändbart tillstånd. "inkludera" hantering
+kan aktiveras/avaktiveras i slackpkg.conf eller med lämpligt alternativ via
+kommandoraden.
+
+.SH FILER
+.TP  5
+\fB/etc/slackpkg/mirrors	\fP
+Fil för att ange platsen för att ladda ner paket från
+.TP  5
+\fB/etc/slackpkg/slackpkg.conf	\fP
+Allmänn konfiguration av slackpkg
+.TP  5
+\fB/etc/slackpkg/blacklist\fP
+Lista över paket att hoppa över
+.TP  5
+\fB/etc/slackpkg/templates\fP
+Innehåller alla mallfiler
+.TP  5
+\fB/usr/libexec/slackpkg\fP
+Innehåller slackpkg kärnan och ytterligare funktioner
+.TP  5
+\fB/var/lib/slackpkg\fP
+Slackpkg internt bruk \- formaterade paketlistor, kopia av ChangeLog.txt,
+lista över filer, med mera...
+
+.SH "SE OCKSÅ"
+\fBslackpkg.conf\fP(5), \fBinstallpkg\fP(8), \fBupgradepkg\fP(8), \fBexplodepkg\fP(8),
+\fBmakepkg\fP(8), \fBpkgtool\fP(8).
+
+.SH FÖRFATTARE
+.TP  5
+Piter PUNK även kallad Roberto F Batista 
+<piterpk AT terra DOT com DOT br>
+.TP  5
+Evaldo Gardenali även kallad UdontKnow 
+<evaldo AT fasternet DOT com DOT br>

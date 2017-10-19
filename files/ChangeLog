@@ -1,0 +1,1521 @@
+
+Sun Oct 10  07:48:13 UTC 2017
+---------------
+	- Updated mirrors-x86*.sample to remove dead mirrors and clarify
+	  intent to use mirrors.slackware.com
+	- Updated mirrors-arm.sample to sync with mozes' copy
+	- Add /usr/share/vim/ and /var/yp/ to search path for .new files
+	- Minor tweaks to default blacklist file
+	- Minor tweaks to manual pages
+	- Released as 2.82.2 (rworkman)
+
+Wed May 11 04:23:52 UTC 2016
+---------------
+	- Updated mirrors-x86*.sample for Slackware 14.2.
+	- Released as 2.82.1-1 (yet another unauthorized volkerdi release)
+
+2014 Thu Jul 10
+---------------
+        - Patched to respect the $ROOT environment variable to point to the
+          location to update (like installpkg does), and also to use the
+          $CONF environment variable to point to the slackpkg config file.
+          Thanks to Matteo Bernardini.
+        - Released as 2.82.0-13 (yet another unauthorized volkerdi release)
+
+2013 Sun Oct 20
+---------------
+        - Corrected some typos in the slackpkg man page.
+          Thanks to sycamorex.
+        - Released as 2.82.0-12 (yet another unauthorized volkerdi release)
+
+2013 Fri Oct 11
+---------------
+        - Verified and corrected the mirrors lists for x86 and x86_64.
+        - Changed version numbers from 14.0 to 14.1 in preparation for
+          the upcoming Slackware 14.1 release.
+        - Corrected a manpage bug in the file-search section.
+        - Released as 2.82.0-11 (yet another unauthorized volkerdi release)
+
+2013 Tue Sep 17
+---------------
+        - Patched core-functions.sh to fix searching for qt, phonon,
+          and other packages in cases where package names overlap.
+          Thanks to Sébastien Ballet.
+        - Released as 2.82.0-10 (yet another unauthorized volkerdi release)
+
+2013 Wed May 22
+---------------
+        - Set DOWNLOAD_ALL=on by default.  This avoids issues where
+          components that are needed by slackpkg requires library
+          updates in a different package.  Without downloading all
+          packages first failures are all too common.
+        - Released as 2.82.0-9 (yet another unauthorized volkerdi release)
+
+2012 Thu Aug 30
+---------------
+        - Merged a few fixes to the mirror lists for x86 and x86_64.
+          Thanks to Jordan Clarke for the help!
+        - Released as 2.82.0-8 (yet another unauthorized volkerdi release)
+
+2012 Fri Aug 24
+---------------
+        - Updated mirrors for Slackware 14.0 release.
+          Thanks to Jordan Clarke for the help!
+        - Released as 2.82.0-7 (yet another unauthorized volkerdi release)
+
+2012 Sun Jul 22
+---------------
+        - Added support for the XFCE series
+        - Released as 2.82.0-6 (Clandestine release by volkerdi  ;-)
+
+2011 Tue Apr 05
+---------------
+        - Fixed regex bugs (packages with 'asc' in the name ignored by
+          clean-system).        (Thanks David Somero)
+        - Released as 2.82.0-5
+
+2011 Wed Mar 30
+---------------
+	- Updated mirrors for Indonesia and Servia
+				(Thanks Willy Sudiarto and Branko Grubic)
+	- Better explanation about regex blacklisting in blacklist sample
+	  file.			(Thanks crocket and rworkman)
+	- Last ChangeLog date fixed, was Mar 23 and the correct is Mar 24
+	- Released as 2.82.0-4
+
+2011 Thu Mar 24
+---------------
+	- Fixed ARCH string for ARMedslack.
+				(report and fix by Niels Horn)
+	- Updated mirrors file to include slackware 13.37 mirrors
+				(thanks volkerdi)
+	- Updated blacklist sample file to include new usage examples
+	- Released as 2.82.0
+ 
+2011 Thu Feb 17
+---------------
+	- Fixed problem in "search" function:
+	  If the package name string matches the end of a previous
+	  package name it will not be in the "search" package list
+						(reported by David Lee)
+	- Removed old checkblacklist function and all references to it
+
+2010 Sun Dec 05
+---------------
+	- Some fixes in blacklist new function. The old one have problems
+	  when making the install list (all blacklisted packages appears
+	  as installables).
+
+2010 Fri Sep 10
+---------------
+	- Change in blacklist function. Using a fresh new one.
+	  Now blacklist is applied in package lists and not package-by-package.
+	  This speeds package list generation and allow the use of regexp
+	  on blacklist file.
+
+2010 Thu May 13
+---------------
+	- Include 2010 on Copyright notices
+	- Added slackware 13.1 on mirrors file (x86, x86_64 and arm)
+	- Released as 2.81.1
+
+2010 Sat May 01
+---------------
+	- Use $TMPDIR/pkglist instead $WORKDIR/tmplist on many places.
+	  This avoids problems when slackpkg does self-upgrade.
+	- Change CHECKSIZE default to "off"
+	- Fix CHECKSIZE to only check mountpoints. This avoids problems when
+	  the system have networked or DVD/CDs mounted
+					(Thanks alienbob and vbatts)
+	- Change version number to 2.81.1
+	- Released as 2.81.1beta1. Happy Workers Day!
+
+2010 Wed Apr 28
+---------------
+	- Fix blacklist checking on 'slackpkg clean-system'. It was
+	  checking if the package is blacklisted but didn't use this
+	  information.
+					(Reported by Greg and Shuren)
+	- Change 2.81 release date on ChangeLog and README to 2010 *Fri* 
+	  Apr 23, not 2010 *Thu* Apr 23.
+					(Thanks gui_ap)
+
+2010 Fri Apr 23
+---------------
+	- Fixed some typos in 'slackpkg help'
+	- Fixed 'update gpg' to use the unified getfile function
+	- Released as 2.81
+
+2010 Tue Apr 20
+---------------
+	- Unified download code. Function getfile is the only place
+	  with download instructions and getpkg uses it.
+	- Added DOWNLOADER variable. You can choose between "curl" and "wget" 
+	  downloaders.
+
+2010 Mon Apr 19
+---------------
+	- Now we can, before install or upgrade a package, verify
+	  if the system have enough available space in its filesystems.
+	  This can slowdown the upgrade/install process but can save a lot
+	  of problems.
+		. Added CHECKSIZE on slackpkg.conf
+		. Added CHECKSIZE on slackpkg.conf manpage
+		. Added -checksize on usr/sbin/slackpkg
+		. Added havespace and checksize functions on core-functions.sh
+	- Released as slackpkg-2.81beta2
+
+2010 Sun Apr 18
+---------------
+	- Added DIALOG_MAXARGS variable. This is to set the max number of
+	  characters that dialog can handle. If DIALOG_MAXARGS is unset we
+	  use the traditional 19500 characters. Removing hints when
+	  we reach DIALOG_MAXARGS *ISN'T A BUG* is a *FIX*. Without that,
+	  upgrade from slackware-X to slackware-X+1 will be impossible.
+		. Added DIALOG_MAXARGS on slackpkg.conf
+		. Added DIALOG_MAXARGS on slackpkg.conf manpage
+		. Added -dialog_maxargs on usr/sbin/slackpkg
+ 
+2010 Tue Feb 16
+---------------
+	- Fix x86 32bits regexp to not catch x86_64 packages
+	- Applied more patches from Grissiom:
+		. uniq in listpkgname function
+		. tell the user the ignored arguments
+		. respect only .sh functions on functions.d
+	- Split mirrors file by architecture. doinst.sh copy the
+	  right file to right place.
+	- Change references to <piterpk@terra.com.br> to 
+	  <piterpunk@slackware.com>
+
+2009 Sat Dec 12
+---------------
+	- Fix link problem with non-existent files
+	- Fix pkglist.awk to be compatible with new awk
+					(reported by rworkman)
+	- Now users can run "help" function
+	- Update man-pages with file-search, help and search
+	- Applied a lot of patches from Grissiom:
+		. Change mktemp creation test to be more "standard"
+		. Use parameter expansion instead "echo STRING | cut" in
+		  some places
+		. Use MORECMD to show blacklist if needed
+		. Change all `command` to $(command)
+		. Check if lilo is installed before trying to run it
+		. Some minor formating changes
+	- Other minor formating changes
+	- Update version on many places to 2.81
+
+2009 Tue Nov 24
+---------------
+	- Move search code from /sbin/slackpkg to core-functions.sh
+	- Use spinning bar on search and file-search
+	- Move existing "search" function to "file-search" and create a
+	  new "search", that looks for package's name
+	- Update usage and full_usage to reflect "search" and "file-search"
+	  changes
+	- Update a lot of system checks to take care of file-search.
+
+2009 Mon Nov 23
+---------------
+	- Add listpkgname function to create spkg, lpkg and dpkg files
+	- Change upgrade-all to use listpkgname function
+	- Enhance clean-system performance using listpkgname function
+	  to list packages
+	- Put comments on some functions to be more useful
+	- Change usage function to show only the slackpkg's syntax
+	  Old usage is now "slackpkg help", with a short description
+	  of each slackpkg command.
+
+2009 Sun Nov 22
+---------------
+	- Applied patch to link local files instead copying
+	  The old way was really stupid, why copy a file that
+	  already is there?
+					(Thanks Grissiom)
+	- Changed the way that slackpkg make the upgrade-all list
+	  Now the list is created very faster than before
+	  				(Thanks Grissiom)
+	- Added spinning bar to sanity-check function
+	  Good to give some feedback to user
+	- Move awk code from cutpkg function to cutpkg.awk
+	  Now we have cutpkg function, to handle a single package name
+	  and batchcutpkg to read many package names from stdin
+	  This speed sanity-check function
+	- Deactivate spinning bar when tput command is not found
+	- Force cursor back to normal mode in cleanup function
+					(Thanks NaCl)
+
+2009 Thu Jul 30
+---------------
+	- Change version number in manpages
+	- Released as 2.80.2
+
+2009 Mon Jul 27
+---------------
+	- Bumped version number to 2.80.2
+
+2009 Sun Jul 26
+---------------
+	- Changed [[:digit:]] references to [^-] in usr/sbin/slackpkg
+	  that makes some packages don't be found by slackpkg.
+					(Thanks Niels Horn and Grissiom)
+	- Removing leading spaces or tabs in mirrors file.
+	 				(Thanks Luke, Max, Cezar Rangel and
+					 other guys on slack-users-br list)
+	- Fix slackpkg.conf comments about BATCH mode. 
+					(Thanks Bruce Hill and AlienBob)
+	- Fix Indonesian mirrors.
+					(Thanks Willy Sudiarto Raharjo)
+	- Fix some Polish mirrors.
+					(Thanks Dexen deVries)
+	- Fix some UK mirrors.
+					(Thanks Andrew Fielder)
+	
+2009 Tue Jul 14
+---------------
+	- Added ARMedslack mirrors
+					(Thanks MoZes)
+	- Fix in generate-template to honor USE_INCLUDES option
+	- Released as 2.80.1
+
+2009 Wed Jul 08
+---------------
+	- Updated the Slackpkg's mirrors file.
+					(Thanks DagMoller)
+
+2009 Thu Jun 18
+---------------
+	- Merged some patches from Daniel Levai to enhance the config
+	  merge options.
+	- Released as 2.80
+
+2009 Thu Jun 11
+---------------
+	- Fixed a circular check: new-config needs update and update
+	  needs new-config.
+
+2009 Sun Jun 07
+---------------
+	- Change in doinst.sh to remove old pkglist at slackpkg's
+	  install.				(Thanks Klein)
+	- Change in slackpkg to use most of time ${TMPDIR}/pkglist instead
+	  ${WORKDIR}/pkglist.
+	- Released as 2.80beta3
+
+2009 Wed Jun 03
+---------------
+	- Change "tput cub1" to "tput sc" and "tput rc". This give back to
+	  us the option of multi-character "spinning bars".
+	- Create function showmenu to handle aligned options in post-functions.sh
+	- Released as 2.80beta2
+
+2009 Mon Jun 01
+---------------
+	- Use cub1 instead "cub N" in spinning bar. cub1 is
+	  supported by "linux" terminal.
+					(Thanks KynDer)
+	- Honors $PAGER variable if set.
+					(Thanks Daniel Levai)
+	- Added interactive merge option to post-functions.sh this makes
+	  very easier to manage .new files.
+					(Thanks Daniel Levai)
+	- Changes on post-functions.sh to show aligned options in "(P)rompt"
+	  and "(M)erge" functions.
+
+2009 Fri May 29
+---------------
+	- Eliminate ARCH test when new-config is called
+	- Use $PRIORITY in search command 
+					(Thanks Supergrilo)
+
+2009 Thu May 28
+---------------
+	- Released as 2.80beta1
+
+2009 Thu May 21
+---------------
+	- Fix usage message formatting
+	- new-config can run with outdated slackpkg.conf. With that
+	  you can use new-config to update the slackpkg.conf -;) 
+
+2009 Tue May 19
+---------------
+	- Released Slackware64! Congratulations to everyone in
+	  Slackware Team!
+	- Fix a problem with rpm2tgz package (again?!?!?)
+					Thanks Niels Horn
+	- Added Slackware key configuration to x86_64 architecture
+	- Added remove-template, install-template and generate-template
+	  to usage function
+
+2009 Mon May 04
+---------------
+	- Fixed .new detection.		(Thanks Stuart Winter)
+	- Renamed the "CHECKPKG" variable to "CHECKMD5" (and changed the 
+	  relevant command line options; this is more appropriate for what
+	  the function does (it checks md5 sums of the packages), and it's 
+	  easier to tell the difference between it and CHECKGPG at a glance.
+					(Thanks Robby Workman)
+	- Added check to see if slackpkg.conf version matches slackpkg
+	  version.
+	- More changes in install-new's ChangeLog.txt parsing
+
+2009 Sun May 03
+---------------
+	- Added generate-template, remove-template, and install-template 
+	  commands. The first one creates a template with all official 
+	  slackware packages installed in the machine. The template is saved 
+	  in /etc/slackpkg/templates. You can copy this template to other
+	  machines and install it with install-template.
+	- Added a spinning bar to give visual feedback of slackpkg "thinking".
+	- SPINNING is added to slackpkg.conf. It can enable (on) and
+	  disable (off) the spinning bar.
+	- Added USE_INCLUDES to manage whether template includes should be
+	  processed by slackpkg.
+	- ARCH now needs to be in the same format of "uname -m".
+	  slackpkg can change it automagically. If you need to override what 
+	  slackpkg detects, set the variable in slackpkg.conf.
+	- MAIN is now handled internally by slackpkg. You can no longer change
+	  this variable using slackpkg.conf.
+	- PKGMAIN is set by slackpkg to the appropriate value for your 
+	  ARCH port.
+	- SLACKKEY now can be set in slackpkg.conf. Usually slackpkg will 
+	  handle this automagically.
+	- FIRST, SECOND, THIRD, FOURTH, and FIFTH are replaced by a single 
+	  array: PRIORITY. The contents of those five variables now are 
+	  inside PRIORITY array.
+	- Added support to Slackintosh with the inclusion of "mac" series.
+	- Some changes in install-new's ChangeLog.txt parsing
+	- slackpkg.conf bumped to version 2.8
+	- updated slackpkg and slackpkg.conf manpages
+
+2009 Sat May 02
+---------------
+	- Released as slackpkg 2.71.1
+
+2009 Sat Apr 25
+---------------
+	- Fixed parsing of .t[blxg]z extension in packages
+	  with tgz, tlz, tbz or txz inside file name.
+					(Thanks Erik Jan Tromp)
+
+2009 Thu Apr 23
+---------------
+	- Released 2.71!
+
+2009 Sat Apr 18
+---------------
+	- Removing source files in md5 package search
+					(Thanks Alan Hicks)
+	- Fixed problem in search function and packages with
+	  letters, _ or . in RELEASE field.
+					(Thanks mrgobling)
+	- Released as 2.71beta5 (i think last one)
+
+2009 Wed Apr 15
+---------------
+	- Fix problem in checking md5 of some packages
+	- Fix pkglist.awk script. The changes to support
+	  tbz, tlz and txz brokes the local package list.
+	- 2.71beta4!! Man, we don't stop!
+
+2009 Fri Apr 10
+---------------
+	- Now use CHECKSUMS.md5 as primary source of package
+	  names.
+	- Check if FILELIST.TXT is newer than last update.
+	  That will prevents you to accidentaly downgrade
+	  your machine using an outdated mirror.
+	- Added a lot of new security checks
+		- check CHECKSUMS.md5 against CHECKSUMS.md5.asc
+		- check FILELIST.TXT against CHECKSUMS.md5
+		- check all downloaded .asc against CHECKSUMS.md5
+			(CHECKSUMS.md5.asc is excluded of this check)
+
+2009 Tue Apr 07
+---------------
+	- Added support to other package extensions.
+	  Now slackpkg can handle tgz, tbz, tlz and txz.
+	  Of course, this depends on pkgtools with the
+	  same capabilities.
+
+2009 Mon Mar 23
+---------------
+	- Put findutils to be upgraded before glibc-solibs.
+	  I think this is wrong. But for some strange reason
+	  findutils brokes if glibc is upgraded first.
+	- Packaged and relased as 2.71beta3 (hope last)
+
+2009 Wed Mar 18
+---------------
+	- Non root users can use "check-updates" command in slackpkg
+	- Show to user if using FILELIST.TXT or CHECKSUMS.md5 as package
+	  lista source.
+	- Added ONLY_NEW_DOTNEW variable to slackpkg configuration file
+	  (and -only_new_dotnew to command line). With that, only the
+	  latest .new files will be checked by post-install function.
+	- Added ONLY_NEW_DOTNEW and PKGMAIN description on slackpkg.conf
+	  man-page.
+	- Added "check-updates" on slackpkg man-page.
+	- Random fixes in both man-pages.
+	- Fix "check-updates" to be used without Slackware Project GPG
+	  Key imported. (thanks guax)
+
+2009 Sat Mar 14
+---------------
+	- Change update and getpkg functions to create a slackware
+	  tree inside /var/cache/packages.
+
+2009 Fri Mar 06
+---------------
+	- If FILELIST.TXT isn't found, use CHECKSUMS.md5 to the
+	  same thing
+	- Fix some problems in parsing MANIFEST.bz2 files
+	- Release as first 2.71beta1
+
+2008 Mon Dec 22
+---------------
+	- Include check-updates option
+	- Fix problem with MORE env variable. Now slackpkg uses
+	  MORECMD internally
+
+2008 Thu Dec 04
+---------------
+	- Change version in man-pages (ok, put the version in man-pages
+	  probably was the most stupid idea that i had).
+	- Released 2.70.5
+
+2008 Mon Dec 01
+---------------
+        - Update mirrors file for Slackware 12.2 (Thanks rworkman!)
+	- Change version to 2.70.5 (Thanks rworkman!)
+
+2008 Tue Nov 25
+---------------
+        - Fix install-new.awk file to catch the return of
+          bluez-libs and bluez-utils
+
+2008 Fri Nov 21
+---------------
+	- We are in Slackware main-tree!!! Big Thanks Patrick!
+	  Big thanks to all our users!
+
+2008 Fri May 02
+---------------
+	- Fix regexp in slackpkg.conf to x86 arch. It was missing
+	  kernel-headers package
+	- Released 2.70.4 
+
+2008 Wed Apr 30
+---------------
+        - Fix regexps to catch "fw" packages
+	- Released 2.70.3
+
+2008 Tue Apr 08
+---------------
+	- Added xbacklight, ntfs-3g, wqy-zenhei-font-ttf, 
+	  xf86-video-geode and ghostscript packages to install-new
+	  list.
+	- Released 2.70.2 
+
+2008 Sat Mar 15
+---------------
+	- Released 2.70.1
+
+2008 Fri Mar 14
+---------------
+	- Compressed man-pages
+	- Fix problem with somo proxys adding ^M at FILELIST.TXT
+
+2008 Tue Jan 29
+---------------
+	- Released slackpkg 2.70
+	- Happy Birthday Marina!
+
+2008 Mon Jan 28
+---------------
+	- Fix problem with duplicated packages in package list
+			(reported by gar0t0)
+	- Fixed pattern matching problems with g++ and other packages
+	  with special characters. (reported by gar0t0)
+
+2008 Tue Jan 22
+---------------
+	- Better error handling in update from wrong mirrors
+			(problem reported by redhate)
+
+2008 Mon Jan 21
+---------------
+	- Fixed install-new ChangeLog parsing problem. 
+	  Some packages are missing from install-new list.
+
+2008 Sat Jan 19
+---------------
+	- Not released. Bugs everywhere
+	- slackpkg info doesn't work (info was using deprecated
+	  PATTERN variable) (reported by redhate)
+	- slackpkg update corrupts file lists and package 
+	  information. Now all the files are first in TMPDIR
+	  before goes to WORKDIR. (reported by redhate)
+	- slackpkg download isn't in new command line parser.
+				(reported by redhate)
+	- Fix all commands to doesn't work without a configured
+	  mirror
+	- Fixed some format errors in "usage"
+
+2008 Fri Jan 18
+---------------
+	- Fixed an error when checking GPG key. This is caused
+	  by the "backticks" enhancement, reported by many and
+	  fixed by rworkman, many thanks!
+	- No more bug reports in a week, time to release
+
+2008 Wed Jan 10 
+---------------
+	- Updated "mirrors" file
+	- Fixed stall on "search" (reported by The-spiki)
+	- Fixed misbehavior of "update gpg" (The-spiki, again. Thanks!)
+	- Added local:// as the same of file:// and cdrom://
+	  in mirrors definitions. 	(thanks rworkman!)
+	- Removed backticks `commmand` and using now $(command)
+					(thanks rworkman!)
+	- Fixed many en_BR bugs in docs and configuration files
+					(thanks again rworkman!)
+
+2008 Wed Jan 09
+---------------
+	- A new command line parser, much better than the older one.
+	  Now you can override slackpkg.conf configurations from
+	  command line:
+
+		slackpkg -checkpkg=off upgrade-all
+
+	  Will disable the checkpkg feature. Many slackpkg.conf
+	  can be overrided using that. You can also specify a
+	  different mirror, using -mirror=URL/
+	- Additional check to see if "which" is there
+	- Added "new-config" option, it will search for .new files
+	  and ask to user what to do with them. (suggested by X-Gizmo)
+
+2008 Wed Jan 07
+---------------
+	- Added BATCH and DEFAULT_ANSWER options in slackpkg.conf,
+	  you can use those two to make automated upgrades without
+	  human intervention. (suggested by Clayton and many others).
+
+2008 Wed Jan 04
+---------------
+	- Fixes in install-new.awk to catch more new packages
+
+2007 Sat Jun 09
+---------------
+	- Removed "httpd" from the hardcoded list. It isn't needed.
+	- Released the 2.61
+
+2007 Tue Jun 05
+---------------
+	- Fixes in almost all slackpkg messages and in README file
+				(Thanks Robby Workman!)
+	- Included (I) to ignore duplicated files... well, this can
+	  burn your computer... but who am I to don't let you do that?
+				(Thanks Robby Workman, again)
+	- Included httpd in hardcoded install-new files.
+	- Bumped the version number to 2.61
+
+2007 Sun May 27
+---------------
+	- Back to the xargs combo in dialog-functions. --file doesn't 
+	  works in slackware 10.1.
+	- Fix some bugs in file list generation. Some declarations
+	  like:
+		local VAR=`something`
+	  doens't works well in older bash (in 10.1). This bug
+	  generates a lot of "dialog" bugs. I hope they are fixed
+	  now.
+	- Better error handling in dialog-functions. Now we can
+	  detect when dialog fails and print one error message. 
+
+2007 Tue May 15
+---------------
+	- Added one / before ${NAMEPKG} in check md5sum. It prevents
+	  a match with vim and vim-gvim (and possible other packages)
+	  and subsequent m5sum errors.
+			 (Reported by Diniz Bortolotto)
+	- Swap some "ls" uses by -e to check if one file exists
+	- Changed the way of error treatment. Now we have:
+		. One log of what package gives error
+		. What error happens in each package
+		. Not install one package if the GPG signature
+		  is OK but md5sum isn't (maybe a corrupted
+		  package?)
+		. Shows all logged errors when slackpkg
+		  ends. 
+
+2007 Tue May 08
+---------------
+	- Correct the release date of 2.52
+	- Change version number to 2.60 instead 2.60beta
+	- Added one tip in slackpkg's man page telling about
+	  slackpkg upgrade slackware
+	- Released slackpkg 2.60!!
+
+2007 Wed May 02
+---------------
+	- Added fontconfig in the hardcoded install-new packages
+	- Make install-new to search only in the main slackware
+	  series. No more /extra and /pasture packages
+	- Changes in dialog functions. To prevent some strange
+	  errors we use grep -m1 to use only the first match
+	  and --file in dialog to prevent bizarre xargs
+	  errors (reported by many)
+	- Fixes in sanity-check function to discover
+	  duplicated packages. (Thanks Sasha Alexandr)
+
+2007 Sat Mar 17
+---------------
+	- Change VERSION to 2.52 instead 2.52beta
+	- Added a test do detect old slackpkg.conf versions
+	- Added hardcoded dialog and aaa_terminfo in install-new
+	- Released slackpkg 2.52!!
+
+2007 Mon Mar 12 
+---------------
+	- Changing NOGPG to CHECKGPG. Is more coherent with the other
+	  options. Thanks Robby to point that.
+	- Many update and grammar fixes in documentation.
+		(Thanks again Robby Workman!)
+
+2007 Mon Jan 05
+---------------
+	- Fix many errors in "install-new". It didn't found any
+	  package with [A-Z] or [0-9] in his names.
+	- Still in "install-new", now we can detect more new packages,
+	  the awk script is a lot better now.
+	- Correct the .tgz parsing in pkglist.awk, using \.tgz instead.
+	- Newer (and i hope, good) man-pages.
+
+2006 Wed Nov 08
+---------------
+	- Fixed the "upgrade" package parsing. It was going wrong
+	  with nn and glib packages.
+		(Reported by Ralph Alvy)
+	- Fixed "reinstall" it was ignoring the blacklist and given
+	  wrong packages to reinstall.
+	- Now blacklist can handle directories beginning with a / and not
+	  with ./ (very better, and this is the needed behavior).
+	- Accept the list of packages from a file
+		(e.g.: slackpkg upgrade /etc/slackpkg/files)
+	  We accept relative (./something, ../something) and absolute 
+	  paths (/something).
+	- Release 2.51beta
+
+2006 Sun Oct 29
+---------------
+	- Fixes to install/upgrade (it was broked when i change the
+	  tmplist). Now it's OK
+	- Fixes in remove and reinstall, they are showing duplicated
+	  entries in the list. Now it's OK
+	- Fix in download... it was total crazy! Now it's OK
+	- Added install-new.awk and improve the ChangeLog.txt parser
+	  now we don't have any package hardcoded.
+	- Fix in upgrade-all to remove the unused variable NAME now we can use
+	  the data in pkglist. 
+	- Minor fix in clean-system.
+	- Change the variable's scope to "local" in many functions
+
+2006 Sat Oct 28
+---------------
+	- Change the tmplist format to be the same as pkglist
+	- New functions to make the package list with that we now can:
+		- Handle multiple files in the command line.
+		  (e.g.: slackpkg upgrade kernel x11 lsof)
+		- Use the package series as the pattern, without the
+		  trailing / hack.
+		  (e.g.: slackpkg remove a)
+		- "download" don't use the blacklist. The user now can
+		  download one blacklisted package.
+	- Release slackpkg 2.5beta
+
+2006 Fri Oct 27
+---------------
+	- A lot of job rebuilding (again) the package parser. This
+	  is the logic that search for apropriate packages and see if
+	  that packages are or not in blacklist. This is the harder
+	  piece of slackpkg development. For now we made:
+		. a new pkglist.awk that creates a really new and
+		  more featureful pkglist. The new slackpkg can't work
+		  anymore with the old pkglist.
+		. One blacklist function that can match: 
+			. directories
+		 	. package-names
+			. package-names with version
+		  	. package-names with version and arch
+			. package-names with version, arch and release.
+		. This fix a problem with some packages being override
+		  by others with "similar" names.
+		  (e.g.: k3b being override by k3b-i18n)
+
+2006 Thu Oct 26
+---------------
+	- Create the WORKDIR variable and put all package and file lists
+	  there. Now ppl that wants to mount / read-only can do that.
+		(Thanks to Trevor Caira)
+	- Added a little bit of sanity in slackpkg.conf. Now all options
+	  uses "on" to be activated and "off" to be deactivated. No more
+	  "1", "0", "On", "ON" and all the chaos that we had before.
+		(Thanks to Robby Workman) 
+	- Added one FIFTH directory. Now people can use /testing as a
+	  repository, too (of course this will break a lot of things)
+	- Added one MAIN variable. This is used instead slackware to
+	  identify the main distro directory.
+	- Move /etc/slackpkg/filelist.awk to /usr/libexec/slackpkg. This
+	  is the correct place to a executable.
+
+2006 Mon Aug 28
+---------------
+	- Fixed a problem with upgrade-all when try to upgrade directly
+	  from 10.2 to 11rc3. xargs can only handle 20k lines.
+	- Changed version to 2.09
+	- Released 2.09
+
+2006 Sat Aug 26
+---------------
+	- Fixed a typo in ChangeLog.txt message
+		(Thanks Cameron Willians)
+	- Fixed two problems in install-new:
+		bug0: install-new duplicates packages
+		bug1: install-new doesn't catch lm_sensors package we wasn't
+		      ready to handle packages with a _.
+
+2006 Wed Aug 23
+---------------
+	- Fixes in blacklist.new, nothing more.
+	- Released a repackaged 2.08-3
+
+2006 Fri Aug 18
+---------------
+	- Fixed typos in manpages
+	- Changed version to slackpkg 2.08
+	- Released 2.08
+
+2006 Thu Aug 17
+---------------
+	- Revert the "typo fix" and now "Formating" is "Formatting" again.
+	- A little fix in install-new to better handler the newer packages
+	- Big fixes in new priority check
+
+2006 Mon Aug 14
+---------------
+	- Released 2.07
+
+2006 Sun Aug 13
+---------------
+	- Added another test to solve problems with "install-new"
+	  and no ARCH match.
+		(Thanks to Ralph Alvy)
+	- Removed some debug messages 
+
+2006 Fri Aug 11
+---------------
+	- Solves the problem with -upgraded-$TIMESTAMP 
+	  packages in /var/log/packages.
+		(Thanks to Ralph Alvy and Ing Nicolo Chiellini)
+	- Added l/mm in install-new
+
+2006 Wed Aug 09 
+---------------
+	- Change in search function, now it uses the priority to
+	  sort packages.
+	- Some fix in changes from yesterday and move the blacklist
+	  and check to a separate function.
+	- Non-root users now can see the slackpkg help
+		(Thanks to Thomas)
+	- Changed slackpkg's doinst.sh to use the config function from
+	  doinst.sh from other packages
+		(Thanks Ernani (idea) and Patrick (the function itself))
+	- Put the ChangeLog in reverse order. Is very easier to see the
+	  news now.
+	- Changed the version number to 2.07
+
+2006 Tue Aug 08
+---------------
+	- Changed the function that give priority and check the
+	  blacklist in install, upgrade, reinstall, download and
+	  upgrade-all
+	- Blacklist now supports blacklist entire directories.
+
+2006 Wed Aug 02
+---------------
+	- Fixed a typo in "Formatting". Now is "Formating" -;)
+		(Thanx Devin J. Pohly)
+
+2006 Fri Jul 28
+---------------
+	- Added xfsdump (hardcoded) in install-new
+	- Change the list generation in install-new to handle Renamed
+	  and Split files.
+	- Change copyright notices to include 2006
+	- Released slackpkg 2.06
+
+2006 Thu Jun 08
+---------------
+	- Added acl, attr and dmapi (hardcoded) in install-new
+	- Changed the list generation in sanity_check. We had problems
+		with non-standard package names.
+			(Thanx Rolando Roman)
+	- Released slackpkg 2.05
+
+2006 Tue Jun 06
+---------------
+	- A better message in sanity_check
+	- Fixes in the grepping of packages in sanity_check function
+			(Thanx Rolando Roman)
+	- Changed version to 2.05
+
+2006 Thu Jun 01
+---------------
+	- More modularized functions. Now upgrade and upgrade-all, remove and
+	  clean-system, install and install-new shares the same code
+	- makelist now work for all commands
+	- Some sanity_checks, to saw if the machine have some doubled packages
+
+2006 Thu May 25
+---------------
+	- Create a manpage for slackpkg.conf (probably full of typos)
+	- Changed versions to 2.04
+
+2006 Wed May 24
+---------------
+	- Fix some problems in install-new. If the package are ugraded before
+	  added in slackware, the install-new only finds the old package.
+
+2006 Sat May 20
+---------------
+	- Put -- in many "grep" to prevent using grep options as a
+		package pattern.
+	- Added DOWNLOAD_ALL in slackpkg.conf, with that you can download
+		all packages and after that install/upgrade all.
+
+2006 Thu May 18
+---------------
+	- Fix a mistype in install-new
+	- Put dialog functions disabled by default. If you want, you can
+	  try it using: chmod +x /usr/libexec/slackpkg/functions.d/dialog*
+	- Fix permissions to root.root
+	- Released version 2.03
+
+2006 Mon May 16
+---------------
+	- Fix errors in install-new list.
+			(Reported by rick276 and gar0t0, thanx!)
+	- Put one version warning in dialog functions
+			(Thanx coqui)
+	- Included install-new on the man-page and in README
+
+2006 Fri May 12
+---------------
+	- Added install-new, it searches for packages added in slackware
+		distribution and install them.
+
+2006 Thu May 11
+---------------
+	- Upgrade the mirrors list to include slackware 11.0. Well,
+		it is in pre-order, probably we need to upgrade soon
+	- More two patches from Marek
+	- One to show the diff between "something" and "something.new".
+		This make the life more easier
+	- Another to include dialog lists when you need to choose packages.
+		If you want to disable this feature, you can remove the
+		executable permission from:
+		/usr/libexec/slackpkg/functions.d/dialog-functions.sh
+	- Set the PATH in the beginning of slackpkg script to prevent
+		problems with . in the PATH
+	- Fix in filelist.awk, the ARCH upgrade brokes "search" function
+			(Thanks gar0t0)
+	- Move syntax checking from slackpkg to core-functions.sh
+	- To minimize the downloads, now slackpkg first download the
+	  ChangeLog and, only if something changes, it download the rest
+	  of files. 
+
+2006 Wed May 10
+---------------
+	- A new variable in slackpkg.conf (ARCH), with that we can use
+		slackpkg with the unofficial slackware ports, like
+		slackintosh and slamd64. This is VERY experimental.
+			(Inspired by a Carlos C patch, thanx!)
+	- Fix a typo in slackpkg (Thanx Chess Griffin)
+	- Include "readline" in upgrade-all first upgrades
+
+2005 Thu Oct 06
+---------------
+	- Applied patch from Marek Wodzinski
+	- Updating file list, md5 sums etc (in 'slackpkg update' part) are 
+		moved from main scipt to core-functions.sh into function 
+		updatefilelists().
+			(Thanx Marek!)
+	- showlist() now return list of packages in $SHOWLIST variable. 
+		This is preparation for dialog function to really choose 
+		for which packages we want to say 'yes'.
+			(Thanx Marek!)
+	- Don't copy/download .asc files if $NOGPG=1
+			(Thanx Marek!)
+	- slackpkg number bumped to 1.99beta -:)
+
+2005 Sun Sep 12
+---------------
+	- Correct one mirror typo (Thanx Daniel de Kok)
+	- Repackaged (1.5.2-2)
+
+2005 Sun Sep 11
+---------------
+	- Correct removing temporary dirs.
+	- Better error handling
+	- Fix post-functions to not show the question when the only .new files
+		are rc.inet1.conf.new, shadow.new, group.new, passwd.new and 
+		gshadow.new.
+	- Change version number to 1.5.2
+	- Released slackpkg 1.5.2
+
+2005 Wed Aug 17
+---------------
+	- Fix some blacklist problems (problems AGAIN with the + signal)
+	- Updated mirrors file
+			(Thanks fizban)
+	- Change version number to 1.5.1
+	- Released slackpkg 1.5.1
+
+2005 Tue Aug 02
+---------------
+	- Fix copyright notices (to include 2004 and 2005)
+	- Fix mirrors file
+			(Thanks fizban and Ivan Kalvachev)
+
+2005 Fri Jul 29
+---------------
+	- Fix some errors creating temporary dirs on slackware 10.0 and
+	  earlier.
+	  		(Thanks Sasha Shipka)
+
+2005 Fri Jul 22
+---------------
+	- Correct a little problem in clean-system. When clean-system
+	  don't found any package to clen, it already shows the "question".
+	  Now it exits the program.
+	  		(Thanks mrgoblin)
+	- New mirrors list. Now including the (not released yet) 
+	  slackware 10.2. Now we are ready to the next slackware release -:)
+	  		(Thanks fizban)
+	- Released slackpkg 1.5.0!
+
+2005 Thu Jul 21
+---------------
+	- Correct many typos and spelling errors
+			(Thanks fizban, amrit and mrgoblin for this help!)
+	- Don't run post-install if the action is clean-system
+	- Now, if something goes wrong when slackpkg run, in the end of
+	  operation we will show a BIG WARNING. And no more reports about
+	  that -;)
+	  		(Thanks amrit to help me with the message)
+	- Another fix with the "+" signal, now in remove option.
+	- Fix the default action in:
+		"Do you wish to xxxxxx selected packages (Y/n)?"
+	  The default should be "Y", but is "n". Now it's corrected and
+	  the default is "Y".
+	  		(Thanks gar0t0)
+
+2005 Wed Jul 20
+---------------
+	- Correct tabulation errors in usage
+			(Thanks Steven E. Woorlard)
+	- Some problems with the "+" signal in upgrade-all. Solved Now.
+			(Thanks Sulamita Garcia)
+	- Wrong version number in slackpkg's now is 1.5.0 (unreleased)
+		. Put correct version in /usr/sbin/slackpkg
+		. Put correct version in slackpkg's man page
+	- Put new options and correct some small things in man page
+	- Same thing, but now in README
+
+2005 Tue Jul 19
+---------------
+	- Changed number version to 1.4.99 is a beta release to slackpkg 1.5
+	- Included two new options:
+		. clean-system (suggested by Steven E. Woolard)
+			Removes from the machine all packages removed
+			from slackware. It removes packages external of
+			distro, too. Keep your house clean, man!
+		. upgrade-all (suggested by Jaroslav Imrich)
+			Look all installed packages and keep it synced
+			with the mirror. The "true" way to get all distro
+			upgraded.
+	- Changes in "post-install" features. Now they are more closer to
+	  the script in slackware's UPGRADE.TXT
+
+2005 Wed Jun 22
+---------------
+	- Changed small problem with some "trash" temporary files.
+	- Released slackpkg 1.4.1
+
+2005 Tue Jun 21
+---------------
+	- Change the "remove" behavior, now it's remove not only one package,
+	  but all packs with the same "beginning" (slackpkg remove kde,
+	  removes all kde* packs).
+	  			(Thanks web-knows)
+	- Using now secure temporary files, created by mktemp.
+				(Thanks Larhzu)
+	- Changed version to 1.4.1 (security and bug fixes)
+
+2005 Thu Jan 27
+---------------
+	- OK, i released 1.4 yesterday, but mrgoblin send to me some patches
+	  a few minutes after send 1.4
+	  	. I don't change the version number (is almost the same pack)
+		. Fixed many and many grammar errors in slackpkg program files
+		. Correct a small error in post-install
+	- Released 1.4 (again)
+
+2005 Tue Jan 25
+---------------
+	- Forgot some "echo" debug messages. Now they are all removed and
+	  the post-install really works. (thanks toledo)
+	- Don't run post-install when update/remove/search/blacklist 
+					 (thanks toledo)
+	- Added blacklist list option (thanks toledo, again!)
+	- Changed version number to 1.4
+
+2005 Mon Jan 24
+---------------
+	- Added post-install functions! -;) After upgrade/reinstall/whatever
+	  your packages, now slackpkg searchs for NEW configuration files
+	  (.new) and checks if your kernel is updated (and runs lilo).
+
+2005 Wed Jan 26
+---------------
+	- include "info" in post-install's don't runs.
+	- redirect some warning and md5sum errors to /dev/null.
+					(thanks phrag)
+	- correct some typos in slackpkg's description
+					(thanks phrag)
+	- Released 1.4
+
+2005 Tue Jan 11
+---------------
+	- Finally solved some gpg errors. Some users had telled that error
+	  to me but i can't reproduce. Yesterday i saw one machine with the
+	  stupid error and made a fix -:) gpg don't works without .gnupg dir
+	  and not create that dir -:(
+
+2004 Wed Dec 29
+---------------
+	- Changed /usr/doc dir from 1.3 to 1.3.1
+	- Removed many vim's backup files
+	- Released 1.3.1
+
+2004 Mon Dec 20
+---------------
+	- change all "/etc/slackpkg" to ${CONF}. Now is safe change the 
+	  configuration dir of slackpkg.
+	  	(Thanx toledo)
+	- added "How many" packages in package list. Is a little cosmetic
+	  change but don't hurt.
+	  	(Thanx toledo)
+
+2004 Wed Nov 24
+---------------
+	- fixed regexp to support ./pasture/package.tgz
+	Fixed /usr/libexec/slackpkg/core-functions.sh to support packages in
+	both ./somedir/ (eg. ./pasture/proftpd-1.2.10-i486-1.tgz) and ./
+	somedir/seconddir/ instead of only second one.
+		(Thanx Marek Wodzinski)
+	- Changed version number to 1.3.1
+
+2004 Fri Nov 12
+---------------
+	- Some mirrors from Ireland are in the wrong place (Italy). It's
+	  fixed now.
+	  	(Thanx Marek Januszewski)
+	- Changed number version on /usr/sbin/slackpkg, now is 1.3, not 1.2.2
+
+2004 Mon Nov 01
+---------------
+	- Massive updates in /etc/slackpkg/mirrors. Many mirrors included and
+	  many deleted.
+	- Added "dummy" support to 10.1 mirrors... if it had 10.0 and an
+	  updated current, we put one 10.1 entry... now we only needs to wait
+	  new slackware releases -;)
+		(Thanx Jorge Arellano Cid)
+
+2004 Fri Oct 29
+---------------
+	- Don't use temporary files to uncompress MANIFEST.bz2, now we are
+	  using pipes, that approach drastically reduces the amount of disk
+	  space needed to "slackpkg update"
+	  	(Thanx Maxim Krikun)
+	- Removed vi backup files from slackpkg package
+	- Changed version to 1.3
+
+2004 Wed Oct 13
+---------------
+	- Fixed error in install script. Removed de leading / in slackpkg's
+	  configuration path.
+	  	(Thanx Valter Douglas Lisbôa Júnior)
+	- Fixed some problems when two (or more) packages had the same name,
+	  version, etc... now slackpkg picks only the first pack.
+	  	(Thanx to Alexandre Pinaffi Andrucioli)
+
+2004 Mon Jun 21
+---------------
+	- Updated "mirrors" file. Now we are ready to slackware 10.0!!
+		(Thanx Lorn!)
+
+2004 Tue Jun 15 
+---------------
+	- Changed version to 1.2.2
+	
+2004 Mon Jun 14
+---------------
+	- Exclude "testing". Testing packages aren't to be installed
+	  through automated tools. Testing needs more care from sysadmin
+	- Removed aaa_base from default blacklist (aaa_elflibs will stay
+	  here).
+
+2004 Wed May 19
+---------------
+	- Changed version to 1.2.1
+
+2004 Thu May 06
+---------------
+	- Fixed CRLF in slackpkg.conf.new and blacklist.new.
+	- Changed "usage" message. Now we have more information about
+	  slackpkg use
+
+2004 Wed Apr 14
+---------------
+	- Fixed another bug in regex. Problems with "+" again... 
+			(reported by gar0t0, thanx!)
+	- Fixed typing and grammar errors in slackpkg.conf and blacklist.
+	  		(Thanx mRgOBLIN)
+
+2004 Tue Apr 13
+---------------
+	- Fixed a bug in "parser". GPG checking now are better.
+			(Thanx mRgOBLIN)
+	- Added aaa_elflibs in default blacklist. 
+	  from volkerdi@slackware.com:
+	  > A word of advice:  you should ***NEVER*** upgradepkg aaa_elflibs.
+	  > It's well-known that it can downgrade some shared libraries and 
+	  > lead to bugs
+	- Added aaa_base too...
+
+2004 Mon Apr 05
+---------------
+	- Non-root can (again) use info and search. Changes in other places
+	  change the behavior of slackpkg "parser"...
+	- Fixed a bug with "." and "+" in filenames.
+
+2004 Wed Mar 31
+---------------
+	- Fixed one bug in "search" (yes, another bug!) (Thanx toledo, again)
+	- Change (again) the behavior of "Do you want to...". Now it's much
+	  more logic, Y or y or <nothing> continues, any other key, quit.
+
+2004 Tue Mar 30
+---------------
+	- Revert behavior of "Do you want to foobar those packages (Y/n)" back
+	  to original. N or n quits, any other key continue
+
+2004 Fri Mar 26
+---------------
+	- One more "error" message (isn't a error... it's more a info)
+	- Some cosmetic changes in other messages
+	- Another fix in "search" bug. (Thanx toledo)
+
+2004 Thu Mar 25
+---------------
+	- Fixed some bugs added by the regex changes.
+	- Added a test to "first time running". Now slackpkg give some
+	  tips to the user...
+	- Change the GPG download behavior. Now, if doesn't have the slackware
+	  GPG key, the key will be downloaded in "slackpkg update"
+
+2004 Wed Mar 24
+---------------
+	- Fixed many regex bugs and changes a lot of "greps".
+	- Fixed ls bugs -- changed to "ls -1" to stop multi column lists
+	- Added sed substitutions to fix problems with + in packagenames
+	- Altered awk script in info case statement to properly format output
+	  when more than one result is returned 
+	- Changed showlist function so that only Y/y will continue, any other
+	  character will cleanup -- safeguards against a wrong key pressed
+			(all these fix cames from mRgOBLIN)
+	- Another feature to "non-root" users... now they can use "info"
+
+2004 Mon Mar 22
+---------------
+	- Search function all overwrited by mRgOBLIN. The new function fixes
+	  some bugs and add a feature, telling to the user what package needs
+	  upgrade and the name of newer package version.
+        - Minor changes in some error messages
+        - Now "non-root" users can use "search" without install Slackware GPG
+          Key...
+
+2004 Thu Mar 18
+---------------
+	- Put an error message when md5sum or gpg doesn't match.
+			(Thanx mRgOBLIN)
+	- Correct filelist.awk to fix some UGLY bugs in search function.
+	  Now it's correct.
+			(Thanx mRgOBLIN, for the bug report and the tip of fix)
+
+2004 Mon Mar 01
+---------------
+	- Added GPG function. Now slackpkg check all packages against its
+	  .asc file. This option are enabled by default, if you doesn't like
+	  that, you can change the configuration in /etc/slackpkg/slackpkg.conf
+
+2004 Thu Feb 26
+---------------
+	- Fixed a bug with VIM package (yes, the bug affect only
+	  vim package...)
+	- A little change in makelist function. Now we got our speed
+	  back... when fixed duplicate packages the fix make slackpkg
+	  more slow (4 minutes to make list for "slackpkg upgrade slackware"). 
+	  Now we doesn't have duplicated packages and have back our normal
+	  speed (1 minute to "slackpkg upgrade slackware" list)
+	- Change version on all places to 1.03.1
+
+2004 Tue Feb 18
+---------------
+	- Now when we show a big package list, you can scroll with "more"
+	  and can see all packages
+	- Bug fix! Something changed in FILELIST.TXT and slackpkg brokes
+	  all package lists. Now it's ok.
+		(Thanx to chvt and Steven De Kock)
+	- New man-page provided by Rob. Thanx!
+	- Changed VERSION to 1.03
+
+2004 Tue Feb 10
+---------------
+	- We added a new system to make easy add new functions in slackpkg.
+	  You only needs put your new function in a shell script and that
+	  script under /usr/share/slackpkg/functions.d
+
+	  With that, if you want GPG checking (example), you only needs
+	  add one checkgpg function and rewrite/change the getpkg. It's
+	  a nice way of extend slackpkg.
+
+	- Changed /usr/share to /usr/libexec. It makes more sense.
+			(Thanx thefallen)
+	- Fixed blacklist duplicate packages problem. Blacklist doesn't use
+	  the default makelist function (now it uses).
+			(Thanx chvt for bug reports)
+
+2004 Thu Feb 06
+---------------
+	- Corrected a little bug in makelist option. Some packages are
+	  duplicated in the list. Now it's correct.
+	- Put "update" in "case-esac". It is the only option in a "if-fi"
+
+2004 Thu Feb 05
+---------------
+	- Version are wrong in VERSION var. Now it's good.
+	- A lot of design changes. The "new" output style is a big mistake.
+	  I am reverting slackpkg to the old one.
+	- We are splitting slackpkg in two parts. One with slackpkg functions
+	  and other with the main program itself. It's really good.
+	- Put all options in a big "case-esac" instead multiple "if-fi"
+
+2004 Mon Feb 02
+---------------
+	- A new "sleep" test to solve problems in Slackware 9.1
+	- One tr -d "\r" to fix a bug in pkglist generation
+		(Thanx to Anatol)
+	- Added a new "clean" of tmp files in the slackpkg startup. It fixes
+	  some ugly errors (slackpkg never-ends, slackpkg duplicate packages,
+	  etc...)
+		(Thanx Lorn, toledo and gar0t0)
+	- Little changes in "info" now you will give an error if try to see
+	  a "generic" info. "info" needs one package-name.
+
+2004 Fri Jan 30
+---------------
+	- Put a spinning bar when making one slow action. Thanx to toledo!!!
+	  The code for spinning bar works really fine, and now our users can
+	  see: "something is happenning..."
+	- Edit a lot of small things in everywhere to use spinning bar.
+	- man-page, README and other docs are "updated".
+	- fixed some sleep problems in slackware 8.1/9.0, now our program call
+	  an internal sleep function
+
+2004 Wed Jan 21
+---------------
+	- Fixed "update" option. When we work with local dirs, the PACKAGES.TXT
+	  are not "downloaded".
+
+2004 Mon Jan 19
+---------------
+	- New option added! slackpkg info package can tell to you the 
+	  information about that package.
+	- Correct some small bugs in cutpkg (very small bugs... i can detect 
+	  they only now!!!)
+	- Changed update option to download PACKAGES.TXT too...
+
+2004 Fri Jan 17
+---------------
+	- Changed the default wget to not show any info. Now we got a much more
+	  cleaner output on screen.
+	- Corrected some bugs in new clean output system
+
+2004 Mon Jan 12
+---------------
+	- Changed the ChangeLog file format.
+	- Corrected a bug in blacklist option. It's the same bug that happenned
+	  in "download" option. The bug are reported by Toledo (again)
+	- Now slackpkg can "search" files in /extra and /pasture too
+
+Tue Nov 11 - Fixed a little problem with duplicated packages in reinstall
+	     function.
+	   - Corrected a bug in download option. It asks to "download" from
+	     an empty line. Now it's fixed  (bug report by Toledo)
+
+Mon Nov 10 - Changed version to 1.00
+		. we have 1.00beta, 1.00beta1 and 1.00beta2 in internal tests
+	   - Many, many changes in the backend...
+		. The package scan are completely rewroted. Now we can
+		  make the package list 30% faster than old code.
+		. Now we have a lot of functions. The code are much more
+		  flexible and readable
+		. Thanx to Jochem Kossen!
+	   - New "download" function.
+		. Thanx to DaMouse!
+	   - Some english typos corrected... (and some new introduced)
+	   - Upgraded the man-page and README
+
+Thu Sep 25 - Updated man-page to show blacklist option
+	   - Updated README to show blacklist option and to show the correct
+	     release number.
+	   - Correct the "usage" message to include blacklist option
+	   - Ok, we remove kernel-* from blacklist and put in here a 
+	     message telling automated upgrade kernel-* isn't a good idea.
+	     A lot of people tell me blacklist need to be empty... and i
+	     approve that idea.
+	   - Change the way of how detect packages that will be upgraded or
+	     reinstalled. Old way thinks: package-1.2.3-i386-1 are the same
+	     of package-1.2.3-i386-12345, now it's correct.
+	   - Now slackpkg checks if the package is already in 
+	     /var/cache/packages before to download. If it's in cache, only
+	     upgrade|install|reinstall, don't make a new download.
+		. Thanx Leandro Toledo
+
+Wed Sep 24 - Added "blacklist" command, to put packages in blacklist.
+	     put all i18n packages manually is terrible. 
+
+		slackpkg blacklist kde-i18n
+
+	     will be help you (and me).
+	   - Updated mirrors list. slackware 9.1 isn't out but we are
+	     ready -:) (Thanx Cubano) 
+	   - Changed search function. Now, if we have one package installed
+	     in your machine and one different in the MIRROR, the slackpkg
+	     will tell to you to [  upgrade  ]. Suggested by Nathan Morell
+	   - Changed version to 0.99.1
+
+Fri Sep 19 - Putting all kernel-packages in blacklist file.
+	     It's a better idea upgrade kernel packages manually
+	     Thanx to Buick_Sk.
+
+Mon Sep 15 - A warning telling to users DOESN'T USE ftp.slackware.com as your
+	     default mirror.
+	   - Merged a patch from pvg, making the package selection more
+	     acurated,
+	   - Changed version number to 0.99
+	   - Changed owner of some files and gzipped man-page. That makes
+	     the package more "Slackware" compliant (Thanks Patrick)
+	   - Leandro Toledo makes a patch with some fixes in CHECKSUMS.MD5 
+	     download.
+	   - Changed default package locations from /usr/local/packages to
+	     /var/cache/packages. It's more compatible with FHS specifications
+	     Thanx Patrick.
+
+Thu Aug 21 - Finally!!! One man page!!! Now slackpkg have a man-page and
+	     you can type: man slackpkg to see more info.
+		. Thanx for William N. Zanatta for that manpage
+	   - More syntax checkings... slackpkg have a lot of syntax checkings
+
+Wed Aug 20 - Changes in md5sum checking code. Original code are more
+	     technical, but more complex. New code more clean.
+
+Tue Aug 19 - Changed version number to 0.98
+	   - Now we have md5sum check of packages. With that, is very
+	     hard install a corrupt pack.
+		. Thanx for William N. Zanatta for that code
+	   - Now we can install/upgrade/reinstall from a CD-ROM or other
+	     dir in your HD.
+	   - Some code cleanups using functions instead duplicate code.
+	   - Corrected a bug in permissions check. Now, a normal user can
+	     search for one (or more) files in packages.
+
+Fri Aug 01 - Updated mirrors file (now Slackware 9.0!!!)
+		. Thanx Cubano, Udontknow and gar0t0
+	   - Fixed problem with DELALL (old DELALL doesn't delete all,
+	     delete only the last pack, now it works well and delete
+	     really all)
+		. Thanx Isaque Galdino for the bug report and fix
+	   - Deprecated MANIFEST.gz now the system only reads MANIFEST.bz2
+	   - Fixed a lot of typos (Udontknow)
+	   - Check if the user is root before trying upgrade/install/remove
+	     a package
+
+Thu Apr 10 - Added blacklist support with the packages that can't be 
+	     upgraded/installed/uninstalled.
+		. Thanx Gondim for that idea
+	   - Changed version number to 0.96
+
+Fri Apr 04 - Fix a bug with the kernel-sources package. Before that fix,
+	     kernel-source are invisible to slackpkg 
+
+Mon Mar 17 - Changed MANIFEST.gz to MANIFEST.bz2 (Patrick has changed that
+	     and  a lot of mirrors have changed too...)
+	   - Fix a lock bug.
+	   - Changed version number to 0.95
+
+Wed Mar 12 - Changed FILELIST.TXT filter to exclude .asc files
+	   - Changed version number to 0.94
+
+Fri Feb 28 - Better "case" structure to select between 
+		install|upgrade|reinstall 
+	   - Now we have an LOCK file. No more two slackpkg working at
+	     same time.
+	   - A trap and cleanup function to remove all garbage generated
+	     by slackpkg.
+
+Fri Feb 14 - Change release number to 0.93
+	   - New install scripts, no more erased confs
+	   - New option in slackpkg.conf, WGETFLAGS. Now you can specify
+	     some wget confs with that option.
+	   - New feature, reinstall.
+		install -> install new software
+		upgrade -> upgrade existing software with new version.
+		reinstall -> re-install already installed software
+	   - Some upgrades in package lists generation.
+
+Wed Feb  5 - Change release number to 0.92
+	   - Correct search to know if other version (not in MANIFEST) of
+	     software is installed.
+	   - New tests to validate configuration files syntax
+	   - No more default mirror. You really need to choice.
+	   - Finally, a README file!
+	   - Change slackpkg command location to /usr/sbin
+
+Thu Jan 23 - Change release number to 0.91
+	   - Add new function: search! Now you can search in slackware package
+	     and find a "selected" file.
+	   - More fixes in system messages... much more complete.
+	   - New tests to validate command syntax before execution.
+
+Wed Jan 22 - Some feature fix in 0.90
+		. Check if package can be installed/upgraded BEFORE download
+		. Cosmetic fix in some system messages.
+
+Tue Jan 21 - First public release 0.90

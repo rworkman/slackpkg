@@ -1,0 +1,574 @@
+#!/bin/sh
+#
+# SlackPkg - An Automated packaging tool for Slackware Linux
+# Copyright (C) 2003-2011 Roberto F. Batista, Evaldo Gardenali
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# Project Page: http://slackpkg.org/
+# Roberto F. Batista (aka PiterPunk) piterpunk@slackware.com
+# Evaldo Gardenali (aka UdontKnow) evaldogardenali@fasternet.com.br
+#
+
+
+#========================================================================
+#
+# LOAD CONFIGURATIONS
+#
+
+#
+# CONF = configuration directory
+# SOURCE = A mirror of Slackware. Source can be sett by editing $CONF/mirrors
+#
+VERSION=@VERSION@
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+SLACKWARE_VERSION=$(cat /etc/slackware-version | cut -f2 -d\ )
+CONF=${CONF:-/etc/slackpkg}
+SOURCE=$(sed -e 's/^[[:blank:]]*//' $CONF/mirrors | grep -m1 -e "^\([a-z]\)")
+. $CONF/slackpkg.conf
+ERROR=""
+
+# Set temporary directory
+#
+TMPDIR=$(mktemp -p /tmp -d slackpkg.XXXXXX 2>/dev/null)
+if [ $? -ne 0 ]; then
+	TMPDIR="/tmp/slackpkg.${RANDOM}"
+	mkdir -m 700 $TMPDIR || TMPDIR="FAILED"
+fi
+
+#
+# Load the slackpkg functions
+#
+. /usr/libexec/slackpkg/core-functions.sh
+
+#========================================================================
+#
+# COMMAND LINE PARSING 
+#
+if [ $# -eq 0 ]; then
+  usage
+fi
+
+while [ -n "$1" ] ; do
+  case $1 in
+    -delall=on)
+      DELALL=on
+      shift
+    ;;
+    -delall=off)
+      DELALL=off
+      shift
+    ;;
+    -checkmd5=on)
+      CHECKMD5=on
+      shift
+    ;;
+    -checkmd5=off)
+      CHECKMD5=off
+      shift
+    ;;
+    -checkgpg=on)
+      CHECKGPG=on
+      shift
+    ;;
+    -checkgpg=off)
+      CHECKGPG=off
+      shift
+    ;;
+    -checksize=on)
+      CHECKSIZE=on
+      shift
+    ;;
+    -checksize=off)
+      CHECKSIZE=off
+      shift
+    ;;
+    -postinst=on)
+      POSTINST=on
+      shift
+    ;;
+    -postinst=off)
+      POSTINST=off
+      shift
+    ;;
+    -onoff=on)
+      ONOFF=on
+      shift
+    ;;
+    -onoff=off)
+      ONOFF=off
+      shift
+    ;;
+    -download_all=on)
+      DOWNLOAD_ALL=on
+      shift
+    ;;
+    -download_all=off)
+      DOWNLOAD_ALL=off
+      shift
+    ;;
+    -dialog=on)
+      DIALOG=on
+      shift
+    ;;
+    -dialog=off)
+      DIALOG=off
+      shift
+    ;;
+    -dialog_maxargs=*)
+      DIALOG_MAXARGS=$(echo $1 | cut -f2 -d=)
+      shift
+    ;;
+    -batch=on)
+      BATCH=on
+      shift
+    ;;
+    -batch=off)
+      BATCH=off
+      shift
+    ;;
+    -only_new_dotnew=on)
+      ONLY_NEW_DOTNEW=on
+      shift
+    ;;
+    -only_new_dotnew=off)
+      ONLY_NEW_DOTNEW=off
+      shift
+    ;;
+    -use_includes=on)
+      USE_INCLUDES=on
+      shift
+    ;;
+    -use_includes=off)
+      USE_INCLUDES=off
+      shift
+    ;;
+    -spinning=on)
+      SPINNING=on
+      shift
+    ;;
+    -spinning=off)
+      SPINNING=off
+      shift
+    ;;
+    -default_answer=y|-default_answer=yes)
+      DEFAULT_ANSWER=y
+      shift
+    ;;
+    -default_answer=n|-default_answer=no)
+      DEFAULT_ANSWER=n
+      shift
+    ;;
+    -mirror=*)
+      SOURCE=$(echo $1 | cut -f2 -d=)
+      shift
+    ;; 
+    install|reinstall|upgrade|remove|blacklist|download)
+      CMD=$1
+      shift
+      if [ -n "$1" ]; then
+        if echo $1 | egrep -q "^\.{0,2}/" ; then
+		if [ -e $1 ]; then
+			INPUTLIST=$(cat $1 | tr "\n" " ")
+		else
+			echo -e "The file $1 doesn't exist.\n"
+			cleanup
+		fi
+        else
+		#
+		# Sanitize the argument. We have some problems with dots 
+		# and plus (.+)
+		#
+		#INPUTLIST="$(echo $@ | sed -e 's/\+/\\\+/g' -e 's/\./\\\./g')"
+		INPUTLIST="$@"
+        fi
+      elif [ "$CMD" != "blacklist" ]; then
+        usage
+      fi
+      shift $#
+    ;;
+    update)
+      CMD=$1
+      shift
+      if [ "$1" = "gpg" ]; then
+        UPARG="$1"
+        shift
+      fi
+    ;;
+    install-new|upgrade-all|clean-system|new-config|check-updates|help)
+      CMD=$1
+      shift
+      if [ -n "$1" ]; then
+	echo -e "\n$CMD: Ignoring extra arguments: $@" >&2 >&1
+        shift $#
+      fi
+    ;;
+    generate-template|install-template|remove-template|search|file-search|info)
+      CMD=$1
+      shift
+      if [ -n "$1" ]; then 
+        ARG=$1
+	shift
+      else
+        usage
+      fi
+
+      if [ -n "$1" ]; then
+	echo -e "\n$CMD: Ignoring extra arguments: $@" >&2 >&1
+        shift $#
+      fi
+    ;;
+    *)
+	echo -e "\n$1: Unknown option.\n"
+	usage
+    ;;
+  esac
+done
+
+#========================================================================
+#
+# SYSTEM SETUP
+#
+system_setup
+
+#========================================================================
+#
+# SYNTAX CHECKING
+#
+system_checkup
+
+#========================================================================
+#
+# READ EXTRA FUNCTIONS 
+#
+
+# If you want a new function or need a rewrite of an existing
+# feature, you can put your new function in a shell script under
+# /usr/libexec/slackpkg/functions.d/
+#
+# Remember - the new function scripts need to be executable
+#
+for i in /usr/libexec/slackpkg/functions.d/*.sh; do
+	if [ -x $i ]; then
+		. $i
+	fi
+done
+
+#========================================================================
+#
+# MAIN PROGRAM
+#
+
+#
+# A *BIG* case with all slackpkg commands -:)
+#
+case "$CMD" in
+	help)
+		full_usage
+		;;
+	check-updates)
+		if checkchangelog 1>/dev/null 2>/dev/null ; then
+			echo "No updated packages since last check."
+		else
+			echo "Updated packages are available since last check."
+		fi
+		;;
+	update)
+		# If you are using "slackpkg update gpg" OR the system
+		# doesn't have Slackware GPG key, download and install
+		# the key
+		#
+		if [ "$UPARG" = "gpg" ] || [ "$GPGFIRSTTIME" = "0" ]; then
+			#
+			# Creates .gnupg directory if doesn't exist
+			# without this dir, gpg got an error.
+			#
+			if ! [ -e ~/.gnupg ]; then
+				mkdir ~/.gnupg
+			fi
+			getfile ${SOURCE}GPG-KEY $TMPDIR/gpgkey 
+			gpg --yes --batch --delete-key "$SLACKKEY" &>/dev/null
+			gpg --import $TMPDIR/gpgkey &>/dev/null && \
+			echo -e "\t\t\tSlackware Linux Project's GPG key added"
+			if [ "$UPARG" = "gpg" ]; then
+				cleanup
+			fi
+		fi
+		echo "Updating the package lists..."
+		updatefilelists
+	;;
+	install)
+		makelist $INPUTLIST
+		if [ -n "$LIST" ]; then
+			showlist "$LIST" $CMD
+			install_pkg
+		else
+			echo -e "No packages match the pattern for install. Try:"
+			echo -e "\n\t$0 reinstall|upgrade $2\n"
+			POSTINST=off
+		fi
+	;;
+	reinstall)
+		makelist $INPUTLIST
+		if [ -n "$LIST" ]; then
+			showlist "$LIST" $CMD
+			install_pkg
+		else
+			echo -e "No packages match the pattern for reinstall. Try:"
+			echo -e "\n\t$0 install|upgrade $2\n"
+			POSTINST=off
+		fi
+	;;
+	upgrade)
+		sanity_check
+		makelist $INPUTLIST
+		if [ -n "$LIST" ]; then
+			showlist "$LIST" $CMD
+			upgrade_pkg
+		else
+			echo -e "No packages match the pattern for upgrade. Try:"
+			echo -e "\n\t$0 install|reinstall $2\n"
+			POSTINST=off
+		fi
+	;;
+	download)
+		makelist $INPUTLIST
+		DELALL="off"
+		if ! [ "$LIST" = "" ]; then
+			showlist "$LIST" $CMD
+			for i in $SHOWLIST; do
+				getpkg $i true 
+			done
+		else
+			echo -e "No packages match the pattern for download."
+			POSTINST=off
+		fi
+	;;
+	remove)
+		makelist $INPUTLIST
+		if [ "$LIST" = "" ]; then
+			echo -e "The file(s) $INPUTLIST can't be removed - package not installed.\n"
+			cleanup
+		fi
+		showlist "$LIST" $CMD
+		remove_pkg
+	;;
+	clean-system)
+		makelist $INPUTLIST
+		if [ -n "$LIST" ]; then
+			showlist "$LIST" remove 
+			remove_pkg
+		else
+			echo -e "No packages match the pattern for clean-system\n"
+			POSTINST=off
+		fi
+	;;
+	upgrade-all)
+		sanity_check
+		makelist $INPUTLIST
+		if ! [ -n "${LIST}" ]; then	
+			echo -e "No packages match the pattern for upgrade. Try:"
+			echo -e "\n\t$0 install|reinstall $2\n"
+			POSTINST=off
+		else
+			showlist "$LIST" upgrade
+			if [ "$DOWNLOAD_ALL" = "on" ]; then
+				OLDDEL="$DELALL"
+				DELALL="off"
+				for i in $SHOWLIST; do
+					getpkg $i true
+				done
+				DELALL="$OLDDEL"
+			fi
+			FOUND=""
+			FOUND=$(echo $SHOWLIST | tr -s ' ' "\n" | grep "slackpkg-[0-9]")
+			if [ "$FOUND" != "" ]; then 
+				getpkg $FOUND upgradepkg Upgrading
+				echo -e "slackpkg was upgraded - you will need start the upgrade process again...\n"
+				cleanup
+				exit 0
+			fi
+			for i in pkgtools glibc-solibs aaa_elflibs readline sed; do
+				FOUND=""
+				FOUND=$(echo $SHOWLIST | tr -s ' ' "\n" | grep "${i}-[0-9]")
+				if [ "$FOUND" != "" ]; then 
+					getpkg $FOUND upgradepkg Upgrading
+				fi
+			done
+			upgrade_pkg
+		fi
+	;;
+	install-new)
+		makelist ${INPUTLIST}
+		if ! [ -n "${LIST}" ]; then	
+			echo -e "No packages match the pattern for install. Try:"
+			echo -e "\n\t$0 upgrade|reinstall $2\n"
+			POSTINST=off
+		else
+			showlist "$LIST" install
+			install_pkg
+		fi
+	;;
+	blacklist)
+		#
+		# If blacklist is called without package name, list
+		# all blacklisted packages
+		if [ "$INPUTLIST" = "" ]; then
+			echo -e "Packages in blacklist:\n"
+			grep -e "^\([a-z]\)" $CONF/blacklist | $MORECMD
+			cleanup
+		fi
+
+		makelist ${INPUTLIST}
+		for i in $LIST; do
+			BASENAME=$(cutpkg $i)
+			BLACKLIST="$BLACKLIST $BASENAME"
+		done
+		BLACKLIST=$(echo $BLACKLIST | tr ' ' "\n")
+		if [ "$BLACKLIST" = "" ]; then
+			echo -e "No packages match the pattern."
+			cleanup
+		else
+			showlist "$BLACKLIST" $CMD
+		fi
+
+		blacklist_pkg
+	;;
+	file-search)
+		PATTERN=$(echo $ARG | sed -e 's/\+/\\\+/g' -e 's/\./\\\./g' -e 's/ /\|/g')
+		makelist $PATTERN
+
+		if [ "$LIST" = "" ]; then
+			echo -e "No packages contains \"$PATTERN\" file."
+		else
+			echo -e "The list below shows the packages that contains \"$PATTERN\" file.\n"
+			searchlist "$LIST" 
+			echo -e "\nYou can search specific packages using \"slackpkg search package\".\n"	
+	    	fi
+	;;
+	search)
+		PATTERN=$(echo $ARG | sed -e 's/\+/\\\+/g' -e 's/\./\\\./g' -e 's/ /\|/g')
+		makelist $PATTERN
+
+		if [ "$LIST" = "" ]; then
+			echo -e "No package name matches the pattern."
+		else
+			echo -e "The list below shows all packages with name matching \"$PATTERN\".\n"
+			searchlist "$LIST"
+			echo -e "\nYou can search specific files using \"slackpkg file-search file\".\n"	
+	    	fi
+	;;
+	info)
+		PATTERN=$(echo $ARG | sed -e 's/\+/\\\+/g' -e 's/\./\\\./g')
+		NAME=$(cutpkg $PATTERN)
+		awk -F: "/PACKAGE NAME:.* ${NAME}-[^-]+-(${ARCH}|fw|noarch)-[^-]+/,/^$/ {
+                                found=1
+				 if (\$1 ~ /"$NAME"/) {
+				 print \$PATTERN 
+				} else {
+				print \$0
+				} 
+                        }
+                        END {
+				if ( found != 1 ) {
+			print \"No packages found! Try:\n\n\tslackpkg search $PATTERN\n\nand choose one (and ONLY one package).\n\"
+				}
+			}" ${WORKDIR}/PACKAGES.TXT 2>/dev/null
+	;;
+	new-config)
+		POSTINST=on
+	;;
+	generate-template)
+		TEMPLATE=$ARG.template
+		if [ -e $TEMPLATEDIR/$TEMPLATE ]; then
+			echo -e "\
+\"$TEMPLATE\" already exists!\n\
+\nDo you want to overwrite $TEMPLATE (y/N)? \c"
+			answer
+			if [ "$ANSWER" = "Y" -o "$ANSWER" = "y" ]; then
+				rm $TEMPLATEDIR/$TEMPLATE
+				echo
+			else
+				cleanup
+			fi
+		fi	
+		generate_template $ARG
+	;;
+	install-template)
+		TEMPLATE=$ARG.template
+		if [ -e $TEMPLATEDIR/$TEMPLATE ]; then
+			( cd $TEMPLATEDIR
+			  parse_template $TEMPLATE
+			)
+			INPUTLIST=$(cat ${TMPDIR}/${TEMPLATE}.tmp | tr "\n" " ")
+		else
+			echo -e "$ARG template not found!"
+			cleanup
+		fi
+
+		makelist $INPUTLIST
+		if [ -n "$LIST" ]; then
+			showlist "$LIST" $CMD
+			install_pkg
+		else
+			echo -e "All packages from $ARG template are already installed"
+			POSTINST=off
+		fi
+	;;
+	remove-template)
+		TEMPLATE=$ARG.template
+		if [ -e $TEMPLATEDIR/$TEMPLATE ]; then
+			( cd $TEMPLATEDIR
+			  parse_template $TEMPLATE
+			)
+			INPUTLIST=$(cat ${TMPDIR}/${TEMPLATE}.tmp | tr "\n" " ")
+		else
+			echo -e "$ARG template not found!"
+			cleanup
+		fi
+
+		makelist $INPUTLIST
+		if [ "$LIST" = "" ]; then
+			echo -e "The template $ARG can't be removed - it isn't installed.\n"
+			cleanup
+		fi
+		showlist "$LIST" $CMD
+		remove_pkg
+	;;
+	*)
+		usage
+	;;
+esac
+
+#
+# Executes the post-install. This is the default
+# Before runs post-install, check if the slackpkg option is
+# remove, search, update, blacklist, info or clean-system. 
+# That options don't change configurations files and, if 
+# someone remove the kernel, i hope he knows what is doing.
+#
+for i in check-updates remove search file-search update blacklist info \
+	 clean-system download generate-template remove-template; do
+	if [ "$CMD" = "$i" ]; then
+		POSTINST=off
+	fi
+done
+
+if [ "$POSTINST" != "off" ]; then
+	lookkernel
+	looknew
+fi
+
+cleanup

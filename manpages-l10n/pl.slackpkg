@@ -1,0 +1,328 @@
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH SLACKPKG 8 "Maj 2010" slackpkg\-2.81.1 ""
+.SH NAZWA
+\fBslackpkg\fP \- Zautomatyzowane narzędzie do zarządzania paczkami systemu
+Slackware Linux.
+
+.SH STRESZCZENIE
+\fBslackpkg\fP \fB[OPCJE]\fP
+\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{\fP\fICIĄG\fP\fB|\fP\fIPLIK\fP\fB}\fP
+
+\fBslackpkg [OPCJE] {clean\-system|upgrade\-all|install\-new}\fP
+
+\fBslackpkg\fP \fB[OPCJE]\fP \fB{search|file\-search}\fP \fB{\fP\fICIĄG\fP\fB|\fP\fIPLIK\fP\fB}\fP
+
+\fBslackpkg\fP \fB[OPCJE]\fP
+\fB{generate\-template|install\-template|remove\-template}\fP \fINAZWASZABLONU\fP
+
+\fBslackpkg [OPCJE] info\fP \fIPAKIET\fP
+
+\fBslackpkg [OPCJE] update [gpg]\fP
+
+\fBslackpkg [OPCJE] {new\-config|check\-updates}\fP
+
+\fBslackpkg [OPCJE] help\fP
+
+.SH OPIS
+Slackpkg to narzędzie pozwalające na prostą instalację, bądź aktualizację
+pakietów przez sieć. Używając slackpkg, możesz mieć minimalną instalację
+systemu Slackware Linux i instalować/aktualizować wyłącznie te pakiety,
+które najbardziej potrzebujesz.
+
+Nie musisz konfigurować NFS lub tworzyć tuzin płyt CD dla twoich
+komputerów. Wystarczy wpisać jedno polecenie i wszystkie najnowsze oficjalne
+pakiety systemu Slackware znajdą się na wyciągniecie ręki.
+
+.SH INSTRUKCJE
+Slackpkg posiada wiele funkcji. Może ono wyszukiwać konkretne pakiety,
+usunąć wszystkie nieoficjalne pakiety na twoim systemie, instalować pakiety
+dodane do systemu Slackware od ostatniej aktualizacji, wyświetlać opis
+pakietu, itd.
+
+Na samym początku, musisz usunąć znacznik komentarza z jednego obrazu
+lustrzanego w pliku /etc/slackpkg/mirrors i uruchomić polecenie:
+
+.in +5
+# slackpkg update
+.in
+
+Funkcja "update" pobierze i odpowiednio sformatuje listę plików i pakietów
+systemu Slackware. Za każdym razem, gdy lista ta zmieni się, należu ponownie
+uruchomić update.
+
+Główne funkcje Slackpkg to te bezpośrednio związane z zarządzanie pakietami:
+instalacja, aktualizacja oraz usuwanie pakietów. Aby wykonać jakąkolwiek z
+tych czynności, składnia Slackpkg jest następująca:
+
+.in +5
+# slackpkg [OPCJE] <funkcja> {CIĄG|PLIK}
+.in
+
+\fIOPCJE\fP może być jedną lub więcej z wielu opcji konfiguracyjnych
+wymienionych w /etc/slackpkg/slackpkg.conf. Większość opcji konfiguracyjnych
+znajdujących sie w slackpkg.conf posiada swoje odpowiedniki na linii komend
+\- więcej informacji znajdziesz na stronie manualu \fBslackpkg.conf(5)\fP.
+
+\fICIĄG\fP może być nazwą pakietu bądź też częścią jego nazwy. Może to też być
+nazwa serii (np. kde, a, ap, ...).
+.br
+
+\fIPLIK\fP jest plikiem zawierającym \fICIĄGi\fP: jeden lub więcej (oddzielonych
+spacją) na każdym wierszu.
+
+Slackpkg może być użyty do aktualizacji całej dystrybucji.
+.br
+Zwykle tak to się robi:
+
+.in +5
+# slackpkg update
+.br
+# slackpkg install\-new
+.br
+# slackpkg upgrade\-all
+.br
+# slackpkg clean\-system
+.in
+
+Inną funkcją Slackpkg jest możliwość pracy z szablonami. Ułatwia to
+instalację tych samych pakietów na wielu komputerach. Oto jak to się robi:
+
+.RS +5
+.IP \(bu 2
+Zainstaluj pakiety na jednym komputerze
+.IP \(bu 2
+Uruchom : "slackpkg generate\-template NAZWASZABLONU"
+.IP \(bu 2
+Kopiuj /etc/slackpkg/templates/NAZWASZABLONU.template do tego samego
+katalogu na innym komputerze
+.IP \(bu 2
+Wpisz "slackpkg install\-template NAZWASZABLONU" na innym komputerze
+.RE
+
+\fINAZWASZABLONU\fP jest nazwą twojego szablonu
+
+Na tej stronie manualu znajdziesz opis tych (oraz innych) funkcji.
+
+.SH FUNKCJE
+.TP  5
+\fBhelp\fP
+.br
+Wyświetl funkcje slackpkg oraz ich krótki opis. Przydatne, gdy chcesz
+dowiedzieć się trochę o slackpkg. Informacje zawarate tutaj, na stronie
+manualu są bardziej wyczerpujące.
+
+.TP  5
+\fBupdate\fP
+.br
+update pobierze najnowsze listy pakietów z obrazu lustrzanego systemu
+Slackware (lub też CD). Dobrze jest wykonać to
+
+.in +5
+# slackpkg update
+.in
+
+przed próbą aktualizacji, instalacji, bądź też wyszukiwania pakietów.
+.br
+Jeśli musisz zaktualizować klucz GPG systemu Slackware, wpisz:
+
+.in +5
+# slackpkg update gpg
+.in
+
+Klucz GPG nie zmienia się. Powinno to być "jednorazowe" polecenie \- wykonaj
+go raz i zapomnij o nim...
+
+.TP  5
+\fBcheck\-updates\fP
+.br
+Sprawdź czy ChngeLog.txt został zaktualizowany. Dobrze jest uruchamiać to z
+demona cron by powiadomić administratora o aktualizacjach.
+
+.TP  5
+\fBfile\-search\fP
+.br
+Możesz wyszukiwać konretne pakiety Slackware zawarte w oficjalnej
+dystrybucji. Potrzebujesz dziwną bibliotekę? Użyj file\-search aby ją
+znaleźć.
+
+.in +5
+# slackpkg file\-search nazwapliku
+.in
+
+Wyświetlone zostaną wszystkie pakiety odpowiadające podanej nazwie
+pliku. Możesz przez to sprawdzić czy pakiety są zainstalowane, czy
+nie. Jeśli nie, możesz je pobrać i zainstalować przy użyciu innych funkcji
+slackpkg.
+
+.TP  5
+\fBsearch\fP
+.br
+Możesz szukać jakiegokolwiek pakietu dystrybutowanego w systemie Slackware.
+
+.in +5
+# slackpkg search ciąg
+.in
+
+Wyświetlone zostaną wszystkie pakiety, których nazwy odpowiadają podanemu
+"ciąg"\-owi. Podobnie jak z file\-search, możesz sprawdzić czy pakiety są
+zainstalowane. Jeśli nie, możesz pobrać i je zainstalować przy użyciu innych
+funkcji slackpkg.
+
+.TP  5
+\fBinstall\fP
+.br
+Instalacja pakietu jest bardzo prosta. Wystarczy wpisać:
+
+.in +5
+# slackpkg install pakiet
+.in
+
+a pakiet zostanie pobrany i zainstalowany.
+.br
+Nie można używać opcji "install" by zainstalować uprzednio zainstalowany
+pakiet. Możesz, natomiast, go przeinstalować (reinstall) lub aktualizować
+(upgrade).
+
+.TP  5
+\fBupgrade\fP
+.br
+upgrade instaluje najnowszą oficjalną wersję danego pakietu lub pakietów.
+
+upgrade nie będzie próbowało zainstalować nowych pakietów (do tego proszę
+użyć opcji install; najnowsza wersja pakietu zostanie zainstalowana).
+.TP  5
+\fBreinstall\fP
+.br
+W sytuacji gdy coś uległo uszkodzeniu, opcja reinstall pozwoli
+przeinstalować tą samą wersję pakietu, która jest obecnie zainstalowana.
+
+.TP  5   
+\fBremove\fP
+.br
+Z remove, możesz usunąć pewne zainstalowane pakiety. Na przykład:
+
+.in +5
+# slackpkg remove kde
+.in
+
+usunie wszystkie pakiety zawierające "kde" w swojej nazwie.
+
+.TP  5
+\fBblacklist\fP
+.br
+Ta funkcja pozwala na zablokowanie (blacklist) danych pakietów.
+.br
+Zablokowane pakiety nie będą instalowane, aktualizowane, ani usuwane przez
+slackpkg. Jeśli chcesz usunąć pakiet z listy zablokowanych pakietów, musisz
+edytować /etc/slackpkg/blacklist.
+
+.TP  5
+\fBdownload\fP
+.br
+Opcja pozwala na pobranie pakietów bez ich instalacji. Będą one umieszczone
+w /var/cache/packages byś mógł je później
+zainstalować/uaktualnić/przeinstalować (lub wypalić na płycie CD).
+
+.TP  5
+\fBinfo\fP
+.br
+Wyświetla to informacje o pakiecie/pakietach: skompresowaną /
+nieskompresowaną wielkość, opis, itd...
+
+.TP  5
+\fBclean\-system\fP
+.br
+Funkcja ta usuwa wszystkie pakiety, które nie należą do standardowej
+instalacji systemu Slackware. Przy użyciu tej opcji, możesz oczyścić
+instalację usuwając wszystkie nieoficjalne pakiety, jak również pakiety,
+które zostały oficjalnie usunięte z dystrybucji Slackware.
+.br
+Jeśli masz jakieś nieoficjalne / zbudowane przez siebie pakiety, które
+chciałbyś zatrzymać, możesz tymczasowo dodać je do listy zablokowanych
+pakietów przed wykonaniem polecenia 'clean\-system'.
+
+.TP  5
+\fBupgrade\-all\fP
+.br
+Funkcja ta aktualizuje wszystkie zainstalowane pakiety do wersji obecnej w
+oficjalnym drzewie systemu Slackware. Jest to "dobry" sposób aktualizacji
+całego systemu.
+.br
+Pamiętaj abyś użył "install\-new" przed opcją "upgrade\-all".
+
+.TP  5
+\fBinstall\-new\fP
+Opcja ta instaluje wszystkie nowe pakiety, które zostały dodane do
+oficjalnej dystrybucji Slackware. Użyj tej opcji, gdy aktualizujesz system
+do nowszej wersji systemu Slackware lub gdy używasz gałęzi \-current systemu
+Slackware.
+.br
+Jeśli chcesz zainstalować wszystkie niezainstalowane pakiety Slackware,
+zamiast install\-new, użyj następującego polecenia:
+
+.in +5
+# slackpkg install slackware.
+.in
+.TP  5
+\fBnew\-config\fP
+Funkcja to szuka plików konfiguracyjnych .new i pyta użytkownika co z nimi
+zrobić.
+.br
+new\-config jest bardzo przydatne gdy wykonujesz aktualizację pozostawiając
+pliki konfiguracyjne do późniejszej inspekcji. Zamiast ręcznego
+wyszukiwania, diff i podmieniania, możesz użyć opcję new\-config.
+.TP  5
+\fBgenerate\-template\fP
+Funkcja ta tworzy nowy szablon zawierający wszystkie oficialne zainstalowane
+na twoim systemie pakiety. Szablony znajdują się w /etc/slackpkg/templates
+.TP  5
+\fBinstall\-template\fP
+Funkcja ta instaluje wymagany szablon. Szablon musi znajdować się w
+/etc/slackpkg/templates. Jeśli szablon zawiera (includes) w sobie inne
+szablony, wszystkie one muszą znajdować się w
+/etc/slackpkg/templates. Możesz wyłączyć wszelkie załączenia (includes) w
+slackpkg.conf lub z linii komend.
+.TP  5
+\fBremove\-template\fP
+Funkcja ta usunie wszystkie pakiety zawarte w wybranym szablonie. Uwaga \-
+może sprawić to, że system stanie się niefunkcjonalny. Opcje załączania
+(include) mogą być aktywowane/deaktywowane w slackpkg.conf lub przy pomocy
+odpowiedniego argumentu z poziomu linii komend.
+
+.SH PLIKI
+.TP  5
+\fB/etc/slackpkg/mirrors⇥\fP
+Plik zawierający miejsce, z którego pakiety zostaną pobrane
+.TP  5
+\fB/etc/slackpkg/slackpkg.conf⇥\fP
+Główna konfiguracja slackpkg
+.TP  5
+\fB/etc/slackpkg/blacklist\fP
+Lista pakietów do pominęcia
+.TP  5
+\fB/etc/slackpkg/templates\fP
+Zawiera wszystkie pliki szablonów
+.TP  5
+\fB/usr/libexec/slackpkg\fP
+Zawiera podstawowe oraz dodatkowe funkcje slackpkg
+.TP  5
+\fB/var/lib/slackpkg\fP
+Na wewnętrzny użytek Slackpkg \- sformatowane listy pakietów, kopia
+ChangeLog.txt, lista plików, itd.
+
+.SH "ZOBACZ TAKŻE"
+\fBslackpkg.conf\fP(5), \fBinstallpkg\fP(8), \fBupgradepkg\fP(8), \fBexplodepkg\fP(8),
+\fBmakepkg\fP(8), \fBpkgtool\fP(8).
+
+.SH AUTORZY
+.TP  5
+Piter PUNK aka Roberto F Batista 
+<piterpk AT terra DOT com DOT br>
+.TP  5
+Evaldo Gardenali aka UdontKnow 
+<evaldo AT fasternet DOT com DOT br>

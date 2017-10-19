@@ -1,0 +1,340 @@
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH SLACKPKG 8 "Mai 2010" slackpkg\-2.81.1 ""
+.SH NOM
+\fBslackpkg\fP \- Outil de gestion automatisée des paquets Slackware Linux
+
+.SH SYNOPSIS
+\fBslackpkg\fP \fB[OPTIONS]\fP
+\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{\fP\fIMOTIF\fP\fB|\fP\fIFICHIER\fP\fB}\fP
+
+\fBslackpkg [OPTIONS] {clean\-system|upgrade\-all|install\-new}\fP
+
+\fBslackpkg\fP \fB[OPTIONS]\fP \fB{search|file\-search}\fP
+\fB{\fP\fIMOTIF\fP\fB|\fP\fIFICHIER\fP\fB}\fP
+
+\fBslackpkg\fP \fB[OPTIONS]\fP
+\fB{generate\-template|install\-template|remove\-template}\fP \fINOMDEPATRON\fP
+
+\fBslackpkg [OPTIONS] info\fP \fIPAQUET\fP
+
+\fBslackpkg [OPTIONS] update [gpg]\fP
+
+\fBslackpkg [OPTIONS] {new\-config|check\-updates}\fP
+
+\fBslackpkg [OPTIONS] help\fP
+
+.SH DESCRIPTION
+Slackpkg est un outil pour ceux qui veulent installer ou mettre à niveau
+facilement des paquets via le réseau. Avec slackpkg, vous pouvez avoir une
+installation minimale de Slackware et installer/mettre à niveau seulement
+les paquets dont vous avez le plus besoin.
+
+Vous n'avez pas besoin de configurer NFS ou de graver des douzaines de CDs
+pour tous vos ordinateurs ; tout ce dont vous avez besoin est de taper une
+commande et vous avez tous les plus récents paquets officiels au bout des
+doigts.
+
+.SH INSTRUCTIONS
+Slackpkg a beaucoup de fonctions. Il peut chercher des fichiers spécifiques,
+enlever tous les paquets tiers de votre système, installer les paquets
+ajoutés à Slackware depuis votre dernière mise à jour, afficher la
+description de paquets, etc.
+
+Avant de faire quoi que ce soit, vous aurez besoin de dé\-commenter un miroir
+dans le fichier /etc/slackpkg/mirrors et d'exécuter :
+
+.in +5
+# slackpkg update
+.in
+
+L'action "update" (mise à jour) télé\-charge et met en forme la liste des
+fichiers et paquets de Slackware. Chaque fois que cette liste change, la
+mise à jour doit être effectuée.
+
+Les principales fonctions de Slackpkg sont celles directement liées à la
+gestion des paquets : install (installer), upgrade (mettre à niveau) et
+remove (enlever) des paquets. Pour effectuer l'une de ces tâches, la syntaxe
+de Slackpkg est :
+
+.in +5
+# slackpkg [OPTIONS] <action> {MOTIF|FICHIER}
+.in
+
+\fIOPTIONS\fP peut être une ou plusieurs des nombreuses options de
+configuration listées dans /etc/slackpkg/slackpkg.conf. Il existe des
+options en ligne de commande pour la plupart des directives de configuration
+trouvées dans slackpkg.conf \- voir la page de manuel \fBslackpkg.conf(5)\fP
+pour savoir quelles options sont disponibles.
+
+\fIMOTIF\fP peut être un nom de paquet ou juste une partie d'un nom de
+paquet. Ce peut aussi être une série de logiciels (comme kde, a, ap, ...)
+.br
+
+\fIFICHIER\fP est un fichier contenant une liste de \fIMOTIFs\fP : soit un par
+ligne, soit plusieurs par ligne séparés par des espaces.
+
+Slackpkg peut être utilisé pour mettre à niveau toute la distribution.
+.br
+La manière habituelle de le faire est la suivante :
+
+.in +5
+# slackpkg update
+.br
+# slackpkg install\-new
+.br
+# slackpkg upgrade\-all
+.br
+# slackpkg clean\-system
+.in
+
+Une autre caractéristique de Slackpkg est sa capacité à travailler avec des
+patrons, ce qui peut rendre beaucoup plus aisé l'installation sur
+différentes machines avec le même contenu en paquets. Les étapes de base
+sont les suivantes:
+
+.RS +5
+.IP \(bu 2
+Installer sur une machine
+.IP \(bu 2
+Exécuter "slackpkg generate\-template NOMDEPATRON"
+.IP \(bu 2
+Copier /etc/slackpkg/templates/TEMPLATENAME.template vers le même répertoire
+sur l'autre machine
+.IP \(bu 2
+Exécuter "slackpkg install\-template NOMDEPATRON" sur l'autre machine
+.RE
+
+\fINOMDEPATRON\fP est le nom de votre patron.
+
+En suivant cette page de manuel vous pourrez trouver ce que chacune de ces
+actions (et des autres) fait.
+
+.SH ACTIONS
+.TP  5
+\fBhelp\fP
+.br
+Montre les actions de slackpkg et une brève description de celles\-ci. Utile
+pour s'initier à slackpkg. L'information fournie ici, sur cette page de
+manuel, est beaucoup plus complète.
+
+.TP  5
+\fBupdate\fP
+.br
+update (mise à jour) télé\-charge la liste de paquets la plus récente à
+partir d'un miroir Slackware (ou de votre CD). C'est une bonne idée de
+l'exécuter
+
+.in +5
+# slackpkg update
+.in
+
+avant de tenter upgrade (mettre à niveau), install (installer) ou search
+(chercher des paquets).
+.br
+Si vous avez besoin de mettre à jour la clef GPG de Slackware, exécutez
+
+.in +5
+# slackpkg update gpg
+.in
+
+La clef GPG ne change pas. C'est une commande à exécuter une seule fois \-
+faites\-le, et n'y pensez plus.
+
+.TP  5
+\fBcheck\-updates\fP
+.br
+Vérifie si le fichier ChangeLog.txt a été mis à jour. C'est bien de la
+lancer depuis une tâche cron pour alerter l'administrateur à propos des
+mises à jour.
+
+.TP  5
+\fBfile\-search\fP
+.br
+Vous pouvez chercher parmi les paquets Slackware officiels lesquels
+contiennent n'importe quel fichier de la distribution Slackware. Vous avez
+besoin d'une bibliothèque étrange ? Utilisez file\-search pour la trouver.
+
+.in +5
+# slackpkg file\-search nomdefichier
+.in
+
+Tous les paquets comportant "nomdefichier" seront affichés, ainsi vous
+pourrez voir si ces paquets sont installés ou non ; s'ils ne le sont pas,
+vous pourrez les télé\-charger et les installer en utilisant  les autres
+fonctions de slackpkg.
+
+.TP  5
+\fBsearch\fP
+.br
+vous pourrez rechercher ("search") tout paquet fourni par Slackware.
+
+.in +5
+# slackpkg search motif
+.in
+
+Tous les paquets dont le nom correspond à "motif" seront affichés. Comme
+pour file\-search vous pourrez voir si ces paquets sont installés ou non ;
+s'ils ne le sont pas, vous pourrez les télé\-charger et les installer en
+utilisant d'autres fonctions de slackpkg.
+
+.TP  5
+\fBinstall\fP
+.br
+L'installation d'un paquet est très simple. Il suffite de taper :
+
+.in +5
+# slackpkg install paquet
+.in
+
+et le paquet sera télé\-chargé et installé.
+.br
+Vous ne pouvez pas utiliser l'option "install" pour installer un paquet déjà
+installé, mais vous pouvez le ré\-installer ou le mettre à niveau.
+
+.TP  5
+\fBupgrade\fP
+.br
+"upgrade" (mettre à niveau) installe la plus récente version officielle du
+ou des paquet(s) spécifié(s)
+
+"upgrade" ne tentera pas d'installer de nouveaux paquets (utilisez la
+fonction "install" à cet effet ; la dernière version officielle du paquet
+sera installée).
+.TP  5
+\fBreinstall\fP
+.br
+Au cas ou vous auriez par erreur corrompu quelque chose, la fonction
+"reinstall" vous permet de ré\-installer la version actuellement installée du
+paquet.
+
+.TP  5   
+\fBremove\fP
+.br
+Avec "remove" vous pouvez enlever des paquets installés. Par exemple :
+
+.in +5
+# slackpkg remove kde
+.in
+
+enlèvera tous les paquets avec "kde" dans leur nom.
+
+.TP  5
+\fBblacklist\fP
+.br
+Avec cette fonction vous pouvez "blacklister" (mettre en liste noire)
+certains paquets.
+.br
+Les paquets en liste noire ne seront pas installés, mis à niveau ou enlevés
+par slackpkg. Si vous voulez enlever un paquet de la liste noire, merci
+d'éditer le fichier /etc/slackpkg/blacklist à cet effet.
+
+.TP  5
+\fBdownload\fP
+.br
+Cette action indique à slackpkg de télé\-charger les paquets, mais de ne pas
+les installer. Ils seront placés dans /var/cache/packages, et vous pouvez
+les installer/mettre à niveau/ré\-installer plus tard (ou les graver sur CD).
+
+.TP  5
+\fBinfo\fP
+.br
+Cette action affiche des informations sur le ou les paquet(s) : taille
+comprimé ou déballé, description, etc.
+
+.TP  5
+\fBclean\-system\fP
+.br
+Cette action enlève tous les paquets qui ne font pas partie d'une
+installation standard de Slackware. Avec cette fonction, vous pouvez
+nettoyer votre système, en enlevant tous les paquets tiers ainsi que ceux
+qui ne sont plus des paquets officiels Slackware.
+.br
+Si vous avez des paquets tiers (ou personnalisés) que vous souhaitez
+conserver, vous pouvez temporairement les ajouter à la liste noire ou
+"blacklist" avant d'utiliser l'action "clean\-system".
+
+.TP  5
+\fBupgrade\-all\fP
+.br
+Cette action met à niveau tout paquet installé sur le système à la version
+incluses dans l'arborescence officielle Slackware ; c'est la "bonne" manière
+de mettre à niveau tout le système.
+.br
+Souvenez\-vous d'utiliser l'action "install\-new" avant "upgrade\-all".
+
+.TP  5
+\fBinstall\-new\fP
+Cette action installe tout paquet nouvellement ajouté à la liste des paquets
+officiels Slackware. Utilisez\-la si vous mettez à niveau votre système à une
+autre version de Slackware ou si vous utilisez \-current.
+.br
+Si vous voulez installer tous les paquets Slackware dés\-installés, utilisez
+la commande suivante au lieu de l'action "install\-new" :
+
+.in +5
+# slackpkg install slackware.
+.in
+.TP  5
+\fBnew\-config\fP
+Cette action recherche les fichiers de configuration se terminant en .new et
+demande à l'utilisateur quoi faire de ces fichiers.
+.br
+L'action "new\-config" est très utile quand vous effectuez une mise à niveau
+et remettez à plus tard la révision des fichiers de configuration. Vous
+pouvez utiliser l'action "new\-config" à la place de la recherche manuelle,
+l'utilisation de "diff" et le remplacement.
+.TP  5
+\fBgenerate\-template\fP
+Cette action crée un nouveau patron comportant tous les paquets officiels
+installés sur votre système. Le patron sera enregistré dans
+/etc/slackpkg/templates
+.TP  5
+\fBinstall\-template\fP
+Cette action installe les paquets listés dans le patron demandé, qui doit se
+trouver dans /etc/slackpkg/templates. Si le patron inclut d'autres patrons,
+tous doivent se trouver dans /etc/slackpkg/templates. Vous pouvez désactiver
+les "includes" (terme Anglais pour "inclus") dans la ligne de commande.
+.TP  5
+\fBremove\-template\fP
+Cette action enlève tous les paquets qui font partie du patron choisi. Soyez
+prudent, cela peut rendre votre système inutilisable. le traitement des
+"include" peut être activé ou désactivé dans slackpkg.conf ou grâce à
+l'option appropriée en ligne de commande.
+
+.SH FICHIERS
+.TP  5
+\fB/etc/slackpkg/mirrors	\fP
+Fichier pour spécifier l'endroit d'où télé\-charger les paquets
+.TP  5
+\fB/etc/slackpkg/slackpkg.conf	\fP
+Ficher de configuration générale de slackpkg
+.TP  5
+\fB/etc/slackpkg/blacklist\fP
+Liste des paquets à sauter (liste noire)
+.TP  5
+\fB/etc/slackpkg/templates\fP
+Contient tous les fichiers patrons
+.TP  5
+\fB/usr/libexec/slackpkg\fP
+Contient les fonctions essentielles et supplémentaires de slackpkg
+.TP  5
+\fB/var/lib/slackpkg\fP
+À usage interne de slackpkg \- listes de paquets mises en forme, copie de
+ChangeLog.txt, liste de fichiers, etc.
+
+.SH "VOIR AUSSI"
+\fBslackpkg.conf\fP(5), \fBinstallpkg\fP(8), \fBupgradepkg\fP(8), \fBexplodepkg\fP(8),
+\fBmakepkg\fP(8), \fBpkgtool\fP(8).
+
+.SH AUTEURS
+.TP  5
+Piter PUNK également appelé Roberto F Batista 
+<piterpk AT terra DOT com DOT br>
+.TP  5
+Evaldo Gardenali également appelé UdontKnow 
+<evaldo AT fasternet DOT com DOT br>

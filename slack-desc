@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-handy-ruler------------------------------------------------------|
+slackpkg: slackpkg 
+slackpkg:
+slackpkg: Slackpkg is a package manager for Slackware. It can download,
+slackpkg: upgrade, install and remove selected packages. With it, you
+slackpkg: can search in the Slackware Package database and find which
+slackpkg: package has the selected file.
+slackpkg:
+slackpkg: Slackpkg DOESN'T replace pkgtool. Actually, Slackpkg uses pkgtool
+slackpkg: for all install|upgrade|remove functions.
+slackpkg:
+slackpkg:
