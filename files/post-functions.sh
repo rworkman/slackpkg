@@ -111,6 +111,18 @@ removeold() {
 	rm $i
 }
 
+runvimdiff() {
+        BASENAME=$(basename $i .new)
+        FILEPATH=$(dirname $i)
+        FULLNAME="${FILEPATH}/${BASENAME}"
+
+        if [ -e ${FULLNAME} ]; then
+            vimdiff ${FULLNAME} ${FULLNAME}.new
+        else
+            echo "file $FULLNAME doesn't exist"
+        fi
+}
+
 looknew() {
 
 	# with ONLY_NEW_DOTNEW set, slackpkg will search only for
@@ -166,7 +178,7 @@ What do you want (K/O/R/P)?"
 					GOEX=0
 					while [ $GOEX -eq 0 ]; do
 						echo
-						showmenu $i "(K)eep" "(O)verwrite" "(R)emove" "(D)iff" "(M)erge"
+                                                showmenu $i "(K)eep" "(O)verwrite" "(R)emove" "(D)iff" "(M)erge" "(V)imdiff [dp put, do obtain, ^W^W switch]"						showmenu $i "(K)eep" "(O)verwrite" "(R)emove" "(D)iff" "(M)erge"
 						read ANSWER
 						case $ANSWER in
 							O|o)
@@ -183,6 +195,9 @@ What do you want (K/O/R/P)?"
 							M|m)
 								mergenew $1
 							;;
+                                                        V|v)
+                                                                runvimdiff $1
+                                                        ;;
 							K|k|*)
 								GOEX=1
 							;;
