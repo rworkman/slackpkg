@@ -1,4 +1,10 @@
 
+Wed Nov  8 00:45:00 UTC 2017
+---------------
+	- 2.82.3beta1
+	- Add an option to use vimdiff for comparing changes in .new files
+	  (thanks to David Allen)
+
 Sun Oct 10  07:48:13 UTC 2017
 ---------------
 	- Updated mirrors-x86*.sample to remove dead mirrors and clarify
