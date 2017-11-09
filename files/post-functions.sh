@@ -178,7 +178,7 @@ What do you want (K/O/R/P)?"
 					GOEX=0
 					while [ $GOEX -eq 0 ]; do
 						echo
-                                                showmenu $i "(K)eep" "(O)verwrite" "(R)emove" "(D)iff" "(M)erge" "(V)imdiff [dp put, do obtain, ^W^W switch]"						showmenu $i "(K)eep" "(O)verwrite" "(R)emove" "(D)iff" "(M)erge"
+                                                showmenu $i "(K)eep" "(O)verwrite" "(R)emove" "(D)iff" "(M)erge" "(V)imdiff [dp put, do obtain, ^W^W switch]"
 						read ANSWER
 						case $ANSWER in
 							O|o)
