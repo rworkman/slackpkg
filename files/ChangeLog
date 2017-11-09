@@ -1,4 +1,10 @@
 
+Thu Nov  9 04:03:07 UTC 2017
+---------------
+	- 2.82.3beta2
+	- Fix error in patch application for vimdiff addition
+	  (thanks to David Allen)
+
 Wed Nov  8 00:45:00 UTC 2017
 ---------------
 	- 2.82.3beta1
