@@ -3,7 +3,7 @@
 		fs=FS
 		FS="/" ; OFS="/"
 		$0=INPUT
-		if ( $2 != "var" ) {
+		if ( $(NF-3) != "var" ) {
 			DIR=$2
 			FULLPACK=$NF
 		} else {
