@@ -59,7 +59,7 @@ spinning() {
 function system_setup() {
 
 	# Create $WORKDIR just in case
-	mkdir -p "$WORKDIR"
+	mkdir -p "${ROOT}/${WORKDIR}"
 
 	# Set LOCAL if mirror isn't through network 
 	# If mirror is through network, select the command to fetch
@@ -154,7 +154,7 @@ function system_setup() {
 	fi
 
 	SLACKCFVERSION=$(grep "# v[0-9.]\+" $CONF/slackpkg.conf | cut -f2 -dv)
-	CHECKSUMSFILE=$WORKDIR/CHECKSUMS.md5
+	CHECKSUMSFILE=${ROOT}/${WORKDIR}/CHECKSUMS.md5
 	KERNELMD5=$(md5sum /boot/vmlinuz 2>/dev/null)
 	DIALOG_MAXARGS=${DIALOG_MAXARGS:-19500}
 	echo "$0 $VERSION - Slackware Linux $SLACKWARE_VERSION" > $TMPDIR/timestamp
@@ -189,7 +189,7 @@ ARCH values\n"
 
 	# Check if the config files are updated to the new slackpkg version
 	#
-	if [ "$WORKDIR" = "" ]; then
+	if [ "${ROOT}/${WORKDIR}" = "" ]; then
 		echo -e "\
 \nYou need to upgrade your slackpkg.conf.\n\
 This is a new slackpkg version and many changes happened in config files.\n\
@@ -226,7 +226,7 @@ the problem.\n"
 
 	# Checking if is the first time running slackpkg
 	#                                               
-	if ! [ -f ${WORKDIR}/pkglist ] && [ "$CMD" != "update" ]; then
+	if ! [ -f ${ROOT}/${WORKDIR}/pkglist ] && [ "$CMD" != "update" ]; then
 		if [ "$SOURCE" = "" ]; then
                 	echo -e "\
 \nThis appears to be the first time you have run slackpkg.\n\
@@ -312,7 +312,7 @@ use slackpkg.\n"
 	#
 	if ! [ $(which md5sum 2>/dev/null) ]; then
 		CHECKMD5=off
-	elif ! [ -f ${WORKDIR}/CHECKSUMS.md5 ] && \
+	elif ! [ -f ${ROOT}/${WORKDIR}/CHECKSUMS.md5 ] && \
 		[ "$CMD" != "update" ] && \
 		[ "$CHECKMD5" = "on" ]; then
 		echo -e "\n\
@@ -567,7 +567,7 @@ function makelist() {
 	else
 		ls -1 $ROOT/var/log/packages/* | awk -f /usr/libexec/slackpkg/pkglist.awk | applyblacklist > ${TMPDIR}/tmplist
 	fi
-	cat ${WORKDIR}/pkglist | applyblacklist > ${TMPDIR}/pkglist
+	cat ${ROOT}/${WORKDIR}/pkglist | applyblacklist > ${TMPDIR}/pkglist
 
 	touch ${TMPDIR}/waiting
 
@@ -669,7 +669,7 @@ function makelist() {
 			done
 		;;
 		install-new)
-			for i in $(awk -f /usr/libexec/slackpkg/install-new.awk ${WORKDIR}/ChangeLog.txt |\
+			for i in $(awk -f /usr/libexec/slackpkg/install-new.awk ${ROOT}/${WORKDIR}/ChangeLog.txt |\
 				  sort -u ) dialog aaa_terminfo fontconfig \
 				ntfs-3g ghostscript wqy-zenhei-font-ttf \
 				xbacklight xf86-video-geode ; do
@@ -706,8 +706,8 @@ function makelist() {
 			if [ "$CMD" = "file-search" ]; then
 				# Search filelist.gz for possible matches
 				for i in ${PRIORITY[@]}; do
-					if [ -e ${WORKDIR}/${i}-filelist.gz ]; then
-						PKGS="$(zegrep -w "${INPUTLIST}" ${WORKDIR}/${i}-filelist.gz | \
+					if [ -e ${ROOT}/${WORKDIR}/${i}-filelist.gz ]; then
+						PKGS="$(zegrep -w "${INPUTLIST}" ${ROOT}/${WORKDIR}/${i}-filelist.gz | \
 							cut -d\  -f 1 | awk -F'/' '{print $NF}')"
 						for FULLNAME in $PKGS ; do
 							NAME=$(cutpkg ${FULLNAME})
@@ -849,7 +849,7 @@ function getpkg() {
 	PKGNAME=( $(grep -m 1 -- "[[:space:]]${1/%.t[blxg]z/}[[:space:]]" ${TMPDIR}/pkglist) )
 	NAMEPKG=${PKGNAME[5]}.${PKGNAME[7]}
 	FULLPATH=${PKGNAME[6]}
-	CACHEPATH=${TEMP}/${FULLPATH}
+	CACHEPATH=${ROOT}/${TEMP}/${FULLPATH}
 
 	# Create destination dir if it isn't there
 	if ! [ -d $CACHEPATH ]; then
@@ -947,8 +947,8 @@ function getpkg() {
 #
 function checkchangelog()
 {
-	if ! [ -e ${WORKDIR}/ChangeLog.txt ]; then
-		touch ${WORKDIR}/ChangeLog.txt
+	if ! [ -e ${ROOT}/${WORKDIR}/ChangeLog.txt ]; then
+		touch ${ROOT}/${WORKDIR}/ChangeLog.txt
 	fi
 
 	echo -e "\tDownloading..."
@@ -964,7 +964,7 @@ Please check your mirror and try again."
 		cleanup
 	fi
 
-	if diff --brief ${WORKDIR}/ChangeLog.txt $TMPDIR/ChangeLog.txt ; then
+	if diff --brief ${ROOT}/${WORKDIR}/ChangeLog.txt $TMPDIR/ChangeLog.txt ; then
 		return 0
 	else
 		return 1
@@ -983,7 +983,7 @@ function updatefilelists()
 		fi
 	fi
 	echo
-	cp ${TMPDIR}/ChangeLog.txt ${WORKDIR}/ChangeLog.txt
+	cp ${TMPDIR}/ChangeLog.txt ${ROOT}/${WORKDIR}/ChangeLog.txt
 
 	#
 	# Download MANIFEST, FILELIST.TXT and CHECKSUMS.md5
@@ -1039,10 +1039,10 @@ function updatefilelists()
 		ISOK=$(checkmd5 ${TMPDIR}/FILELIST.TXT)
 	fi
 	if [ "$ISOK" = "1" ]; then 
-		if ! [ -e $WORKDIR/LASTUPDATE ]; then
-			echo "742868196" > $WORKDIR/LASTUPDATE
+		if ! [ -e ${ROOT}/${WORKDIR}/LASTUPDATE ]; then
+			echo "742868196" > ${ROOT}/${WORKDIR}/LASTUPDATE
 		fi
-		LASTUPDATE=$(cat $WORKDIR/LASTUPDATE)
+		LASTUPDATE=$(cat ${ROOT}/${WORKDIR}/LASTUPDATE)
 		ACTUALDATE=$(date -d "$(head -1 $TMPDIR/FILELIST.TXT)" "+%s")
 		if [ $ACTUALDATE -lt $LASTUPDATE ]; then
 			echo -e "\
@@ -1054,7 +1054,7 @@ function updatefilelists()
 			fi
 			echo
 		fi
-		echo $ACTUALDATE > $WORKDIR/LASTUPDATE
+		echo $ACTUALDATE > ${ROOT}/${WORKDIR}/LASTUPDATE
 	else
 		rm $TMPDIR/FILELIST.TXT
 	fi
@@ -1093,12 +1093,12 @@ function updatefilelists()
 	grep "\.t[blxg]z$" $FILELIST| \
 		awk -f /usr/libexec/slackpkg/pkglist.awk |\
 		sed -e 's/^M//g' > ${TMPDIR}/pkglist
-	cp ${TMPDIR}/pkglist ${WORKDIR}/pkglist		
+	cp ${TMPDIR}/pkglist ${ROOT}/${WORKDIR}/pkglist		
 
 	# Create the slackware tree under TEMP directory
-	for i in $( cut -f7 -d\  ${WORKDIR}/pkglist | sort -u ) ; do
-	  if ! [ -d ${TEMP}/${i} ]; then
-	    mkdir -p ${TEMP}/${i}
+	for i in $( cut -f7 -d\  ${ROOT}/${WORKDIR}/pkglist | sort -u ) ; do
+	  if ! [ -d ${ROOT}/${TEMP}/${i} ]; then
+	    mkdir -p ${ROOT}/${TEMP}/${i}
 	  fi
 	done
 
@@ -1112,11 +1112,11 @@ function updatefilelists()
 		bunzip2 -c $TMPDIR/${i}-MANIFEST.bz2 | awk -f /usr/libexec/slackpkg/filelist.awk | \
 			gzip > ${TMPDIR}/${i}-filelist.gz
 	done
-	cp ${TMPDIR}/*-filelist.gz ${WORKDIR}/
+	cp ${TMPDIR}/*-filelist.gz ${ROOT}/${WORKDIR}/
 
-	if [ -r ${WORKDIR}/filelist.gz ]; then
-		rm ${WORKDIR}/filelist.gz
-		ln -s ${WORKDIR}/${MAIN}-filelist.gz ${WORKDIR}/filelist.gz
+	if [ -r ${ROOT}/${WORKDIR}/filelist.gz ]; then
+		rm ${ROOT}/${WORKDIR}/filelist.gz
+		ln -s ${ROOT}/${WORKDIR}/${MAIN}-filelist.gz ${ROOT}/${WORKDIR}/filelist.gz
 	fi
 
 	# Concatenate PACKAGE.TXT files
@@ -1125,15 +1125,15 @@ function updatefilelists()
 	for i in $DIRS; do
 		cat $TMPDIR/${i}-PACKAGES.TXT >> $TMPDIR/PACKAGES.TXT
 	done
-	cp $TMPDIR/PACKAGES.TXT ${WORKDIR}/PACKAGES.TXT
+	cp $TMPDIR/PACKAGES.TXT ${ROOT}/${WORKDIR}/PACKAGES.TXT
 
 	if [ -e $TMPDIR/CHECKSUMS.md5 ]; then
-		cp $TMPDIR/CHECKSUMS.md5 $WORKDIR/CHECKSUMS.md5 2>/dev/null
+		cp $TMPDIR/CHECKSUMS.md5 ${ROOT}/${WORKDIR}/CHECKSUMS.md5 2>/dev/null
 	fi
 
 	if [ -e $TMPDIR/CHECKSUMS.md5.asc ]; then
 		cp $TMPDIR/CHECKSUMS.md5.asc \
-			$WORKDIR/CHECKSUMS.md5.asc 2>/dev/null
+			${ROOT}/${WORKDIR}/CHECKSUMS.md5.asc 2>/dev/null
 	fi
 }
 
@@ -1315,7 +1315,7 @@ generate_template() {
 	[ "$SPINNING" = "off" ] || spinning ${TMPDIR}/waiting &
 	for i in $ROOT/var/log/packages/* ; do 
 		PKGNAME=$( cutpkg $(basename $i))
-		grep -q " $PKGNAME " ${WORKDIR}/pkglist && \
+		grep -q " $PKGNAME " ${ROOT}/${WORKDIR}/pkglist && \
 			echo $PKGNAME >> $TMPDIR/$TEMPLATE.work
 	done  
 	rm $TMPDIR/waiting

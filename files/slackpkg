@@ -42,10 +42,11 @@ ERROR=""
 
 # Set temporary directory
 #
-TMPDIR=$(mktemp -p /tmp -d slackpkg.XXXXXX 2>/dev/null)
+mkdir -p ${ROOT}/tmp
+TMPDIR=$(mktemp -p ${ROOT}/tmp -d slackpkg.XXXXXX 2>/dev/null)
 if [ $? -ne 0 ]; then
-	TMPDIR="/tmp/slackpkg.${RANDOM}"
-	mkdir -m 700 $TMPDIR || TMPDIR="FAILED"
+	TMPDIR="${ROOT}/tmp/slackpkg.${RANDOM}"
+	mkdir -p -m 700 $TMPDIR || TMPDIR="FAILED"
 fi
 
 #
@@ -485,7 +486,7 @@ case "$CMD" in
 				if ( found != 1 ) {
 			print \"No packages found! Try:\n\n\tslackpkg search $PATTERN\n\nand choose one (and ONLY one package).\n\"
 				}
-			}" ${WORKDIR}/PACKAGES.TXT 2>/dev/null
+			}" ${ROOT}/${WORKDIR}/PACKAGES.TXT 2>/dev/null
 	;;
 	new-config)
 		POSTINST=on
