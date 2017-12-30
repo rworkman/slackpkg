@@ -58,6 +58,9 @@ spinning() {
 #
 function system_setup() {
 
+	# Create $WORKDIR just in case
+	mkdir -p "$WORKDIR"
+
 	# Set LOCAL if mirror isn't through network 
 	# If mirror is through network, select the command to fetch
 	# files and packages from there.
