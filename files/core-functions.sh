@@ -126,7 +126,7 @@ function system_setup() {
 		;;
 		arm*)
 			ARCH=arm[v5tel]*
-			SLACKKEY=${SLACKKEY:-"ARMedslack Security (ARMedslack Linux Project Security) <security@armedslack.org>"}
+			SLACKKEY=${SLACKKEY:-"Slackware ARM (Slackware ARM Linux Project) <mozes@slackware.com>"}
 			PKGMAIN=${PKGMAIN:-slackware}
 		;;
 		powerpc|ppc)
