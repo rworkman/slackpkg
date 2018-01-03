@@ -1,4 +1,12 @@
 
+Tue Jan  2 22:24:50 CST 2018
+---------------
+	- 2.82.3beta3
+	- included some more fixups for respecting $ROOT
+	  (thanks to burdi01 on LQ)
+	- use correct GPG key for Slackware ARM
+	- update sample mirror list for Slackware ARM
+
 Thu Nov  9 04:03:07 UTC 2017
 ---------------
 	- 2.82.3beta2
