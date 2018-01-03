@@ -22,6 +22,23 @@
 # Evaldo Gardenali (aka UdontKnow) evaldogardenali@fasternet.com.br
 #
 
+# Ensure that we're not at the epoch.  slackpkg breaks with GPG checks when
+# the date is so far in the past:
+if [ $( date +%s ) -le 1437841588 ]; then
+cat <<"EOF"
+Error: Your system date is wrong.  slackpkg requires that the date be correct
+so that the package signatures can be verified.
+
+The date may be incorrect because you have a system such as a Raspberry Pi that
+does does not have an RTC (Real Time Clock), or that the correct date was unable
+to be read from the RTC due to a driver bug, or a missing driver.
+
+You may wish to set up NTP on your system:
+http://docs.slackware.com/howtos:network_services:ntp
+
+EOF
+  exit 1
+fi
 
 #========================================================================
 #
