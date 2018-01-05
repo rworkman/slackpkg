@@ -22,7 +22,7 @@
 
 
 PKGNAM=slackpkg
-VERSION=${VERSION:-2.82.3beta3}
+VERSION=${VERSION:-2.82.3beta4}
 BUILD=${BUILD:-1}
 
 CWD=$(pwd)

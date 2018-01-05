@@ -1,3 +1,7 @@
+Fri Jan  5 03:24:31 UTC 2018
+
+	- 2.82.3beta4
+        - Abort if system date is near epoch (needed on ARM)
 
 Tue Jan  2 22:24:50 CST 2018
 ---------------
