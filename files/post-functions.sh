@@ -223,7 +223,7 @@ lookkernel() {
 Your kernel image was updated.  We highly recommend you run: lilo
 Do you want slackpkg to run lilo now? (Y/n)"
 			answer
-			if [ "$ANSWER" != "n" ] && [ "$ANSWER" != "N" ]; then
+			if [ "$ANSWER" = "y" ] || [ "$ANSWER" = "Y" ]; then
 				/sbin/lilo
 			fi
 		else
