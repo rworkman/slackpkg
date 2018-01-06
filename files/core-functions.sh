@@ -253,16 +253,34 @@ Before you install|upgrade|reinstall anything you need to run:\n\n\
 Please edit that file and uncomment ONE mirror.  Slackpkg\n\
 only works with ONE mirror selected.\n"
 		cleanup
-	else
-		COUNT=$(echo $SOURCE | wc -w | tr -d " ")
-		if [ "$COUNT" != "1" ]; then
-			echo -e "\n\
-Slackpkg only works with ONE mirror selected.  Please edit your\n\
-${CONF}/mirrors and comment all but one line - two or more\n\
-mirrors uncommented is not valid syntax.\n"
+	fi
+	if echo $SOURCE|grep -q " "; then
+		echo "
+Slackpkg only works with ONE mirror selected.  Please edit your
+${CONF}/mirrors and comment all but one line - two or more
+mirrors uncommented is not valid syntax.
+"
+		cleanup
+	fi
+	MIRROR_VERSION=$(echo $SOURCE|sed "s/.*-//;s/.$//") 
+	if [ "$MIRROR_VERSION" = "current" ] && [ ! -f ${ROOT}/${WORKDIR}/current ]; then
+		echo -n  "
+You have selected a mirror for Slackware -current in ${CONF}/mirrors,
+but Slackware version $SLACKWARE_VERSION appears to be installed.
+
+Slackware -current is the development (i.e. unstable) tree.
+
+Is this really what you want?
+
+To confirm your choice, press Y, else press N. Then, press Enter: "
+		read current
+		if [ "$current" = "Y" ] || [ "$current" = "y" ]; then
+			touch ${ROOT}/${WORKDIR}/current
+		else
 			cleanup
 		fi
 	fi
+	[ ! "$MIRROR_VERSION" = "current" ] &&  rm -f ${ROOT}/${WORKDIR}/current
 
 	# It will check if the mirror selected are ftp.slackware.com
 	# if set to "ftp.slackware.com" tell the user to choose another
