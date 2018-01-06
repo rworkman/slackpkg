@@ -1,5 +1,20 @@
-Fri Jan  5 03:24:31 UTC 2018
 
+Sat Jan  6 23:54:27 UTC 2018
+---------------
+	- 2.82.3beta5
+	- minor tweaks to slack-desc
+	- check for existence of /etc/lilo.conf too before offering
+	  to run lilo after kernel upgrades
+	- make sure user actually wants to run lilo (fix answer
+	  handling)
+	- warn user and require confirmation the first time a -current
+	  mirror is selected (thanks to Didier Spaier)
+	- improve handling of SOURCE from /etc/slackpkg/mirrors; e.g.
+	  don't fail if trailing slash is accidentally omitted
+	  (thanks to Didier Spaier)
+
+Fri Jan  5 03:24:31 UTC 2018
+---------------
 	- 2.82.3beta4
         - Abort if system date is near epoch (needed on ARM)
 
