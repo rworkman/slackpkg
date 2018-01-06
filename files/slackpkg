@@ -47,13 +47,26 @@ fi
 
 #
 # CONF = configuration directory
-# SOURCE = A mirror of Slackware. Source can be sett by editing $CONF/mirrors
+# SOURCE = A mirror of Slackware. Source can be set by editing $CONF/mirrors
 #
 VERSION=@VERSION@
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 SLACKWARE_VERSION=$(cat /etc/slackware-version | cut -f2 -d\ )
 CONF=${CONF:-/etc/slackpkg}
-SOURCE=$(sed -e 's/^[[:blank:]]*//' $CONF/mirrors | grep -m1 -e "^\([a-z]\)")
+SOURCE=$(sed -n '
+	# Remove leading and trailing blanks
+	s/^[[:blank:]]*//
+	s/[[:blank:]]*$//
+	# Only one token is allowed per line
+	/[[:blank:]]/d
+	# A single solidus should end the URI
+	s,[/]*$,/,
+	# Print the lines beginning with one of the URI schemes we look for
+	\@^file://@p
+	\@^cdrom://@p
+	\@^local://@p
+	\@^https\{0,1\}://@p
+	\@^ftps\{0,1\}://@p' $CONF/mirrors)
 . $CONF/slackpkg.conf
 ERROR=""
 
