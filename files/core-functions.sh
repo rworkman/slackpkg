@@ -276,6 +276,11 @@ To confirm your choice, press Y, else press N. Then, press Enter: "
 		read current
 		if [ "$current" = "Y" ] || [ "$current" = "y" ]; then
 			touch ${ROOT}/${WORKDIR}/current
+			echo -n  "
+Slackpkg will not show this warning again unless you remove the
+${WORKDIR}/current file. 
+"
+			sleep 1
 		else
 			cleanup
 		fi
