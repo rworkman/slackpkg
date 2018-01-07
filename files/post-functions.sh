@@ -218,7 +218,14 @@ What do you want (K/O/R/P)?"
 lookkernel() {
 	NEWKERNELMD5=$(md5sum /boot/vmlinuz 2>/dev/null)
 	if [ "$KERNELMD5" != "$NEWKERNELMD5" ]; then
-		if [ -x /sbin/lilo ] && [ -r /etc/lilo.conf ]; then
+		if [ -x /sbin/lilo ] && [ -r /etc/lilo.conf ] && grep -q initrd /etc/lilo.conf ; then
+			echo -e "\n
+Your kernel image was updated, and your /etc/lilo.conf indicates
+the use of an initrd for at least one of your kernels. Be sure to
+regenerate the initrd for the new kernel and handle any needed 
+updates to your bootloader.
+"
+		elif [ -x /sbin/lilo ] && [ -r /etc/lilo.conf ] ; then
 			echo -e "\n
 Your kernel image was updated.  We highly recommend you run: lilo
 Do you want slackpkg to run lilo now? (Y/n)"
