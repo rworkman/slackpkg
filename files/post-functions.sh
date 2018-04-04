@@ -228,16 +228,15 @@ updates to your bootloader.
 		elif [ -x /sbin/lilo ] && [ -r /etc/lilo.conf ] ; then
 			echo -e "\n
 Your kernel image was updated.  Be sure to handle any needed updates
-to your bootloader.
+to your bootloader (possibly as simple as running /sbin/lilo).
 "
 		else
 			echo -e "\n
 Your kernel image was updated, and lilo does not appear to be used on 
 your system.  You may need to adjust your boot manager (like GRUB) to 
-boot the appropriate kernel."
+boot the appropriate kernel (after generating an initrd if required)."
 		fi
-		echo -e "\n\n
-Press any key to continue...\n
-"
+		echo -e "Press any key to continue...\n "
+		read _junk
 	fi
 }
