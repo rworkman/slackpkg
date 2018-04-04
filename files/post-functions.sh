@@ -227,17 +227,17 @@ updates to your bootloader.
 "
 		elif [ -x /sbin/lilo ] && [ -r /etc/lilo.conf ] ; then
 			echo -e "\n
-Your kernel image was updated.  We highly recommend you run: lilo
-Do you want slackpkg to run lilo now? (Y/n)"
-			answer
-			if [ "$ANSWER" = "y" ] || [ "$ANSWER" = "Y" ]; then
-				/sbin/lilo
-			fi
+Your kernel image was updated.  Be sure to handle any needed updates
+to your bootloader.
+"
 		else
 			echo -e "\n
 Your kernel image was updated, and lilo does not appear to be used on 
 your system.  You may need to adjust your boot manager (like GRUB) to 
 boot the appropriate kernel."
 		fi
+		echo -e "\n\n
+Press any key to continue...\n
+"
 	fi
 }
