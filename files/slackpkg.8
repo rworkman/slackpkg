@@ -1,4 +1,4 @@
-.TH SLACKPKG 8 "Oct 2017" slackpkg-2.82.2 ""
+.TH SLACKPKG 8 "March 22, 2018" slackpkg-2.82.2 ""
 .SH NAME
 .B slackpkg
 \- Automated tool for managing Slackware Linux packages
@@ -6,7 +6,7 @@
 .SH SYNOPSIS
 .B slackpkg
 .B [OPTIONS]
-.B {install|remove|search|upgrade|reinstall|blacklist} 
+.B {install|remove|search|upgrade|reinstall|blacklist}
 .BI { PATTERN | FILE }
 
 .B slackpkg [OPTIONS] {clean-system|upgrade-all|install-new}
@@ -21,12 +21,12 @@
 .B {generate-template|install-template|remove-template}
 .I TEMPLATENAME
 
-.B slackpkg [OPTIONS] info 
-.I PACKAGE 
+.B slackpkg [OPTIONS] info
+.I PACKAGE
 
 .B slackpkg [OPTIONS] update [gpg]
 
-.B slackpkg [OPTIONS] {new-config|check-updates} 
+.B slackpkg [OPTIONS] {new-config|check-updates}
 
 .B slackpkg [OPTIONS] help
 
@@ -57,32 +57,32 @@ packages in Slackware.  Every time this list is changed, the update
 needs to be run.
 
 The main features of Slackpkg are the ones directly related to
-package management: install, upgrade, and remove packages. 
+package management: install, upgrade, and remove packages.
 To do any of these tasks, the Slackpkg syntax is:
 
 .in +5
 # slackpkg [OPTIONS] <action> {PATTERN|FILE}
 .in
 
-.I OPTIONS 
+.I OPTIONS
 can be one or more of the many configuration options listed in
 /etc/slackpkg/slackpkg.conf.  There are equivalent command line options
 for most of the configuration directives found in slackpkg.conf - see the
 .B slackpkg.conf(5)
 man-page to see what options are available.
 
-.I PATTERN 
-can be a package name or just part of package name.  It can also 
+.I PATTERN
+can be a package name or just part of package name.  It can also
 be a software series (like kde, a, ap, ...).
-.br 
+.br
 
-.I FILE 
-is a file with a list of 
-.I PATTERNs 
+.I FILE
+is a file with a list of
+.I PATTERNs
 inside: either one per line,
 or several per line with spaces as separators.
 
-Slackpkg can be used to upgrade the whole distribution. 
+Slackpkg can be used to upgrade the whole distribution.
 .br
 The usual way is to do:
 
@@ -96,33 +96,33 @@ The usual way is to do:
 # slackpkg clean-system
 .in
 
-Another feature of Slackpkg is the ability to work with templates, which can 
+Another feature of Slackpkg is the ability to work with templates, which can
 make it much easier to create different machines with the same contents of
 packages.  The basic steps are as follows:
 
 .RS +5
-.IP \(bu 2 
+.IP \(bu 2
 Install one machine
-.IP \(bu 2 
+.IP \(bu 2
 Run "slackpkg generate-template TEMPLATENAME"
-.IP \(bu 2 
-Copy /etc/slackpkg/templates/TEMPLATENAME.template to the same directory on 
+.IP \(bu 2
+Copy /etc/slackpkg/templates/TEMPLATENAME.template to the same directory on
 the other machine
-.IP \(bu 2 
+.IP \(bu 2
 Run "slackpkg install-template TEMPLATENAME" on the other machine
 .RE
 
-.I TEMPLATENAME 
+.I TEMPLATENAME
 is the name of your template.
 
 Following this manual page, you can find what each of these (and other)
-actions does. 
+actions does.
 
-.SH ACTIONS 
+.SH ACTIONS
 .TP 5
 .B help
 .br
-Show slackpkg's actions and a short description of them. Useful if you need 
+Show slackpkg's actions and a short description of them. Useful if you need
 to know a little about slackpkg. The information here, on man-page is much
 more complete.
 
@@ -136,7 +136,7 @@ update will download the latest package lists from a Slackware mirror
 # slackpkg update
 .in
 
-before attempting to upgrade, install, or search for packages. 
+before attempting to upgrade, install, or search for packages.
 .br
 If you need to update Slackware's GPG key, run
 
@@ -145,7 +145,7 @@ If you need to update Slackware's GPG key, run
 .in
 
 The GPG key doesn't change. This should be a "one time" command - run it
-once and forget it... 
+once and forget it...
 
 .TP 5
 .B check-updates
@@ -156,7 +156,7 @@ cron to alert the sysadmin about updates.
 .TP 5
 .B file-search
 .br
-You can search the official Slackware packages for any file in the Slackware 
+You can search the official Slackware packages for any file in the Slackware
 distribution.  Do you need a strange library?  Use file-search to find it.
 
 .in +5
@@ -164,7 +164,7 @@ distribution.  Do you need a strange library?  Use file-search to find it.
 .in
 
 All packages with matching "filename" will be shown, thus you can see whether
-the packages are installed or not; if not, you can download and install them 
+the packages are installed or not; if not, you can download and install them
 with other slackpkg actions.
 
 .TP 5
@@ -173,7 +173,7 @@ with other slackpkg actions.
 You can search for any package distributed in Slackware.
 
 .in +5
-# slackpkg search pattern 
+# slackpkg search pattern
 .in
 
 All packages names that matches with "pattern" will be shown.
@@ -191,7 +191,7 @@ Installation of a package is very simple. Just use a command like this:
 
 and the package will be downloaded and installed.
 .br
-You can't use the "install" option to install an already installed package, 
+You can't use the "install" option to install an already installed package,
 but you may reinstall or upgrade it.
 
 .TP 5
@@ -205,10 +205,10 @@ will be installed).
 .TP 5
 .B reinstall
 .br
-In case you mistakenly corrupt something, the reinstall option will allow 
+In case you mistakenly corrupt something, the reinstall option will allow
 you to reinstall the same version of a package that is currently installed.
 
-.TP 5   
+.TP 5
 .B remove
 .br
 With remove, you can remove certain installed packages.  As an example:
@@ -224,33 +224,33 @@ will remove all packages with "kde" in their name.
 .br
 With this action, you can "blacklist" certain packages.
 .br
-Blacklisted packages will not be installed, upgraded, or removed by slackpkg. 
-If you want to remove some package from the black list, please edit 
+Blacklisted packages will not be installed, upgraded, or removed by slackpkg.
+If you want to remove some package from the black list, please edit
 /etc/slackpkg/blacklist.
 
 .TP 5
 .B download
 .br
 This action tells slackpkg to download the packages, but not to install them.
-They will be placed in /var/cache/packages, and you can 
+They will be placed in /var/cache/packages, and you can
 install/upgrade/reinstall them later (or burn them to CD).
 
 .TP 5
 .B info
 .br
-This action prints information about the package(s): compressed and 
+This action prints information about the package(s): compressed and
 uncompressed size, description, etcetera...
 
 .TP 5
 .B clean-system
 .br
-This action removes all of the packages that don't belong to a standard 
-Slackware installation.  With this option, you can clean up your system, 
-removing third-party packages as well as any packages that were removed 
+This action removes all of the packages that don't belong to a standard
+Slackware installation.  With this option, you can clean up your system,
+removing third-party packages as well as any packages that were removed
 from the official Slackware package set.
 .br
-If you have some third party (or custom built) packages that you would like 
-to keep, you can temporarily add them to the list of blacklisted packages 
+If you have some third party (or custom built) packages that you would like
+to keep, you can temporarily add them to the list of blacklisted packages
 before you run the 'clean-system' action.
 
 .TP 5
@@ -258,17 +258,17 @@ before you run the 'clean-system' action.
 .br
 This action upgrades every package installed on the system to the version in
 the official Slackware tree; this is the "good" way to upgrade the entire
-system.  
+system.
 .br
 Remember to use the "install-new" action before you use "upgrade-all."
 
 .TP 5
 .B install-new
-This action installs any new packages that are added to the official 
-Slackware package set.  Run this if you are upgrading your system to 
-another Slackware version or if you are using -current. 
+This action installs any new packages that are added to the official
+Slackware package set.  Run this if you are upgrading your system to
+another Slackware version or if you are using -current.
 .br
-If you want to install all uninstalled Slackware packages onto your system, 
+If you want to install all uninstalled Slackware packages onto your system,
 use the following command instead of the install-new action:
 
 .in +5
@@ -276,17 +276,17 @@ use the following command instead of the install-new action:
 .in
 .TP 5
 .B new-config
-This action searches for .new configuration files and ask the user what to 
-do with those files. 
+This action searches for .new configuration files and ask the user what to
+do with those files.
 .br
-new-config is very useful when you perform an upgrade and leave the 
+new-config is very useful when you perform an upgrade and leave the
 configuration files to be reviewed later.  Instead of a manual search,
 diff, and replace; you can use the new-config action.
 .br
 new-config searches /etc and /usr/share/vim for new config files.
 .TP 5
 .B generate-template
-This action creates a new template with all official packages that are 
+This action creates a new template with all official packages that are
 installed in your system. The template is stored at /etc/slackpkg/templates
 .TP 5
 .B install-template
@@ -299,14 +299,14 @@ all of them need to be in /etc/slackpkg/templates. You can disable the
 This action remove all packages that are part of selected template. Be
 careful, this can put your machine in an unusable state. The "include"
 handling can be activated/deactivated in slackpkg.conf or with the
-appropriate option in command-line. 
+appropriate option in command-line.
 
 .SH FILES
 .TP 5
-.B /etc/slackpkg/mirrors	
+.B /etc/slackpkg/mirrors
 File to specify the location from which to download packages
 .TP 5
-.B /etc/slackpkg/slackpkg.conf	
+.B /etc/slackpkg/slackpkg.conf
 General configuration of slackpkg
 .TP 5
 .B /etc/slackpkg/blacklist
@@ -332,8 +332,8 @@ ChangeLog.txt, list of files, etcetera...
 
 .SH AUTHORS
 .TP 5
-Piter PUNK aka Roberto F Batista 
+Piter PUNK aka Roberto F Batista
 <piterpk AT terra DOT com DOT br>
 .TP 5
-Evaldo Gardenali aka UdontKnow 
+Evaldo Gardenali aka UdontKnow
 <evaldo AT fasternet DOT com DOT br>
