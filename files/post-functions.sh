@@ -134,7 +134,7 @@ looknew() {
 	fi
 
 	echo -e "\nSearching for NEW configuration files"
-	FILES=$(find /etc /var/yp /usr/share/vim -name "*.new" ${ONLY_NEW_DOTNEW} \
+	FILES=$(find ${ROOT}/etc ${ROOT}/var/yp ${ROOT}/usr/share/vim -name "*.new" ${ONLY_NEW_DOTNEW} \
 		-not -name "rc.inet1.conf.new" \
 		-not -name "group.new" \
 		-not -name "passwd.new" \
