@@ -1,4 +1,16 @@
 
+Wed Apr  4 01:06:05 UTC 2018
+---------------
+	- 2.83.0beta1 (yes, jump from 2.82.3betas)
+	- fix stray stuff in vimdiff prompt
+	- sort .new files list from looknew() (thanks to Eduard Rozenberg)
+	- make sure user is aware of kernel update (require keypress)
+	- respect $ROOT in looknew() (thanks to burdi01 on LQ)
+	- inform user that the warning about a -current mirror
+	  only occurs once, and also point the location of the
+	  file to remove if they want the warning back
+	- don't offer to run lilo if initrd is in lilo.conf
+
 Sat Jan  6 23:54:27 UTC 2018
 ---------------
 	- 2.82.3beta5
