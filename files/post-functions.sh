@@ -139,7 +139,7 @@ looknew() {
 		-not -name "group.new" \
 		-not -name "passwd.new" \
 		-not -name "shadow.new" \
-		-not -name "gshadow.new" 2>/dev/null)
+		-not -name "gshadow.new" 2>/dev/null | sort 2>/dev/null)
 	if [ "$FILES" != "" ]; then
 		echo -e "\n\
 Some packages had new configuration files installed.
