@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-# Copyright 2016  Patrick J. Volkerding, Sebeka, Minnesota, USA
+# Copyright 2016, 2018  Patrick J. Volkerding, Sebeka, Minnesota, USA
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -27,9 +27,6 @@ VERSION=${VERSION:-2.83.0}
 ARCH="noarch"
 BUILD=${BUILD:-1}
 
-TMP=${TMP:-/tmp}
-PKG=$TMP/package-$PKGNAM
-
 # If the variable PRINT_PACKAGE_NAME is set, then this script will report what
 # the name of the created package would be, and then exit. This information
 # could be useful to other scripts.
@@ -37,6 +34,9 @@ if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
   echo "$PKGNAM-$VERSION-$ARCH-$BUILD.txz"
   exit 0
 fi
+
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-$PKGNAM
 
 rm -rf $PKG
 mkdir -p $TMP $PKG
@@ -89,7 +89,7 @@ for page in manpages-l10n/*slackpkg.conf ; do
   mkdir -p $PKG/usr/man/${manpage%%.*}/man5
   cp -av $page $PKG/usr/man/${manpage%%.*}/man5/${page#*.}.5
 done
-for page in manpages-l10n/* ; do
+for page in manpages-l10n/*slackpkg ; do
   manpage=$(basename $page)
   mkdir -p $PKG/usr/man/${manpage%%.*}/man8
   cp -av $page $PKG/usr/man/${manpage%%.*}/man8/${page#*.}.8
