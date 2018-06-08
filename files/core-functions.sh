@@ -805,7 +805,7 @@ function searchlist() {
 	    # First is the package already installed?
 	    # Amazing what a little sleep will do
 	    # exclusion is so much nicer :)
-	    INSTPKG=$(ls -1 $ROOT/var/log/packages | \
+	    INSTPKG=$(ls -1 $ROOT/var/log/packages/ | \
 		grep -e "^${BASENAME}-[^-]\+-\(${ARCH}\|fw\|noarch\)-[^-]\+")
 
 		# INSTPKG is local version
@@ -1199,14 +1199,14 @@ function sanity_check() {
 
 	[ "$SPINNING" = "off" ] || spinning ${TMPDIR}/waiting &
 
-	for i in $(ls -1 $ROOT/var/log/packages | \
+	for i in $(ls -1 $ROOT/var/log/packages/ | \
 		egrep -- "^.*-(${ARCH}|fw|noarch)-[^-]+-upgraded"); do
 		REVNAME=$(echo ${i} | awk -F'-upgraded' '{ print $1 }')
 		mv $ROOT/var/log/packages/${i} $ROOT/var/log/packages/${REVNAME}
 		mv $ROOT/var/log/scripts/${i} $ROOT/var/log/scripts/${REVNAME}
 	done
 	
-	ls -1 $ROOT/var/log/packages | egrep "^.*-(${ARCH}|fw|noarch)-[^-]+$" | \
+	ls -1 $ROOT/var/log/packages/ | egrep "^.*-(${ARCH}|fw|noarch)-[^-]+$" | \
 				  batchcutpkg | sort > $TMPDIR/list1 
 	cat $TMPDIR/list1 | uniq > $TMPDIR/list2
 	FILES="$(diff $TMPDIR/list1 $TMPDIR/list2 | grep '<' | cut -f2 -d\ )"
@@ -1223,12 +1223,12 @@ function sanity_check() {
 
 	if [ "$DOUBLEFILES" != "" ]; then
 		echo -e "\
-You have a broken $ROOT/var/log/packages - with two versions of the same package.\n\
+You have a broken $ROOT/var/log/packages/ - with two versions of the same package.\n\
 The list of packages duplicated in your machine are shown below, but don't\n\
 worry about this list - when you select your action, slackpkg will show a\n\
 better list:\n"
 		for i in $DOUBLEFILES ; do
-			ls -1 $ROOT/var/log/packages |\
+			ls -1 $ROOT/var/log/packages/ |\
 				egrep -i -- "^${i}-[^-]+-(${ARCH}|fw|noarch)-"
 		done
 		echo -ne "\n\
@@ -1243,7 +1243,7 @@ Select your action (B/R/I): "
 			;;
 			R|r)
 				for i in $DOUBLEFILES ; do
-					FILE=$(ls -1 $ROOT/var/log/packages |\
+					FILE=$(ls -1 $ROOT/var/log/packages/ |\
 						egrep -i -- "^${i}-[^-]+-(${ARCH}|fw|noarch)-")
 					FILES="$FILES $FILE"
 				done

@@ -20,7 +20,7 @@ if [ "$DIALOG" = "on" ] || [ "$DIALOG" = "ON" ]; then
 		rm -f $TMPDIR/dialog.tmp
 		
 		if [ "$2" = "upgrade" ]; then
-			ls -1 $ROOT/var/log/packages > $TMPDIR/tmplist
+			ls -1 $ROOT/var/log/packages/ > $TMPDIR/tmplist
 			for i in $1; do
 				BASENAME=$(cutpkg $i)
 				PKGFOUND=$(grep -m1 -e "^${BASENAME}-[^-]\+-\(noarch\|fw\|${ARCH}\)" $TMPDIR/tmplist)
