@@ -970,9 +970,36 @@ function getpkg() {
 #
 function checkchangelog()
 {
+	if ! [ -e ${ROOT}/${WORKDIR}/CHECKSUMS.md5.asc ]; then
+		touch ${ROOT}/${WORKDIR}/CHECKSUMS.md5.asc
+	fi
+
 	if ! [ -e ${ROOT}/${WORKDIR}/ChangeLog.txt ]; then
 		touch ${ROOT}/${WORKDIR}/ChangeLog.txt
 	fi
+
+	# First we will download CHECKSUMS.md5.asc since it is a very small
+	# file and if it has not changed, we can know that the ChangeLog
+	# has not changed either. If it _has_ changed, we'll need to pull
+	# the ChangeLog to check that as well.
+	echo -e "\tDownloading..."
+	getfile ${SOURCE}CHECKSUMS.md5.asc $TMPDIR/CHECKSUMS.md5.asc
+	if ! grep -q "PGP" $TMPDIR/CHECKSUMS.md5.asc ; then
+		echo -e "\
+\nError downloading from $SOURCE.\n\
+Please check your mirror and try again."
+		cleanup
+	fi
+	if diff --brief ${ROOT}/${WORKDIR}/CHECKSUMS.md5.asc $TMPDIR/CHECKSUMS.md5.asc ; then
+		# Before returning with the result that these signatures (and
+		# therefore the ChangeLog) are the same, we need to copy the
+		# ChangeLog into ${TMPDIR} in case the user decides to
+		# "download all other files":
+		cp ${ROOT}/${WORKDIR}/ChangeLog.txt $TMPDIR/ChangeLog.txt
+		return 0
+	fi
+	# CHECKSUMS.md5.asc was different, so we'll go on to download and test
+	# the full ChangeLog.txt.
 
 	echo -e "\tDownloading..."
 	#
