@@ -236,7 +236,7 @@ Your kernel image was updated, and lilo does not appear to be used on
 your system.  You may need to adjust your boot manager (like GRUB) to 
 boot the appropriate kernel (after generating an initrd if required)."
 		fi
-		echo -e "Press any key to continue...\n "
+		echo -e "Press the \"Enter\" key to continue...\n "
 		read _junk
 	fi
 }
