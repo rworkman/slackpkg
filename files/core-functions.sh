@@ -1067,7 +1067,10 @@ function updatefilelists()
 				echo -e "\
 \n\t\tERROR: Verification of the  gpg signature on CHECKSUMS.md5\n\
 \t\t       failed! This could mean that the file is out of date\n\
-\t\t       or has been tampered with.\n"
+\t\t       or has been tampered with. If you use mirrors.slackware.com\n\
+\t\t       as your mirror, this could also mean that the mirror to\n\
+\t\t       which you got redirected is not yet updated with the most\n\
+\t\t       recent changes in the Slackware tree.\n"
 				cleanup
 			fi
 		elif [ "$SLACKKEY" != "" ]; then
