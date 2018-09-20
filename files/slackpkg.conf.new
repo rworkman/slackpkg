@@ -109,6 +109,10 @@ POSTINST=on
 # Default=off
 ONLY_NEW_DOTNEW=off
 
+# Whether to backup files overwritten by their .new counterparts with a
+# .orig extension.
+ORIG_BACKUPS=on
+
 # The ONOFF variable sets the initial behavior of the dialog interface.
 # If you set this to "on" then all packages will be selected by default.
 # If you prefer the opposite option (all unchecked), then set this to "off".

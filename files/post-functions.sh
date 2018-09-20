@@ -47,7 +47,7 @@ mergenew() {
 				;;
 				I|i)
 					if [ -f "${FULLNAME}.smerge" ]; then
-						if [ -e "${FULLNAME}" ]; then
+						if [ -e "${FULLNAME}" ] && [ "$ORIG_BACKUPS" != "off" ]; then
 							mv "${FULLNAME}" "${FULLNAME}.orig"
 						fi
 						mv "${FULLNAME}.smerge" "${FULLNAME}"
@@ -101,7 +101,7 @@ overold() {
 	FILEPATH=$(dirname $i)
 	FULLNAME="${FILEPATH}/${BASENAME}"
 
-	if [ -e ${FULLNAME} ]; then
+	if [ -e ${FULLNAME} ] && [ "$ORIG_BACKUPS" != "off" ]; then
 	    mv ${FULLNAME} ${FULLNAME}.orig
 	fi
 	mv ${FULLNAME}.new ${FULLNAME}
@@ -141,15 +141,16 @@ looknew() {
 		-not -name "shadow.new" \
 		-not -name "gshadow.new" 2>/dev/null | sort 2>/dev/null)
 	if [ "$FILES" != "" ]; then
-		echo -e "\n\
+		echo -ne "\n\
 Some packages had new configuration files installed.
 You have four choices:
 
 	(K)eep the old files and consider .new files later
 
-	(O)verwrite all old files with the new ones. The
-	   old files will be stored with the suffix .orig
-
+	(O)verwrite all old files with the new ones"
+		[ "$ORIG_BACKUPS" != "off" ] && echo -ne ". The
+	   old files will be stored with the suffix .orig"
+		echo -e "\n\n\
 	(R)emove all .new files
 
 	(P)rompt K, O, R selection for every single file

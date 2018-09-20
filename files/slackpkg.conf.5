@@ -211,6 +211,21 @@ is "off". Only change this if you know what are you doing...
 From command line, you can use -only_new_dotnew=value.
 
 .TP 5
+.B ORIG_BACKUPS 
+.br
+During integration of .new files during the post installation phase, original 
+files are backed up to a file name with a .orig extension.  To prevent this, 
+set this option to "off" and note that you will no longer have a copy of the 
+content of the file prior to it being replaced by the .new version.
+
+The default value of 
+.B ORIG_BACKUPS
+is "on".  Only change this if you are sure you don't want backups of
+overwritten files.
+.br
+From the command line, you can use -orig_backups=value.
+
+.TP 5
 .B ONOFF
 .br
 The 

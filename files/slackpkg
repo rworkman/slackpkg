@@ -178,6 +178,14 @@ while [ -n "$1" ] ; do
       ONLY_NEW_DOTNEW=off
       shift
     ;;
+    -orig_backups=on)
+      ORIG_BACKUPS=on
+      shift
+    ;;
+    -orig_backups=off)
+      ORIG_BACKUPS=off
+      shift
+    ;;
     -use_includes=on)
       USE_INCLUDES=on
       shift
