@@ -141,8 +141,34 @@ looknew() {
 		-not -name "shadow.new" \
 		-not -name "gshadow.new" 2>/dev/null | sort 2>/dev/null)
 	if [ "$FILES" != "" ]; then
+		newcount=$(echo "$FILES" | wc -l)
 		echo -ne "\n\
-Some packages had new configuration files installed.
+Some packages had new configuration files installed ($newcount new files):\n\n"
+
+		if [ $newcount -le 15 ]; then
+			echo -e "\n$FILES\n"
+		else
+			F=0
+			for FN in $FILES; do
+				F=$((F+1))
+				echo "$FN"
+
+				if [ $F -ge 14 ]; then
+					F=0
+					echo -ne "\nPress SPACE for more, ENTER to skip"
+					IFS=$'\n' read -rn 1 junk
+					echo -e "\n"
+					
+					if [ "$junk" = " " ]; then
+						continue
+					elif [ "$junk" = "" ]; then
+						break
+					fi
+				fi
+			done
+		fi
+
+		echo -ne "\n\
 You have four choices:
 
 	(K)eep the old files and consider .new files later
@@ -154,9 +180,9 @@ You have four choices:
 	(R)emove all .new files
 
 	(P)rompt K, O, R selection for every single file
-	
+
 What do you want (K/O/R/P)?"
-		answer	
+		answer
 		case $ANSWER in
 			K|k)
 				break
@@ -179,7 +205,7 @@ What do you want (K/O/R/P)?"
 					GOEX=0
 					while [ $GOEX -eq 0 ]; do
 						echo
-                                                showmenu $i "(K)eep" "(O)verwrite" "(R)emove" "(D)iff" "(M)erge" "(V)imdiff"
+						showmenu $i "(K)eep" "(O)verwrite" "(R)emove" "(D)iff" "(M)erge" "(V)imdiff"
 						read ANSWER
 						case $ANSWER in
 							O|o)
@@ -196,9 +222,9 @@ What do you want (K/O/R/P)?"
 							M|m)
 								mergenew $1
 							;;
-                                                        V|v)
-                                                                runvimdiff $1
-                                                        ;;
+							V|v)
+								runvimdiff $1
+							;;
 							K|k|*)
 								GOEX=1
 							;;
