@@ -1,4 +1,19 @@
 
+For Next Release
+---------------
+	- Add support for listing .new files without PAGER (David Woodfall)
+	- Remove switch.ch mirrors
+	- Add config option to allow *not* saving .orig configs (Darren Austin)
+	- Mention possible stale mirror if CHECKSUMS.md5 gpg verify fails
+	- Clarify that a press of "Enter" is needed to confirm kernel change
+	  (Mario Preksavec)
+	- doinst.sh Don't remove ChangeLog.txt upon upgrade/reinstall.
+	  (Patrick Volkerding)
+	- mirrors-x86*.sample: Remove bjtu.edu.cn mirror
+	- Fix for /var/log/packages/ possibly being a symlink to elsewhere
+	- Use CHECKSUMS.md5.asc to determine ChangeLog newness
+	  (Patrick Volkerding)
+
 Thu May 29 19:15:21 UTC 2018
 ---------------
 	- 2.83.0
