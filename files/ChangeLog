@@ -1,6 +1,14 @@
 
 For Next Release
 ---------------
+	- Allow blacklisting of individual packages without collateral 
+	  damage (e.g. glibc ---> glibc-*). This changes the prior behavior
+	  of the blacklist function; previously, adding "glibc" to the
+	  blacklist would cause glibc, glibc-profile, glibc-zoneinfo, et al
+	  to be ignored by slackpkg. The new behavior is that *only* the 
+	  glibc package is ignored. If you want to blacklist all packages
+	  whose names begin with glibc, you would need to add "glibc.*" to
+	  the blacklist now.  (David Woodfall)
 	- Add support for listing .new files without PAGER (David Woodfall)
 	- Remove switch.ch mirrors
 	- Add config option to allow *not* saving .orig configs (Darren Austin)

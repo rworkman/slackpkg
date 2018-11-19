@@ -572,7 +572,7 @@ function listpkgname() {
 }
 
 function applyblacklist() {
-	grep -vEw -f ${TMPDIR}/blacklist
+	grep -vE -f ${TMPDIR}/blacklist
 }
 
 # Function to make install/reinstall/upgrade lists
@@ -584,7 +584,10 @@ function makelist() {
 
 	INPUTLIST=$@
 
-	grep -vE "(^#|^[[:blank:]]*$)" ${CONF}/blacklist > ${TMPDIR}/blacklist
+	grep -vE "(^#|^[[:blank:]]*$)" ${CONF}/blacklist | \
+	sed -E "s,^, ,;s,$, ,;s,^\s(extra|pasture|patches|slackware(|64)|testing|txz)\s,\1," \
+	> ${TMPDIR}/blacklist
+
 	if echo $CMD | grep -q install ; then
 		ls -1 $ROOT/var/log/packages/* | awk -f /usr/libexec/slackpkg/pkglist.awk > ${TMPDIR}/tmplist
 	else
