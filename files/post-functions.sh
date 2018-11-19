@@ -145,15 +145,19 @@ looknew() {
 		echo -ne "\n\
 Some packages had new configuration files installed ($newcount new files):\n\n"
 
-		if [ $newcount -le 15 ]; then
-			echo -e "\n$FILES\n"
+		SIZE=$(stty size)
+		ROWS=${SIZE% *}
+		LISTMAX=$((ROWS-20))
+
+		if [ $newcount -le $LISTMAX ]; then
+			echo -e "$FILES"
 		else
 			F=0
 			for FN in $FILES; do
 				F=$((F+1))
 				echo "$FN"
 
-				if [ $F -ge 14 ]; then
+				if [ $F -ge $LISTMAX ]; then
 					F=0
 					echo -ne "\nPress SPACE for more, ENTER to skip"
 					IFS=$'\n' read -rn 1 junk
