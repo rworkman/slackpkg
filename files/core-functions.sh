@@ -1227,7 +1227,7 @@ function sanity_check() {
 	if [ "$DOUBLEFILES" != "" ]; then
 		echo -e "\
 You have a broken $ROOT/var/log/packages/ - with two versions of the same package.\n\
-The list of packages duplicated in your machine are shown below, but don't\n\
+The list of packages duplicated in your machine is shown below, but don't\n\
 worry about this list - when you select your action, slackpkg will show a\n\
 better list:\n"
 		for i in $DOUBLEFILES ; do
