@@ -1,36 +1,32 @@
+# /etc/slackpkg/blacklist
+#
 # This is a blacklist file. Any packages listed here won't be
 # upgraded, removed, or installed by slackpkg.
-#
-# The correct syntax is:
-#
-# To blacklist the package xorg-server-1.19.4-x86_64-1 the line will be:
-# xorg-server
-#
-# DON'T put any space(s) before or after the package name or regexp.
-# If you do this, the blacklist will NOT work.
 
-#
-# Automated upgrade of kernel packages aren't a good idea (and you need to
-# run "lilo" after upgrade). If you think the same, uncomment the lines
-# below 
-#
-#kernel-generic
-#kernel-generic-smp
-#kernel-huge
-#kernel-huge-smp
-#kernel-modules
-#kernel-modules-smp
-#kernel-source
-
-#
 # aaa_elflibs should NOT be blacklisted!
 #
-
 # You can blacklist using regular expressions.
 #
 # Don't use *full* regex here, because all of the following 
 # will be checked for the regex: series, name, version, arch, 
 # build and fullname.
+#
+# To blacklist *only* the "xorg-server" package, use this:
+# xorg-server
+#
+# To blacklist *all* of the "xorg-server-*" packages, use this:
+# xorg-server.*
+#
+# DON'T put any space(s) before or after the package name or regexp.
+# If you do this, the blacklist will NOT work.
+#
+# Automated upgrade of kernel packages may not be wanted in some situations;
+# uncomment the lines below if that fits your circumstances:
+#
+#kernel-generic.*
+#kernel-huge.*
+#kernel-modules.*
+#kernel-source
 #
 # This one will blacklist all SBo packages:
 #[0-9]+_SBo
