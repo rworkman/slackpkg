@@ -1,6 +1,7 @@
 
-For Next Release
+Sun Dec  2 06:46:33 UTC 2018
 ---------------
+	- 2.84.0_beta1
 	- Allow blacklisting of individual packages without collateral 
 	  damage (e.g. glibc ---> glibc-*). This changes the prior behavior
 	  of the blacklist function; previously, adding "glibc" to the
