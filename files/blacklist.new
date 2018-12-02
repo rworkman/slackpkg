@@ -17,6 +17,10 @@
 # To blacklist *all* of the "xorg-server-*" packages, use this:
 # xorg-server.*
 #
+# You will need to escape any special characters that are present in the
+# package name. For example, to blacklist the gcc-g++ package, use this:
+# gcc-g\+\+
+#
 # DON'T put any space(s) before or after the package name or regexp.
 # If you do this, the blacklist will NOT work.
 #
