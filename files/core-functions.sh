@@ -590,10 +590,13 @@ function makelist() {
 	INPUTLIST=$@
 
 	grep -vE "(^#|^[[:blank:]]*$)" ${CONF}/blacklist | \
-	sed -E "s,^, ,
+	sed -E "
+	s,^, ,
 	s,$, ,
-	s,^\s(extra|pasture|patches|slackware(|64)|testing|txz|.*/)\s$,\1,
-	s,/$,," \
+	s,^\s(extra|pasture|patches|slackware(|64)|testing)\s$,\1 ,
+	s,^\s(tgz|txz)\s$, \1,
+	s,^\s([^/]*)/\s$, ./$PKGMAIN/\1 ,
+	" \
 	> ${TMPDIR}/blacklist
 
 	if echo $CMD | grep -q install ; then
