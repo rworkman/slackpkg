@@ -1,3 +1,8 @@
+Sun Dec 30 10:21:10 UTC 2018
+---------------
+	- 2.84.0_beta2
+	- Fix support for blacklisting entire package sets; blacklisted sets 
+	  now need a trailing slash, e.g. kde/  (David Woodfall)
 
 Sun Dec  2 06:46:33 UTC 2018
 ---------------
