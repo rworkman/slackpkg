@@ -476,7 +476,12 @@ slackpkg - version $VERSION\n\
 in slackpkg's manpage. You can use partial package names (such as xorg 
 instead of xorg-server, xorg-docs, etc), or even Slackware series
 (such as "n","ap","xap",etc) when searching for packages.
-"
+\nWhen blacklisting packages you can use extended regex on package names
+(such as xorg-.* instead of xorg-server, xorg-docs, etc), and a trailing 
+slash for package series ("n/", "ap/", "xap/", etc).
+
+Note that special characters in blacklisted package names, such as '+', need
+escaping: gcc-g\\+\\+"
 	cleanup
 }
 
@@ -585,7 +590,10 @@ function makelist() {
 	INPUTLIST=$@
 
 	grep -vE "(^#|^[[:blank:]]*$)" ${CONF}/blacklist | \
-	sed -E "s,^, ,;s,$, ,;s,^\s(extra|pasture|patches|slackware(|64)|testing|txz)\s,\1," \
+	sed -E "s,^, ,
+	s,$, ,
+	s,^\s(extra|pasture|patches|slackware(|64)|testing|txz|.*/)\s$,\1,
+	s,/$,," \
 	> ${TMPDIR}/blacklist
 
 	if echo $CMD | grep -q install ; then
