@@ -589,7 +589,7 @@ function makelist() {
 
 	INPUTLIST=$@
 
-	grep -vE "(^#|^[[:blank:]]*$)" ${CONF}/blacklist | \
+	grep -vE "(^#|^[[:blank:]]*$)" ${ROOT}/${CONF}/blacklist | \
 	sed -E "
 	s,^, ,
 	s,$, ,
@@ -1277,7 +1277,7 @@ Okay - slackpkg won't do anything now, but please, do something to fix it.\n"
 }	
 
 function blacklist_pkg() {
-	echo $SHOWLIST | tr ' ' "\n" >> ${CONF}/blacklist
+	echo $SHOWLIST | tr ' ' "\n" >> ${ROOT}/${CONF}/blacklist
 
 	echo -e "\nPackages added to your blacklist.\n\
 If you want to remove those packages, edit ${CONF}/blacklist.\n"
