@@ -7,8 +7,10 @@
 # Clean-up tmp and lock files
 #
 function cleanup() {
+	local retval=0
 	[ "$SPINNING" = "off" ] || tput cnorm
 	if [ -e $TMPDIR/error.log ]; then
+		retval=1
 	        echo -e "         
 \n==============================================================================
 WARNING!        WARNING!        WARNING!        WARNING!        WARNING!
@@ -24,7 +26,7 @@ One or more errors occurred while slackpkg was running:
 		rm $CACHEPATH/$NAMEPKG &>/dev/null
 	fi		
 	( rm -f /var/lock/slackpkg.$$ && rm -rf $TMPDIR ) &>/dev/null
-	exit
+	exit ${retval}
 }
 trap 'cleanup' 2 14 15 		# trap CTRL+C and kill
 
