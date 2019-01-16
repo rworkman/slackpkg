@@ -25,7 +25,8 @@ One or more errors occurred while slackpkg was running:
 	if [ "$DELALL" = "on" ] && [ "$NAMEPKG" != "" ]; then
 		rm $CACHEPATH/$NAMEPKG &>/dev/null
 	fi		
-	( rm -f /var/lock/slackpkg.$$ && rm -rf $TMPDIR ) &>/dev/null
+	rm -f /var/lock/slackpkg.$$
+	rm -rf $TMPDIR
 	exit ${retval}
 }
 trap 'cleanup' 2 14 15 		# trap CTRL+C and kill
