@@ -151,12 +151,12 @@ function system_setup() {
 		fi
 	done
 
-	TEMPLATEDIR=$CONF/templates
+	TEMPLATEDIR=${ROOT}/$CONF/templates
 	if [ ! -d $TEMPLATEDIR ]; then
 	  mkdir $TEMPLATEDIR
 	fi
 
-	SLACKCFVERSION=$(grep "# v[0-9.]\+" $CONF/slackpkg.conf | cut -f2 -dv)
+	SLACKCFVERSION=$(grep "# v[0-9.]\+" ${ROOT}/$CONF/slackpkg.conf | cut -f2 -dv)
 	CHECKSUMSFILE=${ROOT}/${WORKDIR}/CHECKSUMS.md5
 	KERNELMD5=$(md5sum /boot/vmlinuz 2>/dev/null)
 	DIALOG_MAXARGS=${DIALOG_MAXARGS:-19500}
@@ -644,7 +644,7 @@ function makelist() {
 			for ARGUMENT in $(echo $INPUTLIST); do
 				for i in $(cat ${TMPDIR}/pkglist ${TMPDIR}/tmplist | \
 						grep -w -- "${ARGUMENT}" | cut -f2 -d\  | sort -u); do
-					grep -qx "${i}" ${CONF}/blacklist || LIST="$LIST $i"
+					grep -qx "${i}" ${ROOT}/${CONF}/blacklist || LIST="$LIST $i"
 				done
 			done
 		;;
@@ -1232,7 +1232,7 @@ function sanity_check() {
 	FILES="$(diff $TMPDIR/list1 $TMPDIR/list2 | grep '<' | cut -f2 -d\ )"
 	if [ "$FILES" != "" ]; then
 		for i in $FILES ; do
-			grep -qx "${i}" ${CONF}/blacklist && continue
+			grep -qx "${i}" ${ROOT}/${CONF}/blacklist && continue
 			DOUBLEFILES="$DOUBLEFILES $i"
 		done
 		unset FILES
