@@ -1,5 +1,12 @@
+Wed Feb 19 20:38:23 2020 -0600
+---------------
+	- 2.84.0_beta7
+	- More fixups for alternate ROOT (zerouno)
+	- Uncomment mirrors.slackware.com mirror by default (zerouno)
+
 Mon Jul 15 20:30:01 UTC 2019
 ---------------
+	- 2.84.0_beta6
 	- Add slackware.uk mirrors to sample mirror list
 	- install-new: catch packages added to /patches after -stable release
 
