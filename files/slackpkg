@@ -66,8 +66,8 @@ SOURCE=$(sed -n '
 	\@^cdrom://@p
 	\@^local://@p
 	\@^https\{0,1\}://@p
-	\@^ftps\{0,1\}://@p' ${ROOT}/$CONF/mirrors)
-. ${ROOT}/$CONF/slackpkg.conf
+	\@^ftps\{0,1\}://@p' $CONF/mirrors)
+. $CONF/slackpkg.conf
 ERROR=""
 
 # Set temporary directory
@@ -466,7 +466,7 @@ case "$CMD" in
 		# all blacklisted packages
 		if [ "$INPUTLIST" = "" ]; then
 			echo -e "Packages in blacklist:\n"
-			grep -e "^\([a-z]\)" ${ROOT}/$CONF/blacklist | $MORECMD
+			grep -e "^\([a-z]\)" $CONF/blacklist | $MORECMD
 			cleanup
 		fi
 
