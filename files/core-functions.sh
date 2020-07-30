@@ -741,7 +741,7 @@ function makelist() {
 				# -- temporary file used to store the basename of selected
 				#    packages.
 
-			PKGNAMELIST=$(tempfile --directory=$TMPDIR)
+			PKGNAMELIST=$(mktemp -p ${TMPDIR} -t slackpkg.XXXXXXXXXXXX)
 
 			if [ "$CMD" = "file-search" ]; then
 				# Search filelist.gz for possible matches
