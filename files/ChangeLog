@@ -1,3 +1,9 @@
+Mon Aug  3 05:21:07 UTC 2020
+---------------
+	- 2.84.0_beta9
+	- Add Switzerland mirrors (xpetrl)
+	- core-functions.sh: Replace tempfile with mktemp (I.G.O.R)
+
 Thu Feb 27 03:52:32 UTC 2020
 ---------------
 	- 2.84.0_beta8
