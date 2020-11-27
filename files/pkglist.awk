@@ -23,13 +23,20 @@
 			VERSION=$(NF-2)
 			NF=NF-3
 			NAME=$0
+
+			PKGNAME=NAME"-"VERSION"-"ARCH"-"RELEASE
+			if (VERSION == "") { VERSION="UNKNOWN" ; }
+			if (ARCH == "") { ARCH= "UNKNOWN" ; }
+			if (RELEASE == "") { RELEASE= "UNKNOWN" ; }
 		} else {
 			RELEASE=none
 			ARCH=none
 			VERSION=none
 			EXTENSION=tgz
 			NAME=$0
+
+			PKGNAME=NAME"-"VERSION"-"ARCH"-"RELEASE
 		}
 		FS=fs 
-		print DIR" "NAME" "VERSION" "ARCH" "RELEASE" "NAME"-"VERSION"-"ARCH"-"RELEASE" "PATH" "EXTENSION
+		print DIR" "NAME" "VERSION" "ARCH" "RELEASE" "PKGNAME" "PATH" "EXTENSION
 }
