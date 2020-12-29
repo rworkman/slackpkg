@@ -985,6 +985,7 @@ function getpkg() {
 
 # Main logic to download and format package list, md5 etc.
 #
+# Check if anything has changed. If so, return 1, else 0 if no change.
 function checkchangelog()
 {
 	if ! [ -e ${ROOT}/${WORKDIR}/CHECKSUMS.md5.asc ]; then
@@ -997,8 +998,7 @@ function checkchangelog()
 
 	# First we will download CHECKSUMS.md5.asc since it is a very small
 	# file and if it has not changed, we can know that the ChangeLog
-	# has not changed either. If it _has_ changed, we'll need to pull
-	# the ChangeLog to check that as well.
+	# has not changed either.
 	echo -e "\tDownloading..."
 	getfile ${SOURCE}CHECKSUMS.md5.asc $TMPDIR/CHECKSUMS.md5.asc
 	if ! grep -q "PGP" $TMPDIR/CHECKSUMS.md5.asc ; then
@@ -1008,30 +1008,6 @@ Please check your mirror and try again."
 		cleanup
 	fi
 	if diff --brief ${ROOT}/${WORKDIR}/CHECKSUMS.md5.asc $TMPDIR/CHECKSUMS.md5.asc ; then
-		# Before returning with the result that these signatures (and
-		# therefore the ChangeLog) are the same, we need to copy the
-		# ChangeLog into ${TMPDIR} in case the user decides to
-		# "download all other files":
-		cp ${ROOT}/${WORKDIR}/ChangeLog.txt $TMPDIR/ChangeLog.txt
-		return 0
-	fi
-	# CHECKSUMS.md5.asc was different, so we'll go on to download and test
-	# the full ChangeLog.txt.
-
-	echo -e "\tDownloading..."
-	#
-	# Download ChangeLog.txt first of all and test if it's equal
-	# or different from our already existent ChangeLog.txt 
-	#
-	getfile ${SOURCE}ChangeLog.txt $TMPDIR/ChangeLog.txt
-	if ! grep -q "[a-z]" $TMPDIR/ChangeLog.txt ; then
-		echo -e "\
-\nError downloading from $SOURCE.\n\
-Please check your mirror and try again."
-		cleanup
-	fi
-
-	if diff --brief ${ROOT}/${WORKDIR}/ChangeLog.txt $TMPDIR/ChangeLog.txt ; then
 		return 0
 	else
 		return 1
@@ -1050,8 +1026,17 @@ function updatefilelists()
 		fi
 	fi
 	echo
-	cp ${TMPDIR}/ChangeLog.txt ${ROOT}/${WORKDIR}/ChangeLog.txt
-
+	#
+	# Download ChangeLog.txt first
+	#
+	echo -e "\tDownloading..."
+	getfile ${SOURCE}ChangeLog.txt $TMPDIR/ChangeLog.txt
+	if ! grep -q "[a-z]" $TMPDIR/ChangeLog.txt ; then
+		echo -e "\
+\nError downloading from $SOURCE.\n\
+Please check your mirror and try again."
+		cleanup
+	fi
 	#
 	# Download MANIFEST, FILELIST.TXT and CHECKSUMS.md5
 	#
@@ -1204,6 +1189,11 @@ function updatefilelists()
 	if [ -e $TMPDIR/CHECKSUMS.md5.asc ]; then
 		cp $TMPDIR/CHECKSUMS.md5.asc \
 			${ROOT}/${WORKDIR}/CHECKSUMS.md5.asc 2>/dev/null
+	fi
+	# Finally, copy ChangeLog.txt
+	if [ -e $TMPDIR/ChangeLog.txt ]; then
+		cp $TMPDIR/ChangeLog.txt \
+			${ROOT}/${WORKDIR}/ChangeLog.txt 2>/dev/null
 	fi
 }
 
