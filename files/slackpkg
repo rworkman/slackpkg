@@ -318,10 +318,12 @@ case "$CMD" in
 		full_usage
 		;;
 	check-updates)
+		# output to stdout if no change, or stderr if changes. Will cause
+		# cron jobs to notify system admin
 		if checkchangelog 1>/dev/null 2>/dev/null ; then
-			echo "No updated packages since last check."
+			echo "Slackpkg: No updated packages since last check."
 		else
-			echo "Updated packages are available since last check."
+			echo "Slackpkg: Updated packages are available since last check." >&2
 		fi
 		;;
 	update)
