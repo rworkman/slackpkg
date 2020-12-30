@@ -1190,6 +1190,11 @@ Please check your mirror and try again."
 		cp $TMPDIR/CHECKSUMS.md5.asc \
 			${ROOT}/${WORKDIR}/CHECKSUMS.md5.asc 2>/dev/null
 	fi
+	# Finally, copy ChangeLog.txt
+	if [ -e $TMPDIR/ChangeLog.txt ]; then
+		cp $TMPDIR/ChangeLog.txt \
+			${ROOT}/${WORKDIR}/ChangeLog.txt 2>/dev/null
+	fi
 }
 
 function sanity_check() {
