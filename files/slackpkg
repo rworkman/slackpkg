@@ -246,7 +246,7 @@ while [ -n "$1" ] ; do
         shift
       fi
     ;;
-    install-new|upgrade-all|clean-system|new-config|check-updates|help)
+    install-new|upgrade-all|clean-system|new-config|check-updates|show-changelog|help)
       CMD=$1
       shift
       if [ -n "$1" ]; then
@@ -325,6 +325,15 @@ case "$CMD" in
 		else
 			echo "Slackpkg: Updated packages are available since last check." >&2
 		fi
+		;;
+	show-changelog)
+		# display changelog and exit
+		if [ -e ${ROOT}/${WORKDIR}/ChangeLog.txt ]; then
+			$MORECMD ${ROOT}/${WORKDIR}/ChangeLog.txt
+		else
+			echo "ChangeLog.txt file not found. Aborting"
+		fi
+		POSTINST=off
 		;;
 	update)
 		# If you are using "slackpkg update gpg" OR the system

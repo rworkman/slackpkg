@@ -426,7 +426,7 @@ slackpkg - version $VERSION\n\
 \tslackpkg [OPTIONS] info PACKAGE
 \tslackpkg [OPTIONS] update [gpg]
 \tslackpkg [OPTIONS] {clean-system|upgrade-all|install-new}
-\tslackpkg [OPTIONS] {new-config|check-updates|help}
+\tslackpkg [OPTIONS] {new-config|check-updates|show-changelog|help}
 \nIf you need more information try to use 'slackpkg help' or look the\n\
 slackpkg's manpage.
 "
@@ -440,6 +440,7 @@ slackpkg - version $VERSION\n\
 \t\t\t\t\tpackage indexes
 \tslackpkg check-updates\t\tcheck if there is any news on
 \t\t\t\t\tSlackware's ChangeLog.txt
+\tslackpkg show-changelog\t\tshow Slackware ChangeLog.txt and exit
 \tslackpkg install package\tdownload and install packages 
 \tslackpkg upgrade package\tdownload and upgrade packages
 \tslackpkg reinstall package\tsame as install, but for packages 
