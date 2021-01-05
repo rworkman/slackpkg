@@ -1,6 +1,10 @@
-
+Tue Jan  5 05:13:50 UTC 2021
 ---------------
-
+	- 2.84.0_beta11
+	- add show-changelog option and update manpage (Peter Hyman)
+	- backwards-incompatibility warning: check-updates will now return
+	  1 if there are updates available - this will make it easier to
+	  use this feature with cron (Peter Hyman)
 	- document issues with filenames having spaces (Eric Pozharski)
 
 Fri Nov 27 21:14:26 UTC 2020
