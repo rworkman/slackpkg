@@ -132,6 +132,11 @@ function system_setup() {
 			SLACKKEY=${SLACKKEY:-"Slackware ARM (Slackware ARM Linux Project) <mozes@slackware.com>"}
 			PKGMAIN=${PKGMAIN:-slackware}
 		;;
+		aarch64)
+			ARCH=aarch64
+			SLACKKEY=${SLACKKEY:-"Slackware ARM (Slackware ARM Linux Project) <mozes@slackware.com>"}
+			PKGMAIN=${PKGMAIN:-slackware}
+		;;
 		powerpc|ppc)
 			ARCH=powerpc
 			SLACKKEY=${SLACKKEY:-"Slackintosh-Project Sign <slackdev@workaround.ch>"}
