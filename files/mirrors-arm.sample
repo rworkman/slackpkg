@@ -56,35 +56,35 @@
 #----------------------------------------------------------------
 # Slackware ARM 15.0: 32bit armv7, hardware floating point ABI.
 #----------------------------------------------------------------
-#ftp://slackware.uk/slackwarearm/slackwarearm-15.0/
-#ftp://ftp.halifax.rwth-aachen.de/slackwarearm/slackwarearm-15.0/
-#ftp://ftp.slackware.pl/pub/slackwarearm/slackwarearm-15.0/
-#ftp://mirror.slackbuilds.org/pub/slackwarearm/slackwarearm-15.0/
-#ftp://slackware.absolutehosting.net/pub/slackwarearm/slackwarearm-15.0/
+#http://slackware.uk/slackwarearm/slackwarearm-15.0/
+#http://ftp.halifax.rwth-aachen.de/slackwarearm/slackwarearm-15.0/
+#http://ftp.slackware.pl/pub/slackwarearm/slackwarearm-15.0/
+#https://mirror.slackbuilds.org/slackwarearm/slackwarearm-15.0/
+#https://slackware.absolutehosting.net/pub/slackwarearm/slackwarearm-15.0/
 #
-#ftp://ftp.arm.slackware.com/slackwarearm/slackwarearm-15.0/
+#http://ftp.arm.slackware.com/slackwarearm/slackwarearm-15.0/
 #
 
 #----------------------------------------------------------------
 # Slackware ARM current: 32bit armv7, hardware floating point ABI.
 #----------------------------------------------------------------
-#ftp://slackware.uk/slackwarearm/slackwarearm-current/
-#ftp://ftp.halifax.rwth-aachen.de/slackwarearm/slackwarearm-current/
-#ftp://ftp.slackware.pl/pub/slackwarearm/slackwarearm-current/
-#ftp://mirror.slackbuilds.org/pub/slackwarearm/slackwarearm-current/
-#ftp://slackware.absolutehosting.net/pub/slackwarearm/slackwarearm-current/
+#http://slackware.uk/slackwarearm/slackwarearm-current/
+#http://ftp.halifax.rwth-aachen.de/slackwarearm/slackwarearm-current/
+#http://ftp.slackware.pl/pub/slackwarearm/slackwarearm-current/
+#https://mirror.slackbuilds.org/slackwarearm/slackwarearm-current/
+#https://slackware.absolutehosting.net/pub/slackwarearm/slackwarearm-current/
 #
-#ftp://ftp.arm.slackware.com/slackwarearm/slackwarearm-current/
+#http://ftp.arm.slackware.com/slackwarearm/slackwarearm-current/
 #
 
 #----------------------------------------------------------------
 # Slackware AArch64 (ARM64) current: 64 bit armv8
 #----------------------------------------------------------------
-#ftp://slackware.uk/slackwarearm/slackwareaarch64-current/
-#ftp://ftp.halifax.rwth-aachen.de/slackwarearm/slackwareaarch64-current/
-#ftp://ftp.slackware.pl/pub/slackwarearm/slackwareaarch64-current/
-#ftp://mirror.slackbuilds.org/pub/slackwarearm/slackwareaarch64-current/
-#ftp://slackware.absolutehosting.net/pub/slackwarearm/slackwareaarch64-current/
+#http://slackware.uk/slackwarearm/slackwareaarch64-current/
+#http://ftp.halifax.rwth-aachen.de/slackwarearm/slackwareaarch64-current/
+#http://ftp.slackware.pl/pub/slackwarearm/slackwareaarch64-current/
+#https://mirror.slackbuilds.org/slackwarearm/slackwareaarch64-current/
+#https://slackware.absolutehosting.net/pub/slackwarearm/slackwareaarch64-current/
 #
-#ftp://ftp.arm.slackware.com/slackwarearm/slackwareaarch64-current/
+#http://ftp.arm.slackware.com/slackwarearm/slackwareaarch64-current/
 #

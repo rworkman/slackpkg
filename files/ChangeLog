@@ -1,6 +1,7 @@
 
 ---------------
         - Added support for Slackware-AArch64 (Stuart Winter)
+        - ARM mirror links use http:// or https:// instead of ftp://
 
 Tue Jan  5 05:13:50 UTC 2021
 ---------------
