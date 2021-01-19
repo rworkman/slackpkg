@@ -1,5 +1,6 @@
-
+Tue Jan 19 00:29:32 UTC 2021
 ---------------
+	- 2.84.0_beta12
         - Added support for Slackware-AArch64 (Stuart Winter)
         - ARM mirror links use http:// or https:// instead of ftp://
 
