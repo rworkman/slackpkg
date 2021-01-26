@@ -425,7 +425,7 @@ function usage() {
 slackpkg - version $VERSION\n\
 \nUsage:\n\
 \tslackpkg [OPTIONS] {install|remove|search|file-search|
-\t\t\t    upgrade|reinstall|blacklist} {PATTERN|FILE}
+\t\t\t    download|upgrade|reinstall|blacklist} {PATTERN|FILE}
 \tslackpkg [OPTIONS] {generate-template|install-template|remove-template}
 \t\t\t   TEMPLATENAME
 \tslackpkg [OPTIONS] info PACKAGE

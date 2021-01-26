@@ -1,6 +1,8 @@
 
 ---------------
 	- add aaa_glibc-solibs and aaa_libraries to the early routine
+	- add 'download' to options in usage() ; remove dupes from manpage
+	  (Peter Hyman)
 
 Tue Jan 19 00:29:32 UTC 2021
 ---------------
