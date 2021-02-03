@@ -1,5 +1,6 @@
-
+Wed Feb  3 04:40:10 UTC 2021
 ---------------
+	- Release slackpkg-15.0 (yes, jump from 2.84_beta12 to 15.0)
 	- add aaa_glibc-solibs and aaa_libraries to the early routine
 	- add 'download' to options in usage() ; remove dupes from manpage
 	  (Peter Hyman)
