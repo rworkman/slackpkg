@@ -425,7 +425,7 @@ function usage() {
 slackpkg - version $VERSION\n\
 \nUsage:\n\
 \tslackpkg [OPTIONS] {install|remove|search|file-search|
-\t\t\t    download|upgrade|reinstall|blacklist} {PATTERN|FILE}
+\t\t\t    download|upgrade|reinstall} {PATTERN|FILE}
 \tslackpkg [OPTIONS] {generate-template|install-template|remove-template}
 \t\t\t   TEMPLATENAME
 \tslackpkg [OPTIONS] info PACKAGE
@@ -463,9 +463,6 @@ slackpkg - version $VERSION\n\
 \t\t\t\t\tthe official Slackware package set.
 \t\t\t\t\tRun this if you are upgrading to another
 \t\t\t\t\tSlackware version or using "current".
-\tslackpkg blacklist\t\tBlacklist a package. Blacklisted
-\t\t\t\t\tpackages cannot be upgraded, installed,
-\t\t\t\t\tor reinstalled by slackpkg
 \tslackpkg download\t\tOnly download (do not install) a package
 \tslackpkg info package\t\tShow package information 
 \t\t\t\t\t(works with only ONE package)
@@ -647,12 +644,7 @@ function makelist() {
 			done
 		;;
 		blacklist)
-			for ARGUMENT in $(echo $INPUTLIST); do
-				for i in $(cat ${TMPDIR}/pkglist ${TMPDIR}/tmplist | \
-						grep -w -- "${ARGUMENT}" | cut -f2 -d\  | sort -u); do
-					grep -qx "${i}" ${CONF}/blacklist || LIST="$LIST $i"
-				done
-			done
+			/bin/false
 		;;
 		install|upgrade|reinstall)
 			for ARGUMENT in $(echo $INPUTLIST); do
@@ -1248,15 +1240,11 @@ better list:\n"
 				egrep -i -- "^${i}-[^-]+-(${ARCH}|fw|noarch)-"
 		done
 		echo -ne "\n\
-You can (B)lacklist, (R)emove, or (I)gnore these packages.\n\
-Select your action (B/R/I): "
+You can (R)emove, or (I)gnore these packages.\n\
+Select your action (R/I): "
 		read ANSWER
 		echo
 		case "$ANSWER" in
-			B|b)
-				showlist "$DOUBLEFILES" blacklist
-				blacklist_pkg
-			;;
 			R|r)
 				for i in $DOUBLEFILES ; do
 					FILE=$(ls -1 $ROOT/var/log/packages/ |\
@@ -1268,7 +1256,7 @@ Select your action (B/R/I): "
 			;;
 			*)
 				echo -e "\n\
-Okay - slackpkg won't do anything now, but please, do something to fix it.\n"
+Remove or blacklist the affected packages in order for slackpkg to work properly.\n"
 				cleanup
 			;;
 		esac
@@ -1276,10 +1264,8 @@ Okay - slackpkg won't do anything now, but please, do something to fix it.\n"
 }	
 
 function blacklist_pkg() {
-	echo $SHOWLIST | tr ' ' "\n" >> ${ROOT}/${CONF}/blacklist
-
-	echo -e "\nPackages added to your blacklist.\n\
-If you want to remove those packages, edit ${CONF}/blacklist.\n"
+	echo -e "\nThis function no longer adds packages to your blacklist.\n\
+As of slackpkg 15.0, you will need to edit ${CONF}/blacklist instead.\n"
 }
 
 function remove_pkg() {
