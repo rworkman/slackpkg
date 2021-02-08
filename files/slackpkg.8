@@ -6,15 +6,10 @@
 .SH SYNOPSIS
 .B slackpkg
 .B [OPTIONS]
-.B {install|remove|search|upgrade|reinstall|blacklist}
+.B {install|remove|search|file-search|download|upgrade|reinstall|blacklist}
 .BI { PATTERN | FILE }
 
 .B slackpkg [OPTIONS] {clean-system|upgrade-all|install-new}
-
-.B slackpkg
-.B [OPTIONS]
-.B {search|file-search}
-.BI { PATTERN | FILE }
 
 .B slackpkg
 .B [OPTIONS]
@@ -26,7 +21,7 @@
 
 .B slackpkg [OPTIONS] update [gpg]
 
-.B slackpkg [OPTIONS] {new-config|check-updates}
+.B slackpkg [OPTIONS] {new-config|check-updates|show-changelog}
 
 .B slackpkg [OPTIONS] help
 
@@ -152,6 +147,11 @@ once and forget it...
 .br
 Verify if there is any update to ChangeLog.txt. This is good to be used from
 cron to alert the sysadmin about updates.
+
+.TP 5
+.B show-changelog
+.br
+Display Slackware ChangeLog.txt file and exit.
 
 .TP 5
 .B file-search

@@ -132,6 +132,11 @@ function system_setup() {
 			SLACKKEY=${SLACKKEY:-"Slackware ARM (Slackware ARM Linux Project) <mozes@slackware.com>"}
 			PKGMAIN=${PKGMAIN:-slackware}
 		;;
+		aarch64)
+			ARCH=aarch64
+			SLACKKEY=${SLACKKEY:-"Slackware ARM (Slackware ARM Linux Project) <mozes@slackware.com>"}
+			PKGMAIN=${PKGMAIN:-slackware}
+		;;
 		powerpc|ppc)
 			ARCH=powerpc
 			SLACKKEY=${SLACKKEY:-"Slackintosh-Project Sign <slackdev@workaround.ch>"}
@@ -420,13 +425,13 @@ function usage() {
 slackpkg - version $VERSION\n\
 \nUsage:\n\
 \tslackpkg [OPTIONS] {install|remove|search|file-search|
-\t\t\t    upgrade|reinstall|blacklist} {PATTERN|FILE}
+\t\t\t    download|upgrade|reinstall} {PATTERN|FILE}
 \tslackpkg [OPTIONS] {generate-template|install-template|remove-template}
 \t\t\t   TEMPLATENAME
 \tslackpkg [OPTIONS] info PACKAGE
 \tslackpkg [OPTIONS] update [gpg]
 \tslackpkg [OPTIONS] {clean-system|upgrade-all|install-new}
-\tslackpkg [OPTIONS] {new-config|check-updates|help}
+\tslackpkg [OPTIONS] {new-config|check-updates|show-changelog|help}
 \nIf you need more information try to use 'slackpkg help' or look the\n\
 slackpkg's manpage.
 "
@@ -440,6 +445,7 @@ slackpkg - version $VERSION\n\
 \t\t\t\t\tpackage indexes
 \tslackpkg check-updates\t\tcheck if there is any news on
 \t\t\t\t\tSlackware's ChangeLog.txt
+\tslackpkg show-changelog\t\tshow Slackware ChangeLog.txt and exit
 \tslackpkg install package\tdownload and install packages 
 \tslackpkg upgrade package\tdownload and upgrade packages
 \tslackpkg reinstall package\tsame as install, but for packages 
@@ -457,9 +463,6 @@ slackpkg - version $VERSION\n\
 \t\t\t\t\tthe official Slackware package set.
 \t\t\t\t\tRun this if you are upgrading to another
 \t\t\t\t\tSlackware version or using "current".
-\tslackpkg blacklist\t\tBlacklist a package. Blacklisted
-\t\t\t\t\tpackages cannot be upgraded, installed,
-\t\t\t\t\tor reinstalled by slackpkg
 \tslackpkg download\t\tOnly download (do not install) a package
 \tslackpkg info package\t\tShow package information 
 \t\t\t\t\t(works with only ONE package)
@@ -641,12 +644,7 @@ function makelist() {
 			done
 		;;
 		blacklist)
-			for ARGUMENT in $(echo $INPUTLIST); do
-				for i in $(cat ${TMPDIR}/pkglist ${TMPDIR}/tmplist | \
-						grep -w -- "${ARGUMENT}" | cut -f2 -d\  | sort -u); do
-					grep -qx "${i}" ${CONF}/blacklist || LIST="$LIST $i"
-				done
-			done
+			/bin/false
 		;;
 		install|upgrade|reinstall)
 			for ARGUMENT in $(echo $INPUTLIST); do
@@ -985,6 +983,7 @@ function getpkg() {
 
 # Main logic to download and format package list, md5 etc.
 #
+# Check if anything has changed. If so, return 1, else 0 if no change.
 function checkchangelog()
 {
 	if ! [ -e ${ROOT}/${WORKDIR}/CHECKSUMS.md5.asc ]; then
@@ -997,8 +996,7 @@ function checkchangelog()
 
 	# First we will download CHECKSUMS.md5.asc since it is a very small
 	# file and if it has not changed, we can know that the ChangeLog
-	# has not changed either. If it _has_ changed, we'll need to pull
-	# the ChangeLog to check that as well.
+	# has not changed either.
 	echo -e "\tDownloading..."
 	getfile ${SOURCE}CHECKSUMS.md5.asc $TMPDIR/CHECKSUMS.md5.asc
 	if ! grep -q "PGP" $TMPDIR/CHECKSUMS.md5.asc ; then
@@ -1008,30 +1006,6 @@ Please check your mirror and try again."
 		cleanup
 	fi
 	if diff --brief ${ROOT}/${WORKDIR}/CHECKSUMS.md5.asc $TMPDIR/CHECKSUMS.md5.asc ; then
-		# Before returning with the result that these signatures (and
-		# therefore the ChangeLog) are the same, we need to copy the
-		# ChangeLog into ${TMPDIR} in case the user decides to
-		# "download all other files":
-		cp ${ROOT}/${WORKDIR}/ChangeLog.txt $TMPDIR/ChangeLog.txt
-		return 0
-	fi
-	# CHECKSUMS.md5.asc was different, so we'll go on to download and test
-	# the full ChangeLog.txt.
-
-	echo -e "\tDownloading..."
-	#
-	# Download ChangeLog.txt first of all and test if it's equal
-	# or different from our already existent ChangeLog.txt 
-	#
-	getfile ${SOURCE}ChangeLog.txt $TMPDIR/ChangeLog.txt
-	if ! grep -q "[a-z]" $TMPDIR/ChangeLog.txt ; then
-		echo -e "\
-\nError downloading from $SOURCE.\n\
-Please check your mirror and try again."
-		cleanup
-	fi
-
-	if diff --brief ${ROOT}/${WORKDIR}/ChangeLog.txt $TMPDIR/ChangeLog.txt ; then
 		return 0
 	else
 		return 1
@@ -1050,8 +1024,17 @@ function updatefilelists()
 		fi
 	fi
 	echo
-	cp ${TMPDIR}/ChangeLog.txt ${ROOT}/${WORKDIR}/ChangeLog.txt
-
+	#
+	# Download ChangeLog.txt first
+	#
+	echo -e "\tDownloading..."
+	getfile ${SOURCE}ChangeLog.txt $TMPDIR/ChangeLog.txt
+	if ! grep -q "[a-z]" $TMPDIR/ChangeLog.txt ; then
+		echo -e "\
+\nError downloading from $SOURCE.\n\
+Please check your mirror and try again."
+		cleanup
+	fi
 	#
 	# Download MANIFEST, FILELIST.TXT and CHECKSUMS.md5
 	#
@@ -1205,6 +1188,11 @@ function updatefilelists()
 		cp $TMPDIR/CHECKSUMS.md5.asc \
 			${ROOT}/${WORKDIR}/CHECKSUMS.md5.asc 2>/dev/null
 	fi
+	# Finally, copy ChangeLog.txt
+	if [ -e $TMPDIR/ChangeLog.txt ]; then
+		cp $TMPDIR/ChangeLog.txt \
+			${ROOT}/${WORKDIR}/ChangeLog.txt 2>/dev/null
+	fi
 }
 
 function sanity_check() {
@@ -1252,15 +1240,11 @@ better list:\n"
 				egrep -i -- "^${i}-[^-]+-(${ARCH}|fw|noarch)-"
 		done
 		echo -ne "\n\
-You can (B)lacklist, (R)emove, or (I)gnore these packages.\n\
-Select your action (B/R/I): "
+You can (R)emove, or (I)gnore these packages.\n\
+Select your action (R/I): "
 		read ANSWER
 		echo
 		case "$ANSWER" in
-			B|b)
-				showlist "$DOUBLEFILES" blacklist
-				blacklist_pkg
-			;;
 			R|r)
 				for i in $DOUBLEFILES ; do
 					FILE=$(ls -1 $ROOT/var/log/packages/ |\
@@ -1272,7 +1256,7 @@ Select your action (B/R/I): "
 			;;
 			*)
 				echo -e "\n\
-Okay - slackpkg won't do anything now, but please, do something to fix it.\n"
+Remove or blacklist the affected packages in order for slackpkg to work properly.\n"
 				cleanup
 			;;
 		esac
@@ -1280,10 +1264,8 @@ Okay - slackpkg won't do anything now, but please, do something to fix it.\n"
 }	
 
 function blacklist_pkg() {
-	echo $SHOWLIST | tr ' ' "\n" >> ${ROOT}/${CONF}/blacklist
-
-	echo -e "\nPackages added to your blacklist.\n\
-If you want to remove those packages, edit ${CONF}/blacklist.\n"
+	echo -e "\nThis function no longer adds packages to your blacklist.\n\
+As of slackpkg 15.0, you will need to edit ${CONF}/blacklist instead.\n"
 }
 
 function remove_pkg() {

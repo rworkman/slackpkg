@@ -1,3 +1,26 @@
+Wed Feb  3 04:40:10 UTC 2021
+---------------
+	- Release slackpkg-15.0 (yes, jump from 2.84_beta12 to 15.0)
+	- add aaa_glibc-solibs and aaa_libraries to the early routine
+	- add 'download' to options in usage() ; remove dupes from manpage
+	  (Peter Hyman)
+	- do not allow adding blacklist packages from slackpkg exec
+
+Tue Jan 19 00:29:32 UTC 2021
+---------------
+	- 2.84.0_beta12
+        - Added support for Slackware-AArch64 (Stuart Winter)
+        - ARM mirror links use http:// or https:// instead of ftp://
+
+Tue Jan  5 05:13:50 UTC 2021
+---------------
+	- 2.84.0_beta11
+	- add show-changelog option and update manpage (Peter Hyman)
+	- backwards-incompatibility warning: check-updates will now return
+	  1 if there are updates available - this will make it easier to
+	  use this feature with cron (Peter Hyman)
+	- document issues with filenames having spaces (Eric Pozharski)
+
 Fri Nov 27 21:14:26 UTC 2020
 ---------------
 	- 2.84.0_beta10
