@@ -345,6 +345,7 @@ use slackpkg.\n"
 		CHECKMD5=off
 	elif ! [ -f ${ROOT}/${WORKDIR}/CHECKSUMS.md5 ] && \
 		[ "$CMD" != "update" ] && \
+		[ "$CMD" != "new-config" ] && \
 		[ "$CHECKMD5" = "on" ]; then
 		echo -e "\n\
 No CHECKSUMS.md5 found!  Please disable md5sums checking\n\
