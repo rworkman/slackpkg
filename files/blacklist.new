@@ -3,7 +3,7 @@
 # This is a blacklist file. Any packages listed here won't be
 # upgraded, removed, or installed by slackpkg.
 
-# aaa_elflibs should NOT be blacklisted!
+# aaa_libraries should NOT be blacklisted!
 #
 # You can blacklist using regular expressions.
 #
