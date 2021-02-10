@@ -9,7 +9,7 @@
 
 .SH SINOPSIS
 \fBslackpkg\fP \fB[OPTIONS]\fP
-\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{install|remove|search|upgrade|reinstall}\fP
 \fB{\fP\fIPOLA\fP\fB|\fP\fIFILE\fP\fB}\fP
 
 \fBslackpkg [OPTIONS] {clean\-system|upgrade\-all|install\-new}\fP
@@ -211,15 +211,6 @@ contoh:
 .in
 
 akan menghapus semua paket dengan "kde" sebagai namanya.
-
-.TP  5
-\fBblacklist\fP
-.br
-Dengan aksi ini, Anda bisa mem\-"blacklist" paket tertentu.
-.br
-Paket yang di\-blacklist tidak akan diinstall, diupgrade, atau dihapus oleh
-slackpkg. Jika Anda ingin menghapus beberapa paket dari daftar blacklist,
-silahkan mengedit /etc/slackpkg/blacklist.
 
 .TP  5
 \fBdownload\fP

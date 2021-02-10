@@ -10,7 +10,7 @@ Linuxpaketen
 
 .SH ZUSAMMENFASSUNG
 \fBslackpkg\fP \fB[OPTIONEN]\fP
-\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{install|remove|search|upgrade|reinstall}\fP
 \fB{\fP\fIMUSTER\fP\fB|\fP\fIDATEI\fP\fB}\fP
 
 \fBslackpkg [OPTIONEN] {clean\-system|upgrade\-all|install\-new}\fP
@@ -220,16 +220,6 @@ Mit der Aktion "remove" können Sie installierte Pakete entfernen. Beispiel:
 .in
 
 wird alle Pakete mit "kde" im Namen entfernen.
-
-.TP  5
-\fBblacklist\fP
-.br
-Mit dieser Aktion können Sie gewissen Pakete auf die "Blacklist" setzen.
-.br
-Pakete, die in der "Blacklist" sind, werden bei Aktionen wie "install",
-"upgrade" oder "remove" ignoriert. Um Pakete auf die "Blacklist" zu setzten
-oder sie von dieser zu entfernen, bearbeiten Sie bitte die Datei
-/etc/slackpkg/blacklist.
 
 .TP  5
 \fBdownload\fP

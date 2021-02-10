@@ -9,7 +9,7 @@
 
 .SH SYNOPSIS
 \fBslackpkg\fP \fB[OPTIONS]\fP
-\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{install|remove|search|upgrade|reinstall}\fP
 \fB{\fP\fIMOTIF\fP\fB|\fP\fIFICHIER\fP\fB}\fP
 
 \fBslackpkg [OPTIONS] {clean\-system|upgrade\-all|install\-new}\fP
@@ -222,16 +222,6 @@ Avec "remove" vous pouvez enlever des paquets installés. Par exemple :
 .in
 
 enlèvera tous les paquets avec "kde" dans leur nom.
-
-.TP  5
-\fBblacklist\fP
-.br
-Avec cette fonction vous pouvez "blacklister" (mettre en liste noire)
-certains paquets.
-.br
-Les paquets en liste noire ne seront pas installés, mis à niveau ou enlevés
-par slackpkg. Si vous voulez enlever un paquet de la liste noire, merci
-d'éditer le fichier /etc/slackpkg/blacklist à cet effet.
 
 .TP  5
 \fBdownload\fP

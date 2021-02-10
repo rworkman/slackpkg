@@ -9,7 +9,7 @@
 Linux
 
 .SH SAMMENDRAG
-\fBslackpkg\fP \fB[VALG]\fP \fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fBslackpkg\fP \fB[VALG]\fP \fB{install|remove|search|upgrade|reinstall}\fP
 \fB{\fP\fITEKST\fP\fB|\fP\fIFIL\fP\fB}\fP
 
 \fBslackpkg [VALG] {clean\-system|upgrade\-all|install\-new}\fP
@@ -209,15 +209,6 @@ remove kan fjerne pakker som er installert. For eksempel:
 .in
 
 vil fjerne alle pakker som inkluderer "kde" i sitt navn.
-
-.TP  5
-\fBblacklist\fP
-.br
-Denne handlingen lar deg "svarteliste" visse pakker.
-.br
-Pakker som er svartelistet vil ikke bli installert, oppgradert eller fjernet
-av slackpkg. Hvis du vil fjerne pakker fra svartelisten kan du gjøre dette i
-/etc/slackpkg/blacklist.
 
 .TP  5
 \fBdownload\fP

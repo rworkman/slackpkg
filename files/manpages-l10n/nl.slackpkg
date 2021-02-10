@@ -10,7 +10,7 @@ pakketten
 
 .SH SYNOPSIS
 \fBslackpkg\fP \fB[OPTIES]\fP
-\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{install|remove|search|upgrade|reinstall}\fP
 \fB{\fP\fIPATROON\fP\fB|\fP\fIBESTAND\fP\fB}\fP
 
 \fBslackpkg [OPTIES] {clean\-system|upgrade\-all|install\-new}\fP
@@ -219,16 +219,6 @@ verwijderen. Bijvoorbeeld:
 .in
 
 zal alle pakketten verwijderen met "kde" in hun naam.
-
-.TP  5
-\fBblacklist\fP
-.br
-Met deze actie kun je bepaalde pakketten op een "zwarte lijst" zetten.
-.br
-Pakketten op de zwarte lijst zullen niet worden geïnstalleerd, opgewaardeerd
-of verwijderd door slackpkg. Als je een pakket wilt verwijderen uit de
-zwarte lijst, moet je het bestand /etc/slackpkg/blacklist handmatig
-aanpassen.
 
 .TP  5
 \fBdownload\fP

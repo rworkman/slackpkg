@@ -10,7 +10,7 @@ Slackware Linux
 
 .SH ΣΥΝΟΨΗ
 \fBslackpkg\fP \fB[ΕΠΙΛΟΓΕΣ]\fP
-\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{install|remove|search|upgrade|reinstall}\fP
 \fB{\fP\fIΠΡΟΤΥΠΟ\fP\fB|\fP\fIΑΡΧΕΙΟ\fP\fB}\fP
 
 \fBslackpkg [ΕΠΙΛΟΓΕΣ] {clean\-system|upgrade\-all|install\-new}\fP
@@ -228,15 +228,6 @@ Slackware.
 .in
 
 θα αφαιρέσει όλα τα πακέτα με το "kde" στο όνομά τους.
-
-.TP  5
-\fBblacklist\fP
-.br
-Με την ενέργεια αυτή, μπορείτε να βάλετε στη "μαύρη λίστα" ορισμένα πακέτα.
-.br
-Τα ανεπιθύμητα πακέτα δεν θα εγκατασταθούν, αναβαθμιστούν ή αφαιρεθούν από
-το slackpkg. Εάν θέλετε να αφαιρέσετε κάποιο πακέτο από τη μαύρη λίστα,
-παρακαλούμε να επεξεργαστείτε το /etc/slackpkg/blacklist.
 
 .TP  5
 \fBdownload\fP

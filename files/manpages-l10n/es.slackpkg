@@ -10,7 +10,7 @@ Slackware Linux
 
 .SH SINOPSIS
 \fBslackpkg\fP \fB[OPCIONES]\fP
-\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{install|remove|search|upgrade|reinstall}\fP
 \fB{\fP\fIPATRÓN\fP\fB|\fP\fIARCHIVO\fP\fB}\fP
 
 \fBslackpkg [OPCIONES] {clean\-system|upgrade\-all|install\-new}\fP
@@ -215,15 +215,6 @@ Con "remove", es posible eliminar ciertos paquetes instalados. Por ejemplo:
 .in
 
 eliminará todos los paquetes con "kde" en su nombre.
-
-.TP  5
-\fBblacklist\fP
-.br
-Con esta acción, se pueden agregar ciertos paquetes a una "lista negra".
-.br
-Los paquetes en la lista negra no serán instalados, actualizados o
-eliminados por slackpkg. Si necesita eliminar algún paquete de la lista
-negra, por favor edite /etc/slackpkg/blacklist.
 
 .TP  5
 \fBdownload\fP

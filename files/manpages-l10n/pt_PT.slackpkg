@@ -9,7 +9,7 @@
 
 .SH SINOPSE
 \fBslackpkg\fP \fB[OPÇÕES]\fP
-\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{install|remove|search|upgrade|reinstall}\fP
 \fB{\fP\fIPADRÃO\fP\fB|\fP\fIFICHEIRO\fP\fB}\fP
 
 \fBslackpkg [OPÇÕES] {clean\-system|upgrade\-all|install\-new}\fP
@@ -213,15 +213,6 @@ Com remove, você pode remover certos pacotes instalados. Como um exemplo:
 .in
 
 removerá todos os pacotes com "kde" no seu nome.
-
-.TP  5
-\fBblacklist\fP
-.br
-Com esta ação, você pode colocar na "blacklist" certos pacotes.
-.br
-Pacotes colocados na blacklist não serão instalados, atualizados ou
-removidos pelo slackpkg. Se você quiser remover algum pacote da blacklist,
-por favor edite o /etc/slackpkg/blacklist.
 
 .TP  5
 \fBdownload\fP

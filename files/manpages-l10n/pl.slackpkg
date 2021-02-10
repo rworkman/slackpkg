@@ -10,7 +10,7 @@ Slackware Linux.
 
 .SH STRESZCZENIE
 \fBslackpkg\fP \fB[OPCJE]\fP
-\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{install|remove|search|upgrade|reinstall}\fP
 \fB{\fP\fICIĄG\fP\fB|\fP\fIPLIK\fP\fB}\fP
 
 \fBslackpkg [OPCJE] {clean\-system|upgrade\-all|install\-new}\fP
@@ -211,15 +211,6 @@ Z remove, możesz usunąć pewne zainstalowane pakiety. Na przykład:
 .in
 
 usunie wszystkie pakiety zawierające "kde" w swojej nazwie.
-
-.TP  5
-\fBblacklist\fP
-.br
-Ta funkcja pozwala na zablokowanie (blacklist) danych pakietów.
-.br
-Zablokowane pakiety nie będą instalowane, aktualizowane, ani usuwane przez
-slackpkg. Jeśli chcesz usunąć pakiet z listy zablokowanych pakietów, musisz
-edytować /etc/slackpkg/blacklist.
 
 .TP  5
 \fBdownload\fP

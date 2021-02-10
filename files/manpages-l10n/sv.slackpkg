@@ -9,7 +9,7 @@
 
 .SH ÖVERSIKT
 \fBslackpkg\fP \fB[ALTERNATIV]\fP
-\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{install|remove|search|upgrade|reinstall}\fP
 \fB{\fP\fIMÖNSTER\fP\fB|\fP\fIFIL\fP\fB}\fP
 
 \fBslackpkg [ALTERNATIV] {clean\-system|upgrade\-all|install\-new}\fP
@@ -211,15 +211,6 @@ Med remove, kan du ta bort vissa installerade paket. Som ett exempel:
 .in
 
 kommer att ta bort alla paket med "kde" i sitt namn.
-
-.TP  5
-\fBblacklist\fP
-.br
-Med den här åtgärden kan du "svartlista" vissa paket.
-.br
-Svartlistade paket kommer inte att installeras, uppgraderas, eller tas bort
-av slackpkg. Om du vill ta bort vissa paket från svartlistan, vänligen
-redigera /etc/slackpkg/blacklist.
 
 .TP  5
 \fBdownload\fP

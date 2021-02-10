@@ -9,7 +9,7 @@
 
 .SH ÖZET
 \fBslackpkg\fP \fB[SEÇİMLER]\fP
-\fB{install|remove|search|upgrade|reinstall|blacklist}\fP
+\fB{install|remove|search|upgrade|reinstall}\fP
 \fB{\fP\fIKALIP\fP\fB|\fP\fIDOSYA\fP\fB}\fP
 
 \fBslackpkg [SEÇİMLER] {clean\-system|upgrade\-all|install\-new}\fP
@@ -208,15 +208,6 @@ remove il, belirli kurulu paketleri kaldırabilirsiniz. Örneğin:
 .in
 
 isminde "kde" olan tüm paketleri kaldıracaktır.
-
-.TP  5
-\fBblacklist\fP
-.br
-Bu eylemle, belirli paketlerden "karaliste" oluşturabilirsiniz.
-.br
-Karaliste paketleri slackpkg tarafından kurulmaz, yükseltilmez ya da
-kaldırılmaz. Bazı paketleri kara listeden çıkartmak isterseniz lütfen
-/etc/slackpkg/blacklist dosyasını düzenleyiniz.
 
 .TP  5
 \fBdownload\fP
