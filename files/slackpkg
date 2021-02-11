@@ -238,6 +238,10 @@ while [ -n "$1" ] ; do
       fi
       shift $#
     ;;
+    blacklist)
+      CMD=$1
+      shift $#
+    ;;
     update)
       CMD=$1
       shift
@@ -477,7 +481,7 @@ case "$CMD" in
 		# all blacklisted packages
 		if [ "$INPUTLIST" = "" ]; then
 			echo -e "Packages in blacklist:\n"
-			grep -e "^\([a-z]\)" $CONF/blacklist | $MORECMD
+			grep -v "^#" $CONF/blacklist | $MORECMD
 			cleanup
 		fi
 		
