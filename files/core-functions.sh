@@ -583,6 +583,33 @@ function listpkgname() {
 		cut -f1 -d\  | uniq > ${TMPDIR}/dpkg
 }
 
+# create a blacklist of single package names from regexps in original blacklist
+# any sets such as kde/ are converted to single package names in the process
+# the final list will be used by 'applyblacklist' later
+function mkregex_blacklist() {
+	# create tmp blacklist in a more usable format
+	sed -E "
+		/(^#|[[:blank:]]+$|^[[:blank:]]+|^$)/d
+		s,^, ,
+		s,$, ,
+		s,^\s(extra|pasture|patches|slackware(|64)|testing)\s$,\1 ,
+		s,^\s(tgz|txz)\s$, \1,
+		s,^\s([^/]+)/\s$, ./$PKGMAIN/\1 ,
+		" ${ROOT}/${CONF}/blacklist > ${TMPDIR}/blacklist.tmp
+
+	# create second blacklist of single packages from tmp list
+	cat ${ROOT}/${WORKDIR}/pkglist | grep -E -f ${TMPDIR}/blacklist.tmp |
+		awk '{print $2}' | sed -E "s,^, ,; s,$, ," > ${TMPDIR}/blacklist
+
+	# remove sets from tmp blacklist, join both lists to create unique list
+	sed -E "/\.\/$PKGMAIN\/[^/]+/d" ${TMPDIR}/blacklist.tmp |
+		sort -u -o ${TMPDIR}/blacklist ${TMPDIR}/blacklist -
+
+	# clean up
+	rm -f ${TMPDIR}/blacklist.tmp
+}
+
+# blacklist filter
 function applyblacklist() {
 	grep -vE -f ${TMPDIR}/blacklist
 }
@@ -595,21 +622,15 @@ function makelist() {
 	local VRFY
 
 	INPUTLIST=$@
-
-	grep -vE "(^#|^[[:blank:]]*$)" ${ROOT}/${CONF}/blacklist | \
-	sed -E "
-	s,^, ,
-	s,$, ,
-	s,^\s(extra|pasture|patches|slackware(|64)|testing)\s$,\1 ,
-	s,^\s(tgz|txz)\s$, \1,
-	s,^\s([^/]*)/\s$, ./$PKGMAIN/\1 ,
-	" \
-	> ${TMPDIR}/blacklist
+	mkregex_blacklist
 
 	if echo $CMD | grep -q install ; then
-		ls -1 $ROOT/var/log/packages/* | awk -f /usr/libexec/slackpkg/pkglist.awk > ${TMPDIR}/tmplist
+		ls -1 $ROOT/var/log/packages/* |
+			awk -f /usr/libexec/slackpkg/pkglist.awk > ${TMPDIR}/tmplist
 	else
-		ls -1 $ROOT/var/log/packages/* | awk -f /usr/libexec/slackpkg/pkglist.awk | applyblacklist > ${TMPDIR}/tmplist
+		ls -1 $ROOT/var/log/packages/* |
+			awk -f /usr/libexec/slackpkg/pkglist.awk |
+			applyblacklist > ${TMPDIR}/tmplist
 	fi
 	cat ${ROOT}/${WORKDIR}/pkglist | applyblacklist > ${TMPDIR}/pkglist
 
