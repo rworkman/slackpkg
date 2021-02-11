@@ -1219,9 +1219,10 @@ function sanity_check() {
 				  batchcutpkg | sort > $TMPDIR/list1 
 	cat $TMPDIR/list1 | uniq > $TMPDIR/list2
 	FILES="$(diff $TMPDIR/list1 $TMPDIR/list2 | grep '<' | cut -f2 -d\ )"
+
 	if [ "$FILES" != "" ]; then
 		for i in $FILES ; do
-			grep -qx "${i}" ${CONF}/blacklist && continue
+			echo "${i}" | grep -qE -f ${ROOT}/${CONF}/blacklist && continue
 			DOUBLEFILES="$DOUBLEFILES $i"
 		done
 		unset FILES
