@@ -1286,11 +1286,6 @@ Remove or blacklist the affected packages in order for slackpkg to work properly
 	fi
 }	
 
-function blacklist_pkg() {
-	echo -e "\nThis function no longer adds packages to your blacklist.\n\
-As of slackpkg 15.0, you will need to edit ${CONF}/blacklist instead.\n"
-}
-
 function remove_pkg() {
 	local i
 

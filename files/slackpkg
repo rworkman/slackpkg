@@ -476,17 +476,9 @@ case "$CMD" in
 		fi
 	;;
 	blacklist)
-		#
-		# If blacklist is called without package name, list
-		# all blacklisted packages
-		if [ "$INPUTLIST" = "" ]; then
-			echo -e "Packages in blacklist:\n"
-			grep -v "^#" $CONF/blacklist | $MORECMD
-			cleanup
-		fi
-		
-		# As of 15.0, this function just runs /bin/false and exits with a comment
-		blacklist_pkg
+		echo -e "Edit /etc/slackpkg/blacklist to add or remove packages."
+		echo -e "Packages in blacklist:\n"
+		grep -v "^#" $CONF/blacklist | $MORECMD
 	;;
 	file-search)
 		PATTERN=$(echo $ARG | sed -e 's/\+/\\\+/g' -e 's/\./\\\./g' -e 's/ /\|/g')
