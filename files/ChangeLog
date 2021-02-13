@@ -1,3 +1,14 @@
+
+---------------
+	- Further fixup/enhancement to blacklisting issues
+	- Fix "slackpkg blacklist" so that it shows blacklist again
+	- Fixup internal blacklist handling
+	- Use ERE for sanity_check() function (David Woodfall)
+	- Remove "slackpkg blacklist" from manual pages
+	- Fix aaa_elflibs --> aaa_libraries in sample blacklist file (mozes)
+	- Split aarch64 and arm mirrors into separate files (mozes)
+	- Allow new-config after slackpkg upgrade itself (PiterPUNK)
+
 Wed Feb  3 04:40:10 UTC 2021
 ---------------
 	- Release slackpkg-15.0 (yes, jump from 2.84_beta12 to 15.0)
