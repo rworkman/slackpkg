@@ -589,24 +589,22 @@ function listpkgname() {
 function mkregex_blacklist() {
 	# create tmp blacklist in a more usable format
 	sed -E "
-		/(^#|[[:blank:]]+$|^[[:blank:]]+|^$)/d
+		s,(^[[:blank:]]+|[[:blank:]]+$),,
+		/(^#|^$)/d
 		s,^, ,
 		s,$, ,
 		s,^\s(extra|pasture|patches|slackware(|64)|testing)\s$,\1 ,
 		s,^\s(tgz|txz)\s$, \1,
 		s,^\s([^/]+)/\s$, ./$PKGMAIN/\1 ,
-		" ${ROOT}/${CONF}/blacklist > ${TMPDIR}/blacklist.tmp
+		" ${CONF}/blacklist > ${TMPDIR}/blacklist.tmp
 
 	# create second blacklist of single packages from tmp list
-	cat ${ROOT}/${WORKDIR}/pkglist | grep -E -f ${TMPDIR}/blacklist.tmp |
-		awk '{print $2}' | sed -E "s,^, ,; s,$, ," > ${TMPDIR}/blacklist
+	grep -E -f ${TMPDIR}/blacklist.tmp ${ROOT}/${WORKDIR}/pkglist |
+		awk '{print " "$2" "}' > ${TMPDIR}/blacklist
 
 	# remove sets from tmp blacklist, join both lists to create unique list
-	sed -E "/\.\/$PKGMAIN\/[^/]+/d" ${TMPDIR}/blacklist.tmp |
+	sed -E "/\.\/$PKGMAIN\/[[:alpha:]]+/d" ${TMPDIR}/blacklist.tmp |
 		sort -u -o ${TMPDIR}/blacklist ${TMPDIR}/blacklist -
-
-	# clean up
-	rm -f ${TMPDIR}/blacklist.tmp
 }
 
 # blacklist filter
@@ -1243,7 +1241,7 @@ function sanity_check() {
 
 	if [ "$FILES" != "" ]; then
 		for i in $FILES ; do
-			echo "${i}" | grep -qE -f ${ROOT}/${CONF}/blacklist && continue
+			echo "${i}" | grep -qE -f ${CONF}/blacklist && continue
 			DOUBLEFILES="$DOUBLEFILES $i"
 		done
 		unset FILES
