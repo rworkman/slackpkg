@@ -1,5 +1,6 @@
 
 ---------------
+	- Convert ${ROOT}/${CONF} -> ${CONF} and tweak blacklists (dive)
 	- Further fixup/enhancement to blacklisting issues
 	- Fix "slackpkg blacklist" so that it shows blacklist again
 	- Fixup internal blacklist handling
