@@ -52,7 +52,10 @@ fi
 VERSION=@VERSION@
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 SLACKWARE_VERSION=$(cat /etc/slackware-version | cut -f2 -d\ )
-CONF=${CONF:-/etc/slackpkg}
+
+[ -z "$ROOT" ] && CONF=${CONF:-/etc/slackpkg}
+[ -n "$ROOT" ] && CONF=${CONF:-"${ROOT}/etc/slackpkg"}
+
 SOURCE=$(sed -n '
 	# Remove leading and trailing blanks
 	s/^[[:blank:]]*//
@@ -68,6 +71,7 @@ SOURCE=$(sed -n '
 	\@^https\{0,1\}://@p
 	\@^ftps\{0,1\}://@p' $CONF/mirrors)
 . $CONF/slackpkg.conf
+WORKDIR=${ROOT}/${WORKDIR}
 ERROR=""
 
 # Set temporary directory
@@ -332,8 +336,8 @@ case "$CMD" in
 		;;
 	show-changelog)
 		# display changelog and exit
-		if [ -e ${ROOT}/${WORKDIR}/ChangeLog.txt ]; then
-			$MORECMD ${ROOT}/${WORKDIR}/ChangeLog.txt
+		if [ -e ${WORKDIR}/ChangeLog.txt ]; then
+			$MORECMD ${WORKDIR}/ChangeLog.txt
 		else
 			echo "ChangeLog.txt file not found. Aborting"
 		fi
@@ -519,7 +523,7 @@ case "$CMD" in
 				if ( found != 1 ) {
 			print \"No packages found! Try:\n\n\tslackpkg search $PATTERN\n\nand choose one (and ONLY one package).\n\"
 				}
-			}" ${ROOT}/${WORKDIR}/PACKAGES.TXT 2>/dev/null
+			}" ${WORKDIR}/PACKAGES.TXT 2>/dev/null
 	;;
 	new-config)
 		POSTINST=on
