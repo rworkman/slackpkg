@@ -600,7 +600,7 @@ function mkregex_blacklist() {
 
 	# create second blacklist of single packages from tmp list
 	grep -E -f ${TMPDIR}/blacklist.tmp ${WORKDIR}/pkglist |
-		awk '{print " "$2" "}' > ${TMPDIR}/blacklist
+		awk '{print " "$2" "}' | sed -E "s,[+],\\\+,g" > ${TMPDIR}/blacklist
 
 	# remove sets from tmp blacklist, join both lists to create unique list
 	sed -E "/\.\/$PKGMAIN\/[[:alpha:]]+/d" ${TMPDIR}/blacklist.tmp |
