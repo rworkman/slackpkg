@@ -1,5 +1,7 @@
 
 ---------------
+	- Escape plus signs in blacklist regex
+	- Convert ${ROOT}/${WORKDIR} > ${WORKDIR} (dive)
 	- Convert ${ROOT}/${CONF} -> ${CONF} and tweak blacklists (dive)
 	- Further fixup/enhancement to blacklisting issues
 	- Fix "slackpkg blacklist" so that it shows blacklist again
