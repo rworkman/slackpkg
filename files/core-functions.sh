@@ -161,6 +161,10 @@ function system_setup() {
 	  mkdir $TEMPLATEDIR
 	fi
 
+	# Create initial blacklist of single package names from regexps in
+	# ${CONF}/blacklist.
+	mkregex_blacklist
+
 	SLACKCFVERSION=$(grep "# v[0-9.]\+" $CONF/slackpkg.conf | cut -f2 -dv)
 	CHECKSUMSFILE=${WORKDIR}/CHECKSUMS.md5
 	KERNELMD5=$(md5sum /boot/vmlinuz 2>/dev/null)
@@ -583,13 +587,17 @@ function listpkgname() {
 		cut -f1 -d\  | uniq > ${TMPDIR}/dpkg
 }
 
-# create a blacklist of single package names from regexps in original blacklist
+# Create a blacklist of single package names from regexps in original blacklist
 # any sets such as kde/ are converted to single package names in the process
-# the final list will be used by 'applyblacklist' later
+# the final list will be used by 'applyblacklist' later.
 function mkregex_blacklist() {
-	# create tmp blacklist in a more usable format
-	sed -E "
-		s,(^[[:blank:]]+|[[:blank:]]+$),,
+	# Check that we have the files we need
+	if [ ! -f ${WORKDIR}/pkglist ] || [ ! -f ${CONF}/blacklist ];then
+		return 1
+	fi
+
+	# Create tmp blacklist in a more usable format
+	sed -E "s,(^[[:blank:]]+|[[:blank:]]+$),,
 		/(^#|^$)/d
 		s,^, ,
 		s,$, ,
@@ -598,16 +606,16 @@ function mkregex_blacklist() {
 		s,^\s([^/]+)/\s$, ./$PKGMAIN/\1 ,
 		" ${CONF}/blacklist > ${TMPDIR}/blacklist.tmp
 
-	# create second blacklist of single packages from tmp list
-	grep -E -f ${TMPDIR}/blacklist.tmp ${WORKDIR}/pkglist |
-		awk '{print " "$2" "}' | sed -E "s,[+],\\\+,g" > ${TMPDIR}/blacklist
-
-	# remove sets from tmp blacklist, join both lists to create unique list
-	sed -E "/\.\/$PKGMAIN\/[[:alpha:]]+/d" ${TMPDIR}/blacklist.tmp |
-		sort -u -o ${TMPDIR}/blacklist ${TMPDIR}/blacklist -
+	# Filter server and local package lists through blacklist
+	( cat ${WORKDIR}/pkglist
+		printf "%s\n" $ROOT/var/log/packages/* |
+		awk -f $ROOT/usr/libexec/slackpkg/pkglist.awk
+	) | grep -E -f ${TMPDIR}/blacklist.tmp |
+		awk '{print " "$2" "}' | sed -E "s,[+],\\\+,g" |
+		sort -u > ${TMPDIR}/blacklist
 }
 
-# blacklist filter
+# Blacklist filter
 function applyblacklist() {
 	grep -vE -f ${TMPDIR}/blacklist
 }
@@ -620,7 +628,6 @@ function makelist() {
 	local VRFY
 
 	INPUTLIST=$@
-	mkregex_blacklist
 
 	if echo $CMD | grep -q install ; then
 		ls -1 $ROOT/var/log/packages/* |
@@ -1241,7 +1248,7 @@ function sanity_check() {
 
 	if [ "$FILES" != "" ]; then
 		for i in $FILES ; do
-			echo "${i}" | grep -qE -f ${CONF}/blacklist && continue
+			echo "${i}" | applyblacklist 1> /dev/null || continue
 			DOUBLEFILES="$DOUBLEFILES $i"
 		done
 		unset FILES
