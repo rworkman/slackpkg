@@ -860,7 +860,14 @@ function searchlist() {
 		    echo "[${STATUS}] - ${INSTPKG}"
 		else
 		    STATUS="  upgrade  "
-		echo "[${STATUS}] - ${INSTPKG} --> ${RAWNAME}"
+				INSTPKG=$( printf "$INSTPKG" | tr '\n' ' ' )
+
+				if echo "$INSTPKG" | grep -q ' '; then
+					printf "%s - %s / %s\n            --> %s\n" \
+						"[${STATUS}]" ${INSTPKG} ${RAWNAME}
+				else
+					echo "[${STATUS}] - ${INSTPKG} --> ${RAWNAME}"
+				fi
 		fi
 		else
 		    echo "[${STATUS}] - ${RAWNAME}"
@@ -1242,18 +1249,10 @@ function sanity_check() {
 		mv $ROOT/var/log/scripts/${i} $ROOT/var/log/scripts/${REVNAME}
 	done
 	
-	ls -1 $ROOT/var/log/packages/ | egrep "^.*-(${ARCH}|fw|noarch)-[^-]+$" | \
-				  batchcutpkg | sort > $TMPDIR/list1 
-	cat $TMPDIR/list1 | uniq > $TMPDIR/list2
-	FILES="$(diff $TMPDIR/list1 $TMPDIR/list2 | grep '<' | cut -f2 -d\ )"
-
-	if [ "$FILES" != "" ]; then
-		for i in $FILES ; do
-			echo "${i}" | grep -qE -f ${TMPDIR}/blacklist && continue
-			DOUBLEFILES="$DOUBLEFILES $i"
-		done
-		unset FILES
-	fi
+	DOUBLEFILES=$( ls -1 $ROOT/var/log/packages/ |
+		rev | cut -d- -f4- | rev | uniq -D | sort -u | applyblacklist |
+		xargs -I '{}' find $ROOT/var/log/packages/ -regex \
+		".*/{}-[^-]+-\($ARCH\|noarch\|fw\)-[^-]+" | xargs -I '{}' basename '{}' )
 
 	rm ${TMPDIR}/waiting
 	echo -e "DONE"
@@ -1264,10 +1263,8 @@ You have a broken $ROOT/var/log/packages/ - with two versions of the same packag
 The list of packages duplicated in your machine is shown below, but don't\n\
 worry about this list - when you select your action, slackpkg will show a\n\
 better list:\n"
-		for i in $DOUBLEFILES ; do
-			ls -1 $ROOT/var/log/packages/ |\
-				egrep -i -- "^${i}-[^-]+-(${ARCH}|fw|noarch)-"
-		done
+		printf "%s\n" $DOUBLEFILES
+
 		echo -ne "\n\
 You can (R)emove, or (I)gnore these packages.\n\
 Select your action (R/I): "
@@ -1275,17 +1272,12 @@ Select your action (R/I): "
 		echo
 		case "$ANSWER" in
 			R|r)
-				for i in $DOUBLEFILES ; do
-					FILE=$(ls -1 $ROOT/var/log/packages/ |\
-						egrep -i -- "^${i}-[^-]+-(${ARCH}|fw|noarch)-")
-					FILES="$FILES $FILE"
-				done
-				showlist "$FILES" remove
+				showlist "$DOUBLEFILES" remove
 				remove_pkg
 			;;
 			*)
-				echo -e "\n\
-Remove or blacklist the affected packages in order for slackpkg to work properly.\n"
+				echo "Remove or blacklist the affected packages in order for \
+slackpkg to work properly."
 				cleanup
 			;;
 		esac
