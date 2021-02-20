@@ -609,13 +609,14 @@ function mkregex_blacklist() {
 	# Filter server and local package lists through blacklist
 	( cat ${WORKDIR}/pkglist
 		printf "%s\n" $ROOT/var/log/packages/* |
-		awk -f $ROOT/usr/libexec/slackpkg/pkglist.awk
+			awk -f /usr/libexec/slackpkg/pkglist.awk
 	) | grep -E -f ${TMPDIR}/blacklist.tmp |
-		awk '{print " "$2" "}' | sed -E "s,[+],\\\+,g" |
+		awk '{print $2}' | sed -E "s,[+],\\\+,g" |
 		sort -u > ${TMPDIR}/blacklist
 }
 
 # Blacklist filter
+#
 function applyblacklist() {
 	grep -vE -f ${TMPDIR}/blacklist
 }
@@ -1248,7 +1249,7 @@ function sanity_check() {
 
 	if [ "$FILES" != "" ]; then
 		for i in $FILES ; do
-			echo "${i}" | applyblacklist 1> /dev/null || continue
+			echo "${i}" | grep -qE -f ${TMPDIR}/blacklist && continue
 			DOUBLEFILES="$DOUBLEFILES $i"
 		done
 		unset FILES
