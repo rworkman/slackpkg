@@ -133,39 +133,55 @@ looknew() {
 		ONLY_NEW_DOTNEW=""
 	fi
 
-	echo -e "\nSearching for NEW configuration files"
-	FILES=$(find ${ROOT}/etc ${ROOT}/var/yp ${ROOT}/usr/share/vim -name "*.new" ${ONLY_NEW_DOTNEW} \
+	SIZE=$( stty size )
+	ROWS=${SIZE% *}
+	LISTMAX=$(( ROWS - 10 ))
+
+	printf "%s\n" "Searching for NEW configuration files..."
+
+	FILES=$( find \
+		${ROOT}/etc \
+		${ROOT}/var/yp \
+		${ROOT}/usr/share/vim \
+		-name "*.new" \
+		${ONLY_NEW_DOTNEW} \
 		-not -name "rc.inet1.conf.new" \
 		-not -name "group.new" \
 		-not -name "passwd.new" \
 		-not -name "shadow.new" \
-		-not -name "gshadow.new" 2>/dev/null | sort 2>/dev/null)
-	if [ "$FILES" != "" ]; then
-		newcount=$(echo "$FILES" | wc -l)
-		echo -ne "\n\
-Some packages had new configuration files installed ($newcount new files):\n\n"
+		-not -name "gshadow.new" 2>/dev/null |
+		sort -V 2>/dev/null )
 
-		SIZE=$(stty size)
-		ROWS=${SIZE% *}
-		LISTMAX=$((ROWS-20))
+	if [ -n "$FILES" ]; then
+		newcount=$( echo "$FILES" | wc -l )
+
+		 printf "%s %s\n\n" "Some packages had new configuration" \
+			 "files installed ($newcount new files):"
 
 		if [ $newcount -le $LISTMAX ]; then
-			echo -e "$FILES"
+			echo "$FILES"
 		else
 			F=0
+			N=0
 			for FN in $FILES; do
-				F=$((F+1))
-				echo "$FN"
+				F=$(( F + 1 ))
+				N=$(( N + 1 ))
+				echo "$N $FN"
 
-				if [ $F -ge $LISTMAX ]; then
+				if [ $F -ge $(( ROWS - 5 )) ]; then
 					F=0
-					echo -ne "\nPress SPACE for more, ENTER to skip"
-					IFS=$'\n' read -rn 1 junk
-					echo -e "\n"
+					IFS=$( printf "\n" ) read -rn 1 \
+						-p "
+Press SPACE for more, ENTER to skip" junk
+					printf "\n"
+					tput -S <<EOF
+					cuu 1
+					el 2
+					cuu 1
+					el 2
+EOF
 					
-					if [ "$junk" = " " ]; then
-						continue
-					elif [ "$junk" = "" ]; then
+					if [ -z "$junk" ]; then
 						break
 					fi
 				fi
@@ -173,7 +189,7 @@ Some packages had new configuration files installed ($newcount new files):\n\n"
 		fi
 
 		echo -ne "\n\
-You have four choices:
+What do you want (K/O/R/P)?
 
 	(K)eep the old files and consider .new files later
 
@@ -183,9 +199,8 @@ You have four choices:
 		echo -e "\n\n\
 	(R)emove all .new files
 
-	(P)rompt K, O, R selection for every single file
+	(P)rompt K, O, R selection for every single file"
 
-What do you want (K/O/R/P)?"
 		answer
 		case $ANSWER in
 			K|k)
@@ -238,7 +253,9 @@ What do you want (K/O/R/P)?"
 				break
 			;;
 			*)
-				echo "OK! Your choice is nothing! slackpkg will Keep the old files for you to deal with later"
+				echo "
+OK! Your choice is nothing! slackpkg will Keep the old files \
+for you to deal with later"
 			;;
 		esac
 	else

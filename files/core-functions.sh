@@ -821,7 +821,7 @@ function answer() {
 		ANSWER="$DEFAULT_ANSWER"
 		echo $DEFAULT_ANSWER
 	else
-		read ANSWER
+		read -p "> " ANSWER
 	fi
 }
 
