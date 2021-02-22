@@ -1259,14 +1259,12 @@ function sanity_check() {
 
 	if [ "$DOUBLEFILES" != "" ]; then
 		echo -e "\
-You have a broken $ROOT/var/log/packages/ - with two versions of the same package.\n\
-The list of packages duplicated in your machine is shown below, but don't\n\
-worry about this list - when you select your action, slackpkg will show a\n\
-better list:\n"
+You have a broken $ROOT/var/log/packages/ - with multiple versions of the same package.\n\
+The list of packages duplicated in your machine is shown below:\n"
 		printf "%s\n" $DOUBLEFILES
 
 		echo -ne "\n\
-You can (R)emove, or (I)gnore these packages.\n\
+You can (R)emove one or more of, or (I)gnore these packages.\n\
 Select your action (R/I): "
 		read ANSWER
 		echo
@@ -1276,8 +1274,9 @@ Select your action (R/I): "
 				remove_pkg
 			;;
 			*)
-				echo "Remove or blacklist the affected packages in order for \
-slackpkg to work properly."
+				echo "Remove one or more of OR blacklist the affected packages \
+in order for slackpkg to work properly."
+				echo "To blacklist the affected packages, edit /etc/slackpkg/blacklist"
 				cleanup
 			;;
 		esac
