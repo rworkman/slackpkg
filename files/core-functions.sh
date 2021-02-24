@@ -618,7 +618,7 @@ function mkregex_blacklist() {
 # Blacklist filter
 #
 function applyblacklist() {
-	grep -vE -f ${TMPDIR}/blacklist
+	grep -vF -f ${TMPDIR}/blacklist
 }
 
 # Function to make install/reinstall/upgrade lists
@@ -635,10 +635,9 @@ function makelist() {
 			awk -f /usr/libexec/slackpkg/pkglist.awk > ${TMPDIR}/tmplist
 	else
 		ls -1 $ROOT/var/log/packages/* |
-			awk -f /usr/libexec/slackpkg/pkglist.awk |
-			applyblacklist > ${TMPDIR}/tmplist
+			awk -f /usr/libexec/slackpkg/pkglist.awk > ${TMPDIR}/tmplist
 	fi
-	cat ${WORKDIR}/pkglist | applyblacklist > ${TMPDIR}/pkglist
+	cat ${WORKDIR}/pkglist > ${TMPDIR}/pkglist
 
 	touch ${TMPDIR}/waiting
 
@@ -799,7 +798,7 @@ function makelist() {
 			rm -f $PKGNAMELIST
 		;;	
 	esac
-	LIST=$(echo -e $LIST | tr \  "\n" | uniq )
+	LIST=$( printf "%s\n" $LIST | applyblacklist | sort -u )
 
 	rm ${TMPDIR}/waiting
 
@@ -821,7 +820,7 @@ function answer() {
 		ANSWER="$DEFAULT_ANSWER"
 		echo $DEFAULT_ANSWER
 	else
-		read -p "> " ANSWER
+		read ANSWER
 	fi
 }
 
