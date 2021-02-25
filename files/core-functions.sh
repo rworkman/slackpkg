@@ -784,8 +784,13 @@ function makelist() {
 				done
 			else
 				for i in ${PRIORITY[@]}; do
-					PKGS=$(grep "^${i}.*${PATTERN}" \
-						${TMPDIR}/pkglist | cut -f6 -d\ )
+
+					# Test for search pattern in blacklist first
+					grep -q "^${PATTERN}$" ${TMPDIR}/blacklist && continue
+
+					PKGS=$( cut -d\  -f1-7 ${TMPDIR}/pkglist |
+						grep "^${i}.*${PATTERN}" | cut -f6 -d\ )
+
 					for FULLNAME in $PKGS ; do
 						NAME=$(cutpkg ${FULLNAME})
 
@@ -796,6 +801,11 @@ function makelist() {
 				done
 			fi
 			rm -f $PKGNAMELIST
+			rm ${TMPDIR}/waiting
+
+			echo -e "DONE\n"
+			# We need to return early before the blacklist
+			return
 		;;	
 	esac
 	LIST=$( printf "%s\n" $LIST | applyblacklist | sort -u )
