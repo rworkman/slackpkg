@@ -601,24 +601,23 @@ function mkregex_blacklist() {
 		/(^#|^$)/d
 		s,^, ,
 		s,$, ,
-		s,^\s(extra|pasture|patches|slackware(|64)|testing)\s$,\1 ,
-		s,^\s(tgz|txz)\s$, \1,
-		s,^\s([^/]+)/\s$, ./$PKGMAIN/\1 ,
+		s,^ (extra|pasture|patches|slackware(|64)|testing)/ $,^\1 ,
+		s,^ ([^/]+)/ $, \\\.\\\/$PKGMAIN\\\/\1\$,
 		" ${CONF}/blacklist > ${TMPDIR}/blacklist.tmp
 
 	# Filter server and local package lists through blacklist
 	( cat ${WORKDIR}/pkglist
 		printf "%s\n" $ROOT/var/log/packages/* |
 			awk -f /usr/libexec/slackpkg/pkglist.awk
-	) | grep -E -f ${TMPDIR}/blacklist.tmp |
-		awk '{print $2}' | sed -E "s,[+],\\\+,g" |
-		sort -u > ${TMPDIR}/blacklist
+	) | cut -d\  -f1-7 | grep -E -f ${TMPDIR}/blacklist.tmp |
+		awk '{print $2}' | sort -u | sed "s,[+],[+],g
+		s,$,-[^-]+-($ARCH|noarch|fw)-[^-]+[\.t(b|l|x|g)z]*,g" > ${TMPDIR}/blacklist
 }
 
 # Blacklist filter
 #
 function applyblacklist() {
-	grep -vF -f ${TMPDIR}/blacklist
+	grep -vxE -f ${TMPDIR}/blacklist
 }
 
 # Function to make install/reinstall/upgrade lists
@@ -808,7 +807,7 @@ function makelist() {
 			return
 		;;	
 	esac
-	LIST=$( printf "%s\n" $LIST | applyblacklist | sort -u )
+	LIST=$( printf "%s\n" $LIST | applyblacklist | uniq )
 
 	rm ${TMPDIR}/waiting
 
@@ -1259,9 +1258,10 @@ function sanity_check() {
 	done
 	
 	DOUBLEFILES=$( ls -1 $ROOT/var/log/packages/ |
-		rev | cut -d- -f4- | rev | uniq -D | sort -u | applyblacklist |
-		xargs -I '{}' find $ROOT/var/log/packages/ -regex \
-		".*/{}-[^-]+-\($ARCH\|noarch\|fw\)-[^-]+" | xargs -I '{}' basename '{}' )
+		batchcutpkg | uniq -D | sort -u | sed "s,[+],[+],g" |
+		xargs -I '{}' find $ROOT/var/log/packages/ -regextype awk -regex \
+		".*/{}-[^-]+-($ARCH|noarch|fw)-[^-]+" | awk -F/ '{print $NF}' |
+		applyblacklist )
 
 	rm ${TMPDIR}/waiting
 	echo -e "DONE"
@@ -1283,8 +1283,9 @@ Select your action (R/I): "
 				remove_pkg
 			;;
 			*)
-				echo "Remove one or more of OR blacklist the affected packages \
-in order for slackpkg to work properly."
+				echo "Remove one or more of OR blacklist the affected packages in order
+for slackpkg to work properly.
+"
 				echo "To blacklist the affected packages, edit /etc/slackpkg/blacklist"
 				cleanup
 			;;
