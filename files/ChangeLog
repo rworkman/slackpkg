@@ -1,5 +1,11 @@
 
 ---------------
+	- Avoid matching txz/tgz etc extension when blacklisting (dive)
+	- Use https for all slackpkg homepage links
+	- Update mirror files (14.2 -> 15.0)
+	- Add blacklist to search option
+	- Move applyblacklist to end of makelist()
+	- Clarify how to blacklist duplicate packages
 	- Fix new-config dialog
 	- Reduce false positives in DOUBLEFILES detection
 	- Remove spaces in awk.
