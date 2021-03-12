@@ -332,6 +332,7 @@ case "$CMD" in
 			echo "Slackpkg: No updated packages since last check."
 		else
 			echo "Slackpkg: Updated packages are available since last check." >&2
+			PENDING_UPDATES=1
 		fi
 		;;
 	show-changelog)
