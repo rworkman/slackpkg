@@ -482,8 +482,10 @@ case "$CMD" in
 	;;
 	blacklist)
 		echo -e "Edit /etc/slackpkg/blacklist to add or remove packages."
+		echo -e ""
 		echo -e "Packages in blacklist:\n"
 		grep -v "^#" $CONF/blacklist | $MORECMD
+		echo -e ""
 	;;
 	file-search)
 		PATTERN=$(echo $ARG | sed -e 's/\+/\\\+/g' -e 's/\./\\\./g' -e 's/ /\|/g')
@@ -598,7 +600,7 @@ esac
 # That options don't change configurations files and, if 
 # someone remove the kernel, i hope he knows what is doing.
 #
-for i in check-updates remove search file-search update info \
+for i in check-updates remove search file-search update info blacklist \
 	 clean-system download generate-template remove-template; do
 	if [ "$CMD" = "$i" ]; then
 		POSTINST=off
