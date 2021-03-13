@@ -1,5 +1,6 @@
 
 ---------------
+	- Added Lithuania mirrors (Totoro-kun on LQ)
 	- Fix exit code for pending updates (dive)
 	- Avoid matching txz/tgz etc extension when blacklisting (dive)
 	- Use https for all slackpkg homepage links
