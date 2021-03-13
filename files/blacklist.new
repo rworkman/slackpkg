@@ -29,7 +29,8 @@
 # DON'T put any space(s) before or after the package name or regex.
 #
 # Automated upgrade of kernel packages may not be wanted in some situations;
-# uncomment the lines below if that fits your circumstances:
+# uncomment the lines below if that fits your circumstances, but note that
+# kernel-headers should *not* be blacklisted:
 #
 #kernel-generic.*
 #kernel-huge.*
