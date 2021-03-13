@@ -1,5 +1,10 @@
-
+Sat Mar 13 03:30:01 UTC 2021
 ---------------
+	- Release slackpkg-15.0.1
+	- Tweak default blacklist file's help text (thanks, dive)
+	- Fix display of blacklisted packages
+	- Tweaks to slack-desc
+	- Note that kernel-headers should not be blacklisted
 	- Added Lithuania mirrors (Totoro-kun on LQ)
 	- Fix exit code for pending updates (dive)
 	- Avoid matching txz/tgz etc extension when blacklisting (dive)
