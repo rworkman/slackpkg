@@ -7,8 +7,8 @@
 #
 # You can blacklist using regular expressions.
 #
-# Don't use *full* regex here, because all of the following will be checked 
-# for the regex: series, name, version, arch, build, and fullname.
+# All of the following will be checked for the regex: 
+# Package series, name, version, arch, build, and fullname
 # When blacklisting packages, you can use extended regex on package names
 # (such as xorg-.* instead of xorg-server, xorg-docs, etc), and a trailing 
 # slash for package series ("n/", "ap/", "xap/", etc).
