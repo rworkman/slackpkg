@@ -1,5 +1,6 @@
-
+Sun Mar 14 15:17:21 UTC 2021
 ---------------
+	- Re-release slackpkg-15.0.1 (no package generated yet anyway)
 	- Modifiy blacklist regex line ending
 
 Sat Mar 13 03:30:01 UTC 2021
