@@ -611,7 +611,7 @@ function mkregex_blacklist() {
 			awk -f /usr/libexec/slackpkg/pkglist.awk
 	) | cut -d\  -f1-7 | grep -E -f ${TMPDIR}/blacklist.tmp |
 		awk '{print $2}' | sort -u | sed "s,[+],[+],g
-		s,$,-[^-]+-($ARCH|noarch|fw)-[^-]+[\.t(b|l|x|g)z]*,g" > ${TMPDIR}/blacklist
+		s,$,-[^-]+-($ARCH|noarch|fw)-[^-]+,g" > ${TMPDIR}/blacklist
 }
 
 # Blacklist filter
