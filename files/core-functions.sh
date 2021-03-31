@@ -327,6 +327,8 @@ to the closest mirror and is very slow.\n"
 	   [ "$CMD" != "search" ] && \
 	   [ "$CMD" != "file-search" ] && \
 	   [ "$CMD" != "check-updates" ] && \
+	   [ "$CMD" != "show-changelog" ] && \
+	   [ "$CMD" != "help" ] && \
 	   [ "$CMD" != "info" ]; then
 		echo -e "\n\
 Only root can install, upgrade, or remove packages.\n\
