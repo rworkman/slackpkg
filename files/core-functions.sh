@@ -163,7 +163,7 @@ function system_setup() {
 
 	# Create initial blacklist of single package names from regexps in
 	# ${CONF}/blacklist.
-	mkregex_blacklist
+	[ "$CMD" != update ] && mkregex_blacklist
 
 	SLACKCFVERSION=$(grep "# v[0-9.]\+" $CONF/slackpkg.conf | cut -f2 -dv)
 	CHECKSUMSFILE=${WORKDIR}/CHECKSUMS.md5
