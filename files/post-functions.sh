@@ -242,19 +242,16 @@ EOF
 		answer
 		case $ANSWER in
 			K|k)
-				break
 			;;
 			O|o)
 				for i in $FILES; do
 					overold $i
 				done
-				break
 			;;
 			R|r)
 				for i in $FILES; do
 					removeold $i
 				done
-				break
 			;;
 			P|p)
 				echo "Select what you want file-by-file"
@@ -288,7 +285,6 @@ EOF
 						esac
 					done
 				done
-				break
 			;;
 			*)
 				echo "
