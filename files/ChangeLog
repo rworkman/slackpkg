@@ -1,3 +1,14 @@
+
+Tue Apr 13 06:48:40 UTC 2021
+---------------
+	- Fix break error messages (dive)
+	- Remove now pointless if/then/else (dive)
+	- Safer config sourcing (dive)
+	- files/slackpkg: replace #!/bin/sh with #!/bin/bash (Eugen Wissner)
+	- Don't create blacklist when running update (dive)
+	- Add show-changelog & help to non-root commands (dive)
+	- Improve search blacklisting (dive)
+
 Sun Mar 14 15:17:21 UTC 2021
 ---------------
 	- Re-release slackpkg-15.0.1 (no package generated yet anyway)
