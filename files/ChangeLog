@@ -1,4 +1,9 @@
 
+Tue Apr 20 19:44:02 UTC 2021
+---------------
+	- Release 15.0.2
+	- Fix package duplicate bug
+
 Tue Apr 13 06:48:40 UTC 2021
 ---------------
 	- Fix break error messages (dive)
