@@ -797,7 +797,7 @@ function makelist() {
 			rm -f $PKGNAMELIST
 		;;	
 	esac
-	LIST=$( printf "%s\n" $LIST | applyblacklist | uniq )
+	LIST=$( printf "%s\n" $LIST | applyblacklist | sort | uniq )
 
 	rm ${TMPDIR}/waiting
 
