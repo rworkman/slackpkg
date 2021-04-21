@@ -889,7 +889,6 @@ function showlist() {
 		cleanup
 	else
 		SHOWLIST="$1"
-		continue
 	fi
 }
 
