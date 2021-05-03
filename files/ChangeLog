@@ -1,8 +1,12 @@
+Mon May  3 23:53:57 UTC 2021
+---------------
+	- Release 15.0.3
+	- Fix 'continue' error message (dive)
 
 Tue Apr 20 19:44:02 UTC 2021
 ---------------
 	- Release 15.0.2
-	- Fix package duplicate bug
+	- Fix package duplicate bug (PiterPUNK)
 
 Tue Apr 13 06:48:40 UTC 2021
 ---------------
