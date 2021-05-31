@@ -350,17 +350,8 @@ case "$CMD" in
 		# the key
 		#
 		if [ "$UPARG" = "gpg" ] || [ "$GPGFIRSTTIME" = "0" ]; then
-			#
-			# Creates .gnupg directory if doesn't exist
-			# without this dir, gpg got an error.
-			#
-			if ! [ -e ~/.gnupg ]; then
-				mkdir ~/.gnupg
-			fi
-			getfile ${SOURCE}GPG-KEY $TMPDIR/gpgkey 
-			gpg --yes --batch --delete-key "$SLACKKEY" &>/dev/null
-			gpg --import $TMPDIR/gpgkey &>/dev/null && \
-			echo -e "\t\t\tSlackware Linux Project's GPG key added"
+			get_gpg_key && import_gpg_key
+
 			if [ "$UPARG" = "gpg" ]; then
 				cleanup
 			fi

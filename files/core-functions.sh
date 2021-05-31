@@ -64,9 +64,14 @@ function system_setup() {
 	# Create $WORKDIR just in case
 	mkdir -p "${WORKDIR}"
 
+	# Select the command to fetch files and packages from network sources
+	if [ "$DOWNLOADER" = "curl" ]; then
+		DOWNLOADER="curl ${CURLFLAGS} -o"
+	else
+               	DOWNLOADER="wget ${WGETFLAGS} -O"
+	fi
+
 	# Set LOCAL if mirror isn't through network 
-	# If mirror is through network, select the command to fetch
-	# files and packages from there.
 	#
 	MEDIA=${SOURCE%%:*}
 	if [ "$MEDIA" = "cdrom" ] || [ "$MEDIA" = "file" ] || \
@@ -75,11 +80,6 @@ function system_setup() {
 		LOCAL=1
 	else
 		LOCAL=0
-		if [ "$DOWNLOADER" = "curl" ]; then
-			DOWNLOADER="curl ${CURLFLAGS} -o"
-		else
-                	DOWNLOADER="wget ${WGETFLAGS} -O"
-		fi
 	fi
 
 	# Set MORECMD, EDITCMD and check BATCH mode 
@@ -555,6 +555,42 @@ function checkgpg() {
 	gpg --verify ${1}.asc ${1} 2>/dev/null && echo "1" || echo "0"
 }
 
+function get_gpg_key() {
+	if ping -c 1 slackware.com &>/dev/null; then
+		echo -e "\t\t\tGetting key from https://www.slackware.com/infra/keys/GPG-KEY"
+		$DOWNLOADER $TMPDIR/gpgkey https://www.slackware.com/infra/keys/GPG-KEY &>/dev/null
+	elif ping -c 1 mirrors.slackware.com &>/dev/null; then
+		echo -e "\t\t\tGetting key from https://mirrors.slackware.com/slackware/slackware-current/GPG-KEY"
+		$DOWNLOADER $TMPDIR/gpgkey https://mirrors.slackware.com/slackware/slackware-current/GPG-KEY &>/dev/null
+	else
+                echo -e "\
+slackpkg is unable to get the Slackware GPG key from either\n\
+slackware.com or mirrors.slackware.com; if you trust the\n\
+source you have configured in /etc/slackpkg/mirrors, slackpkg\n\
+can import the GPG key from that source.\n\
+The source currently in use is:\n\
+\t ${SOURCE}\n\
+Do you want to import the GPG key from this source? (YES|NO)\n"
+                read ANSWER
+                case "$ANSWER" in
+                        YES|Y|yes|y)
+                         	getfile ${SOURCE}GPG-KEY $TMPDIR/gpgkey
+                        ;;
+                        *)
+                                echo -e "\t\tslackpkg is unable to get the Slackware GPG key."
+				cleanup
+                        ;;
+                esac
+	fi
+}
+
+function import_gpg_key() {
+	mkdir -p ~/.gnupg
+	gpg --yes --batch --delete-key "$SLACKKEY" &>/dev/null
+	gpg --import $TMPDIR/gpgkey &>/dev/null && \
+	echo -e "\t\t\tSlackware Linux Project's GPG key added"
+}
+
 # Found packages in repository. 
 # This function selects the package from the higher priority
 # repository directories.
@@ -904,7 +940,7 @@ function getfile() {
                 echo -e "\t\t\tDownloading $1..."
 		$DOWNLOADER $2 $1
         fi
-}                                                       
+}
 
 # Function to download the correct package and many "checks"
 #
