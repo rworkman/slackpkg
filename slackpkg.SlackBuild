@@ -100,6 +100,10 @@ chown -R root:root $PKG/usr/man
 # Compress manual pages
 find $PKG/usr/man -type f -exec gzip -9 {} \;
 
+# Install bash-completion file
+mkdir -p $PKG/usr/share/bash-completion/completions
+cat $CWD/shell-completion/slackpkg.bash > $PKG/usr/share/bash-completion/completions/slackpkg
+
 # Update version number:
 sed -i "s/@VERSION@/$VERSION/g" $PKG/usr/sbin/slackpkg
 
