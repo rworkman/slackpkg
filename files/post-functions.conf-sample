@@ -1,0 +1,14 @@
+# You can list here the .new files and the default action 
+# to do for each file. The list format is:
+# 
+# /full/path/of/dot/new/file.new:action
+# 
+# The action can be:
+# 
+# O to Overwrite it with the new version
+# R to Remove the new file
+# K to Keep the current and the .new files
+#
+# E.g:
+#/etc/slackpkg/mirrors.new:K
+#/etc/ntp.conf.new:R

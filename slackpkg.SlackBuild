@@ -55,7 +55,8 @@ chown root:root $PKG/usr/sbin/slackpkg
 
 # Prepare /etc directory:
 mkdir -pv $PKG/etc/slackpkg
-cp -av blacklist.new slackpkg.conf.new $PKG/etc/slackpkg
+cp -av blacklist.new slackpkg.conf.new post-functions.conf-sample \
+  $PKG/etc/slackpkg
 chmod 644 $PKG/etc/slackpkg/*
 chown root:root $PKG/etc/slackpkg/*
 mkdir -pv $PKG/etc/slackpkg/templates

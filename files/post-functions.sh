@@ -137,6 +137,12 @@ looknew() {
 		ONLY_NEW_DOTNEW=""
 	fi
 
+	# if there is a /etc/slackpkg/post-functions.conf file, it will be
+	# used to take the pre-defined action to each file specified there.
+	if [ -f /etc/slackpkg/post-functions.conf ]; then
+		NEWCONFIG="/etc/slackpkg/post-functions.conf"
+	fi
+
 	printf "%s\n" "Searching for NEW configuration files..."
 
 	FILES=$( find \
@@ -179,8 +185,8 @@ What do you want (K/O/R/P)?
 		# No. of prompt etc. lines to print.
 		TEXTLINES=$(( $( printf %b "$PROMPTTEXT" | wc -l ) + 3 ))
 
-		if [ $(( newcount + TEXTLINES )) -lt $ROWS ]; then
-			# All files will fit on screen.
+		if [ $(( newcount + TEXTLINES )) -lt $ROWS ] || [ "${BATCH}" = "on" ]; then
+			# All files will fit on screen or is a batch execution.
 			printf "%s\n" "$FILES"
 		else
 			# Won't all fit, so scroll a screenfull at a time.
@@ -240,6 +246,9 @@ EOF
 
 		printf %b "$PROMPTTEXT"
 		answer
+		if [ "${BATCH}" = "on" ] && [ -n "${NEWCONFIG}" ]; then
+			ANSWER=P
+		fi
 		case $ANSWER in
 			K|k)
 			;;
@@ -256,11 +265,24 @@ EOF
 			P|p)
 				echo "Select what you want file-by-file"
 				for i in $FILES; do
+					if [ -n "${NEWCONFIG}" ]; then
+						AUTOANSWER="$(sed -ne 's#^'$i':\([ORK]\)#\1#p' $NEWCONFIG 2>/dev/null)"
+					fi	
 					GOEX=0
 					while [ $GOEX -eq 0 ]; do
 						echo
 						showmenu $i "(K)eep" "(O)verwrite" "(R)emove" "(D)iff" "(M)erge" "(V)imdiff"
-						read ANSWER
+						if [ -n "${AUTOANSWER}" ]; then
+							ANSWER=$AUTOANSWER
+							echo $ANSWER
+						else
+							if [ "${BATCH}" = "on" ]; then
+								ANSWER=K
+								echo $ANSWER
+							else
+								read ANSWER
+							fi
+						fi
 						case $ANSWER in
 							O|o)
 								overold $i
