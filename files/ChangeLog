@@ -1,3 +1,8 @@
+Sat Jun  5 03:54:45 UTC 2021
+---------------
+	- Release 15.0.5
+	- Add "--" option to "command cd" in bash completion file
+	  (akinomyoga)
 
 Sat Jun  5 03:30:43 UTC 2021
 ---------------
