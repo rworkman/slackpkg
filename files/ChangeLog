@@ -1,3 +1,12 @@
+
+Sat Jun  5 03:30:43 UTC 2021
+---------------
+	- Release 15.0.4
+	- shell-completions/slackpkg.bash: add "show-changelog"
+	- Import bash-completion file from upstream project
+	- Added the new-config actions for specific files (Piter PUNK)
+	- Harden slackpkg with respect to obtaining GPG key (CRTS)
+
 Mon May  3 23:53:57 UTC 2021
 ---------------
 	- Release 15.0.3
