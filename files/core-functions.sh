@@ -550,19 +550,23 @@ function checkgpg() {
 	gpg --verify ${1}.asc ${1} 2>/dev/null && echo "1" || echo "0"
 }
 
+# Fetch $SLACKKEY from a trusted source
 function get_gpg_key() {
-	if ping -c 1 slackware.com &>/dev/null; then
-		echo -e "\t\t\tGetting key from https://www.slackware.com/infra/keys/GPG-KEY"
-		$DOWNLOADER $TMPDIR/gpgkey https://www.slackware.com/infra/keys/GPG-KEY &>/dev/null
-	elif ping -c 1 mirrors.slackware.com &>/dev/null; then
-		echo -e "\t\t\tGetting key from https://mirrors.slackware.com/slackware/slackware-current/GPG-KEY"
-		$DOWNLOADER $TMPDIR/gpgkey https://mirrors.slackware.com/slackware/slackware-current/GPG-KEY &>/dev/null
+	if ping -c 1 www.slackware.com &>/dev/null; then
+		if printf "$ARCH" | grep -q -e "arm" -e "aarch64" &>/dev/null ; then
+			echo -e "\t\t\tGetting key from https://www.slackware.com/infra/keys/arm/GPG-KEY"
+			$DOWNLOADER $TMPDIR/gpgkey https://www.slackware.com/infra/keys/arm/GPG-KEY &>/dev/null
+			# Backup: https://arm.slackware.com/keys/GPG-KEY
+		else
+			echo -e "\t\t\tGetting key from https://www.slackware.com/infra/keys/GPG-KEY"
+			$DOWNLOADER $TMPDIR/gpgkey https://www.slackware.com/infra/keys/GPG-KEY &>/dev/null
+			# Backup: https://mirrors.slackware.com/slackware/slackware-current/GPG-KEY
+		fi
 	else
                 echo -e "\
-slackpkg is unable to get the Slackware GPG key from either\n\
-slackware.com or mirrors.slackware.com; if you trust the\n\
-source you have configured in /etc/slackpkg/mirrors, slackpkg\n\
-can import the GPG key from that source.\n\
+slackpkg is unable to get the Slackware GPG key from www.slackware.com\n\
+If you trust the source you have configured in /etc/slackpkg/mirrors,\n\
+slackpkg can import the GPG key from that source.\n\
 The source currently in use is:\n\
 \t ${SOURCE}\n\
 Do you want to import the GPG key from this source? (YES|NO)\n"
@@ -579,6 +583,7 @@ Do you want to import the GPG key from this source? (YES|NO)\n"
 	fi
 }
 
+# Import $SLACKKEY
 function import_gpg_key() {
 	mkdir -p ~/.gnupg
 	gpg --yes --batch --delete-key "$SLACKKEY" &>/dev/null
