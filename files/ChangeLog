@@ -1,3 +1,9 @@
+Tue Jul  6 03:01:40 UTC 2021
+---------------
+	- Release 15.0.6
+	- Fix getting gpg key on ARM ; use only www.slackware.com
+	- Remove support for Slackintosh project - it's dead, Jim
+
 Sat Jun  5 03:54:45 UTC 2021
 ---------------
 	- Release 15.0.5
