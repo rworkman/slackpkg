@@ -242,7 +242,7 @@ ONE mirror in ${CONF}/mirrors and run:\n\n\
 \t# slackpkg update\n\n\
 You can see more information about slackpkg functions in slackpkg manpage."
 			cleanup
-		elif [ "$CMD" != "new-config" ]; then
+		elif [ "$CMD" != "new-config" ] && [ "$CMD" != "help" ]; then
 			echo -e "\
 \nThe package list is missing.\n\
 Before you install|upgrade|reinstall anything you need to run:\n\n\
@@ -347,6 +347,7 @@ use slackpkg.\n"
 	elif ! [ -f ${WORKDIR}/CHECKSUMS.md5 ] && \
 		[ "$CMD" != "update" ] && \
 		[ "$CMD" != "new-config" ] && \
+		[ "$CMD" != "help" ] && \
 		[ "$CHECKMD5" = "on" ]; then
 		echo -e "\n\
 No CHECKSUMS.md5 found!  Please disable md5sums checking\n\
