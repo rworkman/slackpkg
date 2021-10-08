@@ -7,7 +7,7 @@
 # Clean-up tmp and lock files
 #
 function cleanup() {
-	local retval=${PENDING_UPDATES:-0}
+	local retval=${EXIT_CODE:-0}
 	[ "$SPINNING" = "off" ] || tput cnorm
 	if [ -e $TMPDIR/error.log ]; then
 		retval=1

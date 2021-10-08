@@ -332,7 +332,7 @@ case "$CMD" in
 			echo "Slackpkg: No updated packages since last check."
 		else
 			echo "Slackpkg: Updated packages are available since last check." >&2
-			PENDING_UPDATES=1
+			EXIT_CODE=100
 		fi
 		;;
 	show-changelog)
@@ -368,6 +368,7 @@ case "$CMD" in
 			echo -e "No packages match the pattern for install. Try:"
 			echo -e "\n\t$0 reinstall|upgrade $2\n"
 			POSTINST=off
+			EXIT_CODE=20
 		fi
 	;;
 	reinstall)
@@ -379,6 +380,7 @@ case "$CMD" in
 			echo -e "No packages match the pattern for reinstall. Try:"
 			echo -e "\n\t$0 install|upgrade $2\n"
 			POSTINST=off
+			EXIT_CODE=20
 		fi
 	;;
 	upgrade)
@@ -391,6 +393,7 @@ case "$CMD" in
 			echo -e "No packages match the pattern for upgrade. Try:"
 			echo -e "\n\t$0 install|reinstall $2\n"
 			POSTINST=off
+			EXIT_CODE=20
 		fi
 	;;
 	download)
@@ -404,12 +407,14 @@ case "$CMD" in
 		else
 			echo -e "No packages match the pattern for download."
 			POSTINST=off
+			EXIT_CODE=20
 		fi
 	;;
 	remove)
 		makelist $INPUTLIST
 		if [ "$LIST" = "" ]; then
 			echo -e "The file(s) $INPUTLIST can't be removed - package not installed.\n"
+			EXIT_CODE=20
 			cleanup
 		fi
 		showlist "$LIST" $CMD
@@ -423,6 +428,7 @@ case "$CMD" in
 		else
 			echo -e "No packages match the pattern for clean-system\n"
 			POSTINST=off
+			EXIT_CODE=20
 		fi
 	;;
 	upgrade-all)
@@ -432,6 +438,7 @@ case "$CMD" in
 			echo -e "No packages match the pattern for upgrade. Try:"
 			echo -e "\n\t$0 install|reinstall $2\n"
 			POSTINST=off
+			EXIT_CODE=20
 		else
 			showlist "$LIST" upgrade
 			if [ "$DOWNLOAD_ALL" = "on" ]; then
@@ -447,8 +454,9 @@ case "$CMD" in
 			if [ "$FOUND" != "" ]; then 
 				getpkg $FOUND upgradepkg Upgrading
 				echo -e "slackpkg was upgraded - you will need start the upgrade process again...\n"
+				EXIT_CODE=50
 				cleanup
-				exit 0
+				exit ${EXIT_CODE}
 			fi
 			for i in pkgtools aaa_glibc-solibs glibc-solibs aaa_libraries aaa_elflibs readline sed; do
 				FOUND=""
@@ -466,6 +474,7 @@ case "$CMD" in
 			echo -e "No packages match the pattern for install. Try:"
 			echo -e "\n\t$0 upgrade|reinstall $2\n"
 			POSTINST=off
+			EXIT_CODE=20
 		else
 			showlist "$LIST" install
 			install_pkg

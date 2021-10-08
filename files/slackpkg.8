@@ -1,4 +1,4 @@
-.TH SLACKPKG 8 "March 12, 2021" slackpkg-15.0.1 ""
+.TH SLACKPKG 8 "Oct 8, 2021" slackpkg-15.0.8 ""
 .SH NAME
 .B slackpkg
 \- Automated tool for managing Slackware Linux packages
@@ -305,6 +305,20 @@ If you happen to be looking for a filename-with-space, you are safe to use the
 left-most part up to the space (in that the right-most part after the space
 will be ignored anyway (at best) or yield noise (at worst)).
 
+.SH EXIT STATUS
+.P
+.IP "\fB0\fP" 5
+Successful slackpkg execution.
+.IP "\fB1\fP" 5
+Something wrong happened.
+.IP "\fB20\fP" 5
+No package found to be downloaded, installed, reinstalled, upgraded, or
+removed.
+.IP "\fB50\fP" 5
+Slackpkg itself was upgraded and you need to re-run it.
+.IP "\fB100\fP" 5
+There are pending updates.
+
 .SH FILES
 .TP 5
 .B /etc/slackpkg/mirrors
@@ -333,11 +347,3 @@ ChangeLog.txt, list of files, etcetera...
 .BR explodepkg (8),
 .BR makepkg (8),
 .BR pkgtool (8).
-
-.SH AUTHORS
-.TP 5
-Piter PUNK aka Roberto F Batista
-<piterpk AT terra DOT com DOT br>
-.TP 5
-Evaldo Gardenali aka UdontKnow
-<evaldo AT fasternet DOT com DOT br>

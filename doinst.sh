@@ -39,5 +39,6 @@ copy_mirror_file
 config etc/slackpkg/mirrors.new
 config etc/slackpkg/slackpkg.conf.new
 config etc/slackpkg/blacklist.new
+rm -f var/lib/slackpkg/ChangeLog.txt
 rm -f var/lib/slackpkg/pkglist
 rm -f var/lib/slackpkg/CHECKSUMS.md5*
