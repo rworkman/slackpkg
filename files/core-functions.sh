@@ -243,11 +243,9 @@ ONE mirror in ${CONF}/mirrors and run:\n\n\
 You can see more information about slackpkg functions in slackpkg manpage."
 			cleanup
 		elif [ "$CMD" != "new-config" ] && [ "$CMD" != "help" ]; then
-			echo -e "\
-\nThe package list is missing.\n\
-Before you install|upgrade|reinstall anything you need to run:\n\n\
-\t# slackpkg update\n"
-			cleanup
+			updatefilelists
+			mkregex_blacklist
+			UPDATED=1
 		fi
 	fi                                                      
 
@@ -1083,6 +1081,7 @@ Please check your mirror and try again."
 
 function updatefilelists()
 {
+	echo "Updating the package lists..."
 	if checkchangelog ; then
 		echo -e "\
 \n\t\tNo changes in ChangeLog.txt between your last update and now.\n\
