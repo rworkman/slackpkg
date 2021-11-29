@@ -185,22 +185,15 @@
 # ftp://mirror.bytemark.co.uk/slackware/slackware-15.0/
 # http://mirror.bytemark.co.uk/slackware/slackware-15.0/
 # UNITED STATES (US)
-# ftp://ftp.gtlib.gatech.edu/nv/ao2/lxmirror/ftp.slackware.com/slackware-15.0/
 # ftp://mirror.cs.princeton.edu/pub/mirrors/slackware/slackware-15.0/
-# ftp://mirrors.easynews.com/linux/slackware/slackware-15.0/
-# http://mirrors.easynews.com/linux/slackware/slackware-15.0/
-# ftp://mirrors.us.kernel.org/slackware/slackware-15.0/
 # http://mirrors.us.kernel.org/slackware/slackware-15.0/
 # ftp://mirrors.xmission.com/slackware/slackware-15.0/
 # http://mirrors.xmission.com/slackware/slackware-15.0/
 # https://mirror.slackbuilds.org/slackware/slackware-15.0/
 # http://slackware.cs.utah.edu/pub/slackware/slackware-15.0/
 # http://slackware.mirrors.pair.com/slackware-15.0/
-# ftp://slackware.mirrors.tds.net/pub/slackware/slackware-15.0/
 # http://slackware.mirrors.tds.net/pub/slackware/slackware-15.0/
 # http://spout.ussg.indiana.edu/linux/slackware/slackware-15.0/
-# ftp://teewurst.cc.columbia.edu/pub/linux/slackware/slackware-15.0/
-# http://teewurst.cc.columbia.edu/pub/linux/slackware/slackware-15.0/
 #
 #----------------------------------------------------------------
 # Slackware-current
@@ -357,19 +350,11 @@
 # ftp://slackware.mirrors.uk2.net/pub/slackware/slackware-current/
 # http://slackware.mirrors.uk2.net/slackware-current/
 # UNITED STATES (US)
-# ftp://ftp.gtlib.gatech.edu/nv/ao2/lxmirror/ftp.slackware.com/slackware-current/
 # ftp://mirror.cs.princeton.edu/pub/mirrors/slackware/slackware-current/
-# ftp://mirrors.easynews.com/linux/slackware/slackware-current/
-# http://mirrors.easynews.com/linux/slackware/slackware-current/
-# ftp://mirrors.us.kernel.org/slackware/slackware-current/
 # http://mirrors.us.kernel.org/slackware/slackware-current/
 # ftp://mirrors.xmission.com/slackware/slackware-current/
 # http://mirrors.xmission.com/slackware/slackware-current/
 # https://mirror.slackbuilds.org/slackware/slackware-current/
 # http://slackware.cs.utah.edu/pub/slackware/slackware-current/
-# http://slackware.mirrors.pair.com/slackware-current/
-# ftp://slackware.mirrors.tds.net/pub/slackware/slackware-current/
 # http://slackware.mirrors.tds.net/pub/slackware/slackware-current/
 # http://spout.ussg.indiana.edu/linux/slackware/slackware-current/
-# ftp://teewurst.cc.columbia.edu/pub/linux/slackware/slackware-current/
-# http://teewurst.cc.columbia.edu/pub/linux/slackware/slackware-current/
