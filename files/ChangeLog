@@ -1,3 +1,9 @@
+Mon Dec 13 00:27:34 UTC 2021
+---------------
+	- Release 15.0.9
+	- files/mirrors-x86*: Remove bad mirrors from list (Emmet Ford)
+	- Automatically rebuild package lists if missing (Piter PUNK)
+
 Sun Oct 24 19:44:21 CDT 2021
 ---------------
 	- Release 15.0.8
