@@ -152,6 +152,7 @@ looknew() {
 		-name "*.new" \
 		${ONLY_NEW_DOTNEW} \
 		-not -name "rc.inet1.conf.new" \
+		-not -name "rc.wireless.conf.new" \
 		-not -name "group.new" \
 		-not -name "passwd.new" \
 		-not -name "shadow.new" \
@@ -248,6 +249,9 @@ EOF
 		answer
 		if [ "${BATCH}" = "on" ] && [ -n "${NEWCONFIG}" ]; then
 			ANSWER=P
+
+			# This allows to have a default behaviour for all .new files in batch mode.
+			DEF_AUTOANSWER="$(sed -ne 's#^default:\([ORK]\)#\1#p' $NEWCONFIG 2>/dev/null)"
 		fi
 		case $ANSWER in
 			K|k)
@@ -277,7 +281,7 @@ EOF
 							echo $ANSWER
 						else
 							if [ "${BATCH}" = "on" ]; then
-								ANSWER=K
+								ANSWER=${DEF_AUTOANSWER:-K}
 								echo $ANSWER
 							else
 								read ANSWER
@@ -340,7 +344,10 @@ Your kernel image was updated, and lilo does not appear to be used on
 your system.  You may need to adjust your boot manager (like GRUB) to 
 boot the appropriate kernel (after generating an initrd if required)."
 		fi
-		echo -e "Press the \"Enter\" key to continue...\n "
-		read _junk
+
+		if [ "${BATCH}" != "on" ]; then
+			echo -e "Press the \"Enter\" key to continue...\n "
+			read _junk
+		fi
 	fi
 }
