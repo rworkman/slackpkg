@@ -1318,6 +1318,24 @@ for slackpkg to work properly.
 	fi
 }	
 
+# Checks if a critical package were upgraded by Slackpkg.
+# The /var/run/needs_restarting file contains the list of upgraded
+# packages and will be removed at boot.
+#
+function needs_restarting() {
+	find $ROOT/var/log/packages/ -cnewer $TMPDIR/timestamp -type f \( \
+		-name "kernel-generic-[0-9]*" -o \
+		-name "kernel-huge-[0-9]*" -o \
+		-name "openssl-solibs-[0-9]*" -o \
+		-name "openssl-[0-9]*" -o \
+		-name "glibc-[0-9]*" -o \
+		-name "aaa_glibc-solibs-[0-9]*" -o \
+		-name "eudev-[0-9]*" -o \
+		-name "elogind-[0-9]*" -o \
+		-name "dbus-[0-9]*" \) | \
+	awk -F/ '{ print $NF }' >> $ROOT/var/run/needs_restarting
+}
+
 function remove_pkg() {
 	local i
 
@@ -1342,6 +1360,7 @@ function upgrade_pkg() {
 	for i in $SHOWLIST; do
 		getpkg $i upgradepkg Upgrading
 	done
+	needs_restarting
 }
 
 function install_pkg() {
