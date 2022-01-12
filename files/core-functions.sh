@@ -1320,20 +1320,24 @@ for slackpkg to work properly.
 
 # Checks if a critical package were upgraded by Slackpkg.
 # The /var/run/needs_restarting file contains the list of upgraded
-# packages and will be removed at boot.
+# packages.
 #
+# The file only is created if /var/run filesystem type is tmpfs so
+# the reboot will clean it
 function needs_restarting() {
-	find $ROOT/var/log/packages/ -cnewer $TMPDIR/timestamp -type f \( \
-		-name "kernel-generic-[0-9]*" -o \
-		-name "kernel-huge-[0-9]*" -o \
-		-name "openssl-solibs-[0-9]*" -o \
-		-name "openssl-[0-9]*" -o \
-		-name "glibc-[0-9]*" -o \
-		-name "aaa_glibc-solibs-[0-9]*" -o \
-		-name "eudev-[0-9]*" -o \
-		-name "elogind-[0-9]*" -o \
-		-name "dbus-[0-9]*" \) | \
-	awk -F/ '{ print $NF }' >> $ROOT/var/run/needs_restarting
+	if [ "$(stat -f -c %T /var/run/)" = "tmpfs" ]; then
+		find $ROOT/var/log/packages/ -cnewer $TMPDIR/timestamp -type f \( \
+			-name "kernel-generic-[0-9]*" -o \
+			-name "kernel-huge-[0-9]*" -o \
+			-name "openssl-solibs-[0-9]*" -o \
+			-name "openssl-[0-9]*" -o \
+			-name "glibc-[0-9]*" -o \
+			-name "aaa_glibc-solibs-[0-9]*" -o \
+			-name "eudev-[0-9]*" -o \
+			-name "elogind-[0-9]*" -o \
+			-name "dbus-[0-9]*" \) | \
+		awk -F/ '{ print $NF }' >> $ROOT/var/run/needs_restarting
+	fi
 }
 
 function remove_pkg() {
