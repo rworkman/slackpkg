@@ -1276,7 +1276,7 @@ function sanity_check() {
 	[ "$SPINNING" = "off" ] || spinning ${TMPDIR}/waiting &
 
 	for i in $(ls -1 $ROOT/var/log/packages/ | \
-		egrep -- "^.*-(${ARCH}|fw|noarch)-[^-]+-upgraded"); do
+		grep -E -- "^.*-(${ARCH}|fw|noarch)-[^-]+-upgraded"); do
 		REVNAME=$(echo ${i} | awk -F'-upgraded' '{ print $1 }')
 		mv $ROOT/var/log/packages/${i} $ROOT/var/log/packages/${REVNAME}
 		mv $ROOT/var/log/scripts/${i} $ROOT/var/log/scripts/${REVNAME}
