@@ -639,7 +639,7 @@ function mkregex_blacklist() {
 		s,^, ,
 		s,$, ,
 		s,^ (extra|pasture|patches|slackware(|64)|testing)/ $,^\1 ,
-		s,^ ([^/]+)/ $, \\\.\\\/$PKGMAIN\\\/\1\$,
+		s,^ ([^/]+)/ $, \\\./$PKGMAIN/\1\$,
 		" ${CONF}/blacklist > ${TMPDIR}/blacklist.tmp
 
 	# Filter server and local package lists through blacklist
