@@ -160,7 +160,9 @@ function system_setup() {
 	# ${CONF}/blacklist.
 	[ "$CMD" != update ] && mkregex_blacklist
 
+    if [ -z "${SLACKCFVERSION}" ]; then
 	SLACKCFVERSION=$(grep "# v[0-9.]\+" $CONF/slackpkg.conf | cut -f2 -dv)
+    fi
 	CHECKSUMSFILE=${WORKDIR}/CHECKSUMS.md5
 	KERNELMD5=$(md5sum /boot/vmlinuz 2>/dev/null)
 	DIALOG_MAXARGS=${DIALOG_MAXARGS:-19500}
