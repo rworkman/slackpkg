@@ -65,7 +65,7 @@
 #SLACKKEY="Slackware Linux Project <security@slackware.com>"
 
 # SLACKCFVERSION defines the Slackware version. If left commented, it
-# will be parsed from the 4th line of thise unedited config file.
+# will be parsed from the 4th line of this unedited config file.
 #SLACKCFVERSION=15.0
 
 # Downloaded files will be in the TEMP directory:
