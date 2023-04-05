@@ -222,7 +222,7 @@ while [ -n "$1" ] ; do
       CMD=$1
       shift
       if [ -n "$1" ]; then
-        if echo $1 | egrep -q "^\.{0,2}/" ; then
+        if echo $1 | grep -Eq "^\.{0,2}/" ; then
 		if [ -e $1 ]; then
 			INPUTLIST=$(cat $1 | tr "\n" " ")
 		else
