@@ -1,4 +1,4 @@
-.TH SLACKPKG.CONF 5 "March 2021" slackpkg-15.0.1 ""
+.TH SLACKPKG.CONF 5 "June 2022" slackpkg-15.0.10 ""
 .SH NAME
 .B slackpkg.conf
 \- Configuration data for slackpkg
@@ -97,6 +97,18 @@ unless you know what you are doing.
 The default value of 
 .B WORKDIR 
 is /var/lib/slackpkg.
+
+.TP 5
+.B DOWNLOADER
+.br
+Selects the download application slackpkg will use to fetch files.
+Current options are \fBcurl\fR or \fBwget\fR. Default is wget.
+
+.TP 5
+.B CURLFLAGS
+.br
+Selects special options for curl. If you need to use multiple options,
+remember to put them between double quotes.
 
 .TP 5
 .B WGETFLAGS
