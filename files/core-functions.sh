@@ -64,6 +64,12 @@ function system_setup() {
 	# Create $WORKDIR just in case
 	mkdir -p "${WORKDIR}"
 
+	# Set the "current" flag if system is running Slackware Current
+	if [ -n "$(echo $SLACKWARE_VERSION | sed -ne 's/.*\(+\|current\)$/\1/pi')" ] && \
+	   [ ! -e ${WORKDIR}/current ]; then
+		touch ${WORKDIR}/current
+	fi
+
 	# Select the command to fetch files and packages from network sources
 	if [ "$DOWNLOADER" = "curl" ]; then
 		DOWNLOADER="curl ${CURLFLAGS} -o"
@@ -188,7 +194,7 @@ as example or overwrite it with slackpkg.conf.new.\n\
 	if [ "$ARCH" = "none" ] && [ "$CMD" != "new-config" ]; then
 		echo -e "\
 \nThe ARCH values in slackpkg.conf are now different. You can remove\n\
-ARCH from there, and slackpkg you use your current ARCH or you can look\n\
+ARCH from there, and slackpkg will use your current ARCH or you can look\n\
 at slackpkg.conf.new or slackpkg.conf manual page to see the new valid\n\
 ARCH values\n"
 		cleanup
