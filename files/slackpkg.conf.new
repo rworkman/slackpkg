@@ -74,9 +74,7 @@ TEMP=/var/cache/packages
 # Package lists, file lists, and others will be stored in WORKDIR:
 WORKDIR=/var/lib/slackpkg
 
-# Use curl or wget for Downloading (wget is default)
-#DOWNLOADER=curl
-
+# Use curl or wget for downloading (wget is default)
 DOWNLOADER=wget
 
 # Special options for curl
