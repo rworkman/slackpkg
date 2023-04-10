@@ -1096,6 +1096,7 @@ function updatefilelists()
 \t\tDo you really want to download all other files (y/N)? \c"
 		answer
 		if [ "$ANSWER" != "Y" ] && [ "$ANSWER" != "y" ]; then
+			EXIT_CODE=20
 			cleanup
 		fi
 	fi
@@ -1179,6 +1180,7 @@ Please check your mirror and try again."
 \t\tDo you really want to continue (y/N)? \c"
 			answer
 			if [ "$ANSWER" != "Y" ] && [ "$ANSWER" != "y" ]; then
+				EXIT_CODE=20
 				cleanup
 			fi
 			echo
