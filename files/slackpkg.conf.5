@@ -360,6 +360,13 @@ is "on".
 .br
 From command line, you can use -spinning=value.
 
+.TP 5
+.B KEEP_N_LAST_PKG_METADATA
+.br
+When a package is upgraded, its old installation scripts and list of files
+are kept under /var/lib/pkgtools. This variable sets how many of these
+previous lists and scripts should be kept.
+
 .SH FILES
 .TP 5
 .B /etc/slackpkg/slacpkg.conf

@@ -156,6 +156,11 @@ SPINNING=on
 # Slackware 10.2)
 DIALOG_MAXARGS=139000
 
+# When a package is upgraded, its old installation scripts and list of files
+# are kept under /var/lib/pkgtools. This variable sets how many of these
+# previous lists and scripts should be kept.
+#KEEP_N_LAST_PKG_METADATA=3
+
 #
 # The MIRROR is set from /etc/slackpkg/mirrors
 # You only need to uncomment the selected mirror. 
