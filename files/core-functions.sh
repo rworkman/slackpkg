@@ -963,6 +963,7 @@ function getpkg() {
 	NAMEPKG=${PKGNAME[5]}.${PKGNAME[7]}
 	FULLPATH=${PKGNAME[6]}
 	CACHEPATH=${ROOT}/${TEMP}/${FULLPATH}
+	CACHEPATH="${CACHEPATH#/}" # Remove / in //var/log/packages
 
 	# Create destination dir if it isn't there
 	if ! [ -d $CACHEPATH ]; then
