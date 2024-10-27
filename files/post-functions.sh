@@ -326,7 +326,7 @@ for you to deal with later"
 lookkernel() {
 	NEWKERNELMD5=$(md5sum /boot/vmlinuz 2>/dev/null)
 	if [ "$KERNELMD5" != "$NEWKERNELMD5" ]; then
-		if [ -x /sbin/lilo ] && [ -r /etc/lilo.conf ] && grep -q initrd /etc/lilo.conf ; then
+		if [ -x /sbin/lilo ] && [ -r /etc/lilo.conf ] && grep -q '^[[:space:]]*initrd=' /etc/lilo.conf ; then
 			echo -e "\n
 Your kernel image was updated, and your /etc/lilo.conf indicates
 the use of an initrd for at least one of your kernels. Be sure to
