@@ -452,10 +452,9 @@ case "$CMD" in
 			FOUND=$(echo $SHOWLIST | tr -s ' ' "\n" | grep "slackpkg-[0-9]")
 			if [ "$FOUND" != "" ]; then 
 				getpkg $FOUND upgradepkg Upgrading
-				echo -e "slackpkg was upgraded - you will need start the upgrade process again...\n"
+				echo -e "slackpkg was upgraded - you will need to start the upgrade process again...\n"
 				EXIT_CODE=50
 				cleanup
-				exit ${EXIT_CODE}
 			fi
 			for i in pkgtools aaa_glibc-solibs glibc-solibs aaa_libraries aaa_elflibs readline sed; do
 				FOUND=""
