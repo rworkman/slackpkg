@@ -840,11 +840,16 @@ function makelist() {
 			rm -f $PKGNAMELIST
 		;;	
 	esac
-	if [ "$CMD" = "search" ]; then
-		LIST=$( printf "%s\n" $LIST | sort | uniq )
-	else
-		LIST=$( printf "%s\n" $LIST | applyblacklist | sort | uniq )
-	fi
+
+	case "$CMD" in
+		search|download)
+			# don't apply blacklist
+			LIST=$( printf "%s\n" $LIST | sort | uniq )
+			;;
+		*)
+			LIST=$( printf "%s\n" $LIST | applyblacklist | sort | uniq )
+			;;
+	esac
 
 	rm ${TMPDIR}/waiting
 
