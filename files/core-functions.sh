@@ -31,6 +31,17 @@ One or more errors occurred while slackpkg was running:
 }
 trap 'cleanup' 2 14 15 		# trap CTRL+C and kill
 
+# Define which version of gnupg to use. We'll prefer gpg1 since it has fewer
+# dependencies, then gpg2, and if we don't find that we'll blindly set this
+# to gpg and deal with it later.
+if which gpg1 > /dev/null 2> /dev/null ; then
+  GPG=gpg1
+elif which gpg2 > /dev/null 2> /dev/null ; then
+  GPG=gpg2
+else
+  GPG=gpg
+fi
+
 # This create an spinning bar
 spinning() {
 	local WAITFILE
@@ -379,11 +390,11 @@ as slackpkg cannot function without awk.\n"
 
 	# Check if gpg is enabled but no GPG command are found.
 	#
-	if ! [ "$(which gpg 2>/dev/null)" ] && [ "${CHECKGPG}" = "on" ]; then
+	if ! [ "$(which $GPG 2>/dev/null)" ] && [ "${CHECKGPG}" = "on" ]; then
 		CHECKGPG=off
 		echo -e "\n\
 gpg package not found!  Please disable GPG in ${CONF}/slackpkg.conf or install\n\
-the gnupg package.\n\n\
+the gnupg2 package.\n\n\
 To disable GPG, edit slackpkg.conf and change the value of the CHECKGPG \n\
 variable to "off" - you can see an example in the original slackpkg.conf.new\n\
 file distributed with slackpkg.\n"
@@ -392,7 +403,7 @@ file distributed with slackpkg.\n"
 
 	# Check if the Slackware GPG key are found in the system
 	#                                                       
-	GPGFIRSTTIME="$(gpg --list-keys \"$SLACKKEY\" 2>/dev/null \
+	GPGFIRSTTIME="$($GPG --list-keys \"$SLACKKEY\" 2>/dev/null \
 			| grep -c "$SLACKKEY")"
 	if [ "$GPGFIRSTTIME" = "0" ] && \
 		[ "$CMD" != "search" ] && \
@@ -554,7 +565,7 @@ function checkmd5() {
 # Verify the GPG signature of files/packages
 #
 function checkgpg() {
-	gpg --verify ${1}.asc ${1} 2>/dev/null && echo "1" || echo "0"
+	$GPG --verify ${1}.asc ${1} 2>/dev/null && echo "1" || echo "0"
 }
 
 # Fetch $SLACKKEY from a trusted source
@@ -593,8 +604,8 @@ Do you want to import the GPG key from this source? (YES|NO)\n"
 # Import $SLACKKEY
 function import_gpg_key() {
 	mkdir -p ~/.gnupg
-	gpg --yes --batch --delete-key "$SLACKKEY" &>/dev/null
-	gpg --import $TMPDIR/gpgkey &>/dev/null && \
+	$GPG --yes --batch --delete-key "$SLACKKEY" &>/dev/null
+	$GPG --import $TMPDIR/gpgkey &>/dev/null && \
 	echo -e "\t\t\tSlackware Linux Project's GPG key added"
 }
 
@@ -1141,7 +1152,7 @@ Please check your mirror and try again."
 				rm $TMPDIR/CHECKSUMS.md5
 				rm $TMPDIR/CHECKSUMS.md5.asc
 				echo -e "\
-\n\t\tERROR: Verification of the  gpg signature on CHECKSUMS.md5\n\
+\n\t\tERROR: Verification of the gpg signature on CHECKSUMS.md5\n\
 \t\t       failed! This could mean that the file is out of date\n\
 \t\t       or has been tampered with. If you use mirrors.slackware.com\n\
 \t\t       as your mirror, this could also mean that the mirror to\n\

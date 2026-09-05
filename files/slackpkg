@@ -457,7 +457,7 @@ case "$CMD" in
 				cleanup
 				exit ${EXIT_CODE}
 			fi
-			for i in pkgtools aaa_glibc-solibs glibc-solibs aaa_libraries aaa_elflibs readline sed; do
+			for i in pkgtools aaa_glibc-solibs glibc-solibs aaa_libraries aaa_elflibs mkinitrd readline sed; do
 				FOUND=""
 				FOUND=$(echo $SHOWLIST | tr -s ' ' "\n" | grep "${i}-[0-9]")
 				if [ "$FOUND" != "" ]; then 
