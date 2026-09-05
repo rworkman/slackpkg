@@ -837,7 +837,7 @@ function makelist() {
 				for i in ${PRIORITY[@]}; do
 
 					PKGS=$( cut -d\  -f1-7 ${TMPDIR}/pkglist |
-						grep "^${i}.*${PATTERN}" | cut -f6 -d\ )
+						grep -i "^${i}.*${PATTERN}" | cut -f6 -d\ )
 
 					for FULLNAME in $PKGS ; do
 						NAME=$(cutpkg ${FULLNAME})
@@ -851,7 +851,16 @@ function makelist() {
 			rm -f $PKGNAMELIST
 		;;	
 	esac
-	LIST=$( printf "%s\n" $LIST | applyblacklist | sort | uniq )
+
+	case "$CMD" in
+		search|download)
+			# don't apply blacklist
+			LIST=$( printf "%s\n" $LIST | sort | uniq )
+			;;
+		*)
+			LIST=$( printf "%s\n" $LIST | applyblacklist | sort | uniq )
+			;;
+	esac
 
 	rm ${TMPDIR}/waiting
 
