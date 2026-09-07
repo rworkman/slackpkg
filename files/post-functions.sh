@@ -351,3 +351,51 @@ boot the appropriate kernel (after generating an initrd if required)."
 		fi
 	fi
 }
+
+lookoldpkgfiles() {
+	local PKGHISTORYLST PKGFILE CLEANLIST
+
+	if [ -n "${KEEP_N_LAST_PKG_METADATA}" ] && [ ${KEEP_N_LAST_PKG_METADATA} -gt 0 ]; then
+		echo -ne "Keep only the last ${KEEP_N_LAST_PKG_METADATA} package metadata versions... "
+		PKGHISTORYLIST=${TMPDIR}/pkghistory.lst
+		if [ -d /var/lib/pkgtools/removed_packages/ ]; then
+			PKGTOOLSDIR=/var/lib/pkgtools
+		else
+			PKGTOOLSDIR=/var/log
+		fi
+		# This could be simpler if we used the file timestamp to sort
+		# the list. But the timestamp at filename is safer to warranty
+		# the correct ordering.
+		ls -1 ${PKGTOOLSDIR}/removed_packages | awk '
+			/-upgraded-/ {
+				INPUT=$NF
+				fs=FS
+				FS="/" ; OFS="/"
+				$0=INPUT
+				FULLPACK=$NF
+				FS="-" ; OFS="-"
+				$0=FULLPACK
+				if ( NF > 3 ) {
+					DAYHOUR=$NF
+					MONTH=$(NF-1)
+					YEAR=$(NF-2)
+					NF=NF-7
+					NAME=$0
+				}
+				FS=fs
+				print YEAR"-"MONTH"-"DAYHOUR" "NAME" "FULLPACK
+			}' | sort -rn | awk '
+			{
+				COUNT[$2]+=1
+				if ( COUNT[$2] > '${KEEP_N_LAST_PKG_METADATA}' ) {
+					print $NF
+				}
+			}' > ${PKGHISTORYLIST}
+		for PKGFILE in $(cat ${PKGHISTORYLIST}); do
+			# Not all packages have scripts in the removed_scripts
+			# directory.
+			rm ${PKGTOOLSDIR}/removed_{packages,scripts}/$PKGFILE 2>/dev/null
+		done
+		echo "OK"
+	fi
+}
