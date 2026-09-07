@@ -467,6 +467,12 @@ case "$CMD" in
 		fi
 	;;
 	install-new)
+		CMD=upgrade
+		makelist solibs
+		ULIST=${LIST}
+
+		unset LIST
+		CMD=install-new
 		makelist ${INPUTLIST}
 		if ! [ -n "${LIST}" ]; then	
 			echo -e "No packages match the pattern for install. Try:"
@@ -475,6 +481,11 @@ case "$CMD" in
 			EXIT_CODE=20
 		else
 			showlist "$LIST" install
+			if [ -n "$ULIST" ]; then
+				for i in $ULIST ; do
+					getpkg $i upgradepkg Upgrading
+				done
+			fi
 			install_pkg
 		fi
 	;;

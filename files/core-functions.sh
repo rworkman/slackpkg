@@ -823,7 +823,7 @@ function makelist() {
 				# Search filelist.gz for possible matches
 				for i in ${PRIORITY[@]}; do
 					if [ -e ${WORKDIR}/${i}-filelist.gz ]; then
-						PKGS="$(zegrep -w "${INPUTLIST}" ${WORKDIR}/${i}-filelist.gz | \
+						PKGS="$(zgrep -Ew "${INPUTLIST}" ${WORKDIR}/${i}-filelist.gz | \
 							cut -d\  -f 1 | awk -F'/' '{print $NF}')"
 						for FULLNAME in $PKGS ; do
 							NAME=$(cutpkg ${FULLNAME})
