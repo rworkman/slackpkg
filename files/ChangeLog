@@ -1,11 +1,33 @@
+Fri Sep 11 20:53:05 UTC 2026
+---------------
+	- Release 16.0.0
+	- Upgrade solibs before install-new (Piter PUNK)
+	- Install mkinitrd early (Patrick Volkerding)
+	- Set ROWS properly when running from cron
+					(allend, Petri Kaukasoina, Lockywolf)
+	- Detect gpg version and prefer using gpg1 if available
+							   (Petri Kaukasoina)
+	- Allows automatic cleanup of upgraded packages metadata (Piter PUNK)
+	- Ignore case in search (Shamil Bikineyev)
+	- Not apply blacklist for search and download (Shamil Bikineyev)
+	- Prevent initrd detection grep to match comments in /etc/lilo.conf
+							    (Brandon Pribula)
+	- Update slackpkg.conf.new and slackpkg.conf.5
+						 (Peter Hyman and Piter PUNK)
+	- Detects if installed system is Slackware Current (Piter PUNK)
+	- Fix formatting, alignments and typos
+	                      (Tristan Terpelle, Piter PUNK, Brandon Pribula)
+	- Fix warning about stray \ before / (Shamil Bikineyev)
+	- Remove usage of egrep and fgrep (Shamil Bikineyev)
+
 Mon Jan 17 06:40:41 UTC 2022
 ---------------
 	- Release 15.0.10
 	- Fix mirrors.ucr.ac.cr link address (Emmet Ford)
 	- Remove wroc.pl mirrors (Emmet Ford)
 	- Remove kddilabs.jp from mirrors (Emmet Ford)
-	- Unattended usage improvements (PiterPUNK)
-	- Create file to flag if the system needs restart (PiterPUNK)
+	- Unattended usage improvements (Piter PUNK)
+	- Create file to flag if the system needs restart (Piter PUNK)
 
 Mon Dec 13 00:27:34 UTC 2021
 ---------------
