@@ -1,7 +1,7 @@
 #
 # /etc/slackpkg/slackpkg.conf
 # Configuration for SlackPkg
-# v15.0
+# v16.0
 #
 
 # SlackPkg - An Automated packaging tool for Slackware Linux
@@ -66,7 +66,7 @@
 
 # SLACKCFVERSION defines the Slackware version. If left commented, it
 # will be parsed from the 4th line of this unedited config file.
-#SLACKCFVERSION=15.0
+#SLACKCFVERSION=16.0
 
 # Downloaded files will be in the TEMP directory:
 TEMP=/var/cache/packages
