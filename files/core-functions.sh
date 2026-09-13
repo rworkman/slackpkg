@@ -34,13 +34,15 @@ trap 'cleanup' 2 14 15 		# trap CTRL+C and kill
 # Define which version of gnupg to use. We'll prefer gpg1 since it has fewer
 # dependencies, then gpg2, and if we don't find that we'll blindly set this
 # to gpg and deal with it later.
-if which gpg1 > /dev/null 2> /dev/null ; then
-  GPG=gpg1
-elif which gpg2 > /dev/null 2> /dev/null ; then
-  GPG=gpg2
-else
-  GPG=gpg
-fi
+function choose_gpg() {
+	if which gpg1 > /dev/null 2> /dev/null ; then
+	  GPG=gpg1
+	elif which gpg2 > /dev/null 2> /dev/null ; then
+	  GPG=gpg2
+	else
+	  GPG=gpg
+	fi
+}
 
 # This create an spinning bar
 spinning() {
@@ -176,6 +178,9 @@ function system_setup() {
 	# Create initial blacklist of single package names from regexps in
 	# ${CONF}/blacklist.
 	[ "$CMD" != update ] && mkregex_blacklist
+
+	# Select the gnupg binary to use:
+	choose_gpg
 
 	if [ -z "${SLACKCFVERSION}" ]; then
 		SLACKCFVERSION=$(grep "# v[0-9.]\+" $CONF/slackpkg.conf | cut -f2 -dv)
@@ -565,7 +570,12 @@ function checkmd5() {
 # Verify the GPG signature of files/packages
 #
 function checkgpg() {
-	$GPG --verify ${1}.asc ${1} 2>/dev/null && echo "1" || echo "0"
+	if $GPG --verify ${1}.asc ${1} 2>/dev/null ; then
+		echo "1"
+	else
+		choose_gpg
+		$GPG --verify ${1}.asc ${1} 2>/dev/null && echo "1" || echo "0"
+	fi
 }
 
 # Fetch $SLACKKEY from a trusted source
